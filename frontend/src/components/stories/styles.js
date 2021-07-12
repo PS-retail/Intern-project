@@ -18,4 +18,10 @@ export default makeStyles(() => ({
     justifyContent: "space-between",
     color: 'white'
   },
+  qrButton: {
+    position: 'absolute',
+    bottom: '10px',
+    left: '50%',
+    marginLeft: '-104.5px'
+  }
 }));
