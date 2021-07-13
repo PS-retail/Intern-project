@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 export default makeStyles(() => ({
   root: {
     maxWidth: "100%",
-    backgroundColor: 'black'
+    boxShadow: 'rgba(0, 0, 0, 0.25) 0px 25px 50px -12px'
   },
   media: {
     height: 0,
@@ -15,13 +15,17 @@ export default makeStyles(() => ({
   },
   cardContent: {
     display: "inline-block",
-    justifyContent: "space-between",
-    color: 'white'
+    justifyContent: "space-between"
   },
   qrButton: {
     position: 'absolute',
-    bottom: '10px',
+    bottom: '40px',
     left: '50%',
     marginLeft: '-104.5px'
+  },
+  image: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto' 
   }
 }));

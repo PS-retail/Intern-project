@@ -6,18 +6,18 @@ import Story from "./story";
 const stories = [
   {
     id: 1,
-    name: "Speaker",
-    description: "Luxury Speaker",
+    name: "Gaming",
+    description: "Gaming Experience",
     image:
-      "https://images.ctfassets.net/8cd2csgvqd3m/3ZF2s3thI5V4P20UBbFh4S/1896eb95b22bd710964851e1d20f4700/Beosound_A1-2nd_Gen-03.png?q=90&fm=webp&w=480&h=480&fit=fill",
+      "https://images.ctfassets.net/8cd2csgvqd3m/2WXA1ohDoLlKq0WBBnd5kf/8019e522e39b3940c11425a2d0869498/Gaming_Square.jpg?q=90&fm=webp&w=480&h=480&fit=fill",
     favorite: false
   },
   {
     id: 2,
-    name: "Headphones",
-    description: "Luxury Headphones",
+    name: "Passion",
+    description: "Ignite your passion",
     image:
-      "https://images.ctfassets.net/8cd2csgvqd3m/1MLCdu8QmjqBhFpBeVG5pi/ad0b7af512c9daca76518dbe3d0fa2b7/H95_berluti_1.png?q=90&fm=webp&w=480&h=480&fit=fill",
+      "https://images.ctfassets.net/8cd2csgvqd3m/2sMP1i5MkrTE1qp9nSJ0CN/2608a755c73401d080c17f04cca7d667/Mosaic_2.jpg?q=90&fm=webp&w=1440&h=808&fit=fill",
     favorite: false
   },
 ];
@@ -25,7 +25,7 @@ const stories = [
 const StoryList = () => {
   return (
     <main>
-      <Grid container justify="center" spacing={4}>
+      <Grid container justifyContent="center" spacing={4}>
         {stories.map((story) => {
           return (
             <Grid item key={story.id} xs={12} sm={6} md={4} lg={3}>

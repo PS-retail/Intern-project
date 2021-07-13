@@ -8,10 +8,12 @@ import {
 
 import StoryList from "./components/stories/storyList";
 import StoryPage from "./components/stories/storyPage";
+import NavBar from "./components/navbar/navbar";
 
 const App = () => {
   return (
     <Router>
+      <NavBar />
       <Switch>
         <Route path="/" exact>
           <StoryList />

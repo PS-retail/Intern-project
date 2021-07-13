@@ -1,32 +1,39 @@
-import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/styles';
-import Modal from '@material-ui/core/Modal';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/styles";
+import Modal from "@material-ui/core/Modal";
 
 const rand = () => {
   return Math.round(Math.random() * 20) - 10;
-}
+};
 
 const getModalStyle = () => {
   const top = 50 + rand();
   const left = 50 + rand();
 
   return {
-    top: `${top}%`,
-    left: `${left}%`,
+    top: `50%`,
+    left: `50%`,
     transform: `translate(-${top}%, -${left}%)`,
   };
-}
+};
 
 const useStyles = makeStyles(() => ({
   paper: {
-    position: 'absolute',
-    width: '50%',
-    backgroundColor: 'white',
-    outline: '1px solid transparent',
-    boxShadow: '0 0 1px rgba(255, 255, 255, 0)',
-    borderRadius: '56px',
-    padding: '50px',
+    position: "absolute",
+    width: "300px",
+    height: "20%",
+    backgroundColor: "white",
+    outline: "1px solid transparent",
+    boxShadow:
+      "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+    borderRadius: "50px",
+    padding: "50px",
   },
+  image: {
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto' 
+  }
 }));
 
 const ARModal = (props) => {
@@ -34,13 +41,18 @@ const ARModal = (props) => {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
 
-
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
+      <h2 style={{ textAlign: "center" }} id="simple-modal-title">
+        Get your QR code
+      </h2>
+      <hr />
+      <img
+        src={props.body}
+        alt="BangOlufsen"
+        height="100px"
+        className={classes.image}
+      />
     </div>
   );
 
@@ -56,6 +68,6 @@ const ARModal = (props) => {
       </Modal>
     </div>
   );
-}
+};
 
 export default ARModal;
