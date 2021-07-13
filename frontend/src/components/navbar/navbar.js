@@ -9,16 +9,18 @@ import {
 } from "@material-ui/core";
 import HelpIcon from "@material-ui/icons/Help";
 import SettingsIcon from "@material-ui/icons/Settings";
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 
+import { useHttpClient } from "../general/http-hook";
 import logo from "../../assets/logo.png";
 import useStyles from "./styles";
 
 const Navbar = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const classes = useStyles();
-  const location = useLocation();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -27,6 +29,14 @@ const Navbar = () => {
   const openMenuHandler = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
   const mobileMenuId = "primary-search-account-menu-mobile";
+
+  const getHandler = async () => {
+    const data = await sendRequest(
+      "https://api.chatengine.io/users/",
+      "get"
+    );
+    console.log(data);
+  };
 
   const renderMobileMenu = (
     <Menu
@@ -38,7 +48,15 @@ const Navbar = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <Link to="/chat" style={{ textDecoration: "none" }}>
+        <MenuItem>
+          <IconButton aria-label="Chat" color="inherit">
+            <ChatBubbleIcon />
+          </IconButton>
+          <p>Chat with us</p>
+        </MenuItem>
+      </Link>
+      <MenuItem onClick={getHandler}>
         <IconButton aria-label="Get Help" color="inherit">
           <HelpIcon />
         </IconButton>

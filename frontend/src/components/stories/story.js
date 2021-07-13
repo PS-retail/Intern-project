@@ -7,8 +7,7 @@ import {
   CardContent,
   CardActions,
   Typography,
-  IconButton,
-  Paper,
+  IconButton
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 

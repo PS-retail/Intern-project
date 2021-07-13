@@ -9,6 +9,7 @@ import {
 import StoryList from "./components/stories/storyList";
 import StoryPage from "./components/stories/storyPage";
 import NavBar from "./components/navbar/navbar";
+import Chat from "./components/chat/chat";
 
 const App = () => {
   return (
@@ -17,6 +18,9 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <StoryList />
+        </Route>
+        <Route path="/chat">
+          <Chat />
         </Route>
         <Route path="/:storyId">
           <StoryPage />
