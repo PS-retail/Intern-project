@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   paper: {
     position: "absolute",
     width: "300px",
-    height: "20%",
+    height: "30%",
     backgroundColor: "white",
     outline: "1px solid transparent",
     boxShadow:
@@ -47,6 +47,7 @@ const ARModal = (props) => {
         Get your QR code
       </h2>
       <hr />
+      <br/>
       <img
         src={props.body}
         alt="BangOlufsen"

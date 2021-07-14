@@ -10,6 +10,7 @@ import StoryList from "./components/stories/storyList";
 import StoryPage from "./components/stories/storyPage";
 import NavBar from "./components/navbar/navbar";
 import Chat from "./components/chat/chat";
+import LoginForm from "./components/chat/loginForm";
 
 const App = () => {
   return (
@@ -19,8 +20,11 @@ const App = () => {
         <Route path="/" exact>
           <StoryList />
         </Route>
-        <Route path="/chat">
+        <Route path="/chat" exact>
           <Chat />
+        </Route>
+        <Route path="/login" exact>
+          <LoginForm />
         </Route>
         <Route path="/:storyId">
           <StoryPage />
