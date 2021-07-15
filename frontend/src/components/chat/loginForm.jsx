@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
@@ -66,37 +66,84 @@ const useStyles = makeStyles((theme) => ({
 const LoginForm = () => {
   const classes = useStyles();
   const methods = useForm();
+
   const [error, setError] = useState("");
+  const [loginMode, setLoginMode] = useState(true);
+  const prevMode = useRef();
+
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
   const history = useHistory();
   const projectID = "2a9c8e7f-3b93-498c-88e1-97570d0d528d";
 
   useEffect(() => {
-    if (auth.isLoggedIn && !!auth.username) {
-      history.push('/chat');
+    if (auth.isLoggedIn && !!auth.username && !!auth.password) {
+      history.push("/chat");
     }
-  }, [auth.isLoggedIn, auth.username, history]);
+  }, [auth.isLoggedIn, auth.username, auth.password, history]);
 
-  const submitHandler = methods.handleSubmit(async (data) => {
-    const authObject = {
-      "Project-ID": projectID,
-      "User-Name": data.username,
-      "User-Secret": data.password,
+  const until = (cb) => {
+    const poll = (resolve) => {
+      if (!cb()) resolve();
+      else setTimeout(() => poll(resolve), 400);
     };
 
-    try {
-      await sendRequest(
-        "https://api.chatengine.io/chats",
-        "get",
-        null,
-        authObject
-      );
-      auth.login(data.username, data.password);
-    } catch (err) {
-      setError("Invalid credentials! Please try again.");
+    return new Promise(poll);
+  };
+
+  const submitHandler = methods.handleSubmit(async (data) => {
+    await until(() => prevMode.current === loginMode);
+
+
+    if (loginMode) {
+      const authObject = {
+        "Project-ID": projectID,
+        "User-Name": data.username,
+        "User-Secret": data.password,
+      };
+
+      try {
+        await sendRequest({
+          url: "https://api.chatengine.io/chats",
+          method: "get",
+          headers: authObject,
+        });
+        auth.login(data.username, data.password);
+      } catch (err) {
+        setError("Invalid credentials! Please try again.");
+      }
+    } else {
+      const body = {
+        username: data.username,
+        secret: data.password,
+        email: data.email,
+        first_name: data.firstName,
+        last_name: data.lastName,
+      };
+      try {
+       await sendRequest({
+          url: "https://api.chatengine.io/users/",
+          method: "post",
+          data: body,
+        });
+        auth.login(data.username, data.password);
+        const authObject = {
+          "Project-ID": projectID,
+          "User-Name": data.username,
+          "User-Secret": data.password,
+        };
+        const chat = { "usernames": ["retailps"] , "title" : `Customer Service for ${data.username}`};
+        await sendRequest({url: 'https://api.chatengine.io/chats/', method: 'put', data: chat, headers: authObject});
+      } catch (err) {
+        console.log(err);
+      }
     }
   });
+
+  const modeChangeHandler = () => {
+    prevMode.current = loginMode;
+    setLoginMode((prevState) => !prevState);
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -106,13 +153,27 @@ const LoginForm = () => {
         <div className={classes.paper}>
           <img src={Logo} alt="Login_logo" className={classes.logo} />
           <Typography component="h1" variant="h5">
-            Sign in
+            {loginMode ? "Sign in" : "Register"}
           </Typography>
           <Typography variant="h6" style={{ color: "red" }}>
             {error}
           </Typography>
           <FormProvider {...methods}>
             <form className={classes.form} noValidate onSubmit={submitHandler}>
+              {!loginMode && (
+                <LoginField name={"firstName"} required label={"First Name"} />
+              )}
+              {!loginMode && (
+                <LoginField name={"lastName"} required label={"Last Name"} />
+              )}
+              {!loginMode && (
+                <LoginField
+                  name={"email"}
+                  type="email"
+                  required
+                  label={"email"}
+                />
+              )}
               <LoginField name={"username"} required label={"username"} />
               <LoginField
                 name={"password"}
@@ -127,7 +188,7 @@ const LoginForm = () => {
                 color="primary"
                 className={classes.submit}
               >
-                Sign In
+                {loginMode ? "Sign in" : "Register"}
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -136,8 +197,10 @@ const LoginForm = () => {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link href="#" onClick={modeChangeHandler} variant="body2">
+                    {!loginMode
+                      ? "Already have an account? Sign In"
+                      : "Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>

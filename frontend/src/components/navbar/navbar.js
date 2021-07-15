@@ -10,6 +10,7 @@ import {
 import HelpIcon from "@material-ui/icons/Help";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 
@@ -21,17 +22,21 @@ const Navbar = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const classes = useStyles();
   const auth = useContext(AuthContext);
-  
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
-  }
+  };
   const openMenuHandler = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
+  const logoutHandler = (event) => {
+    event.preventDefault();
+    handleMobileMenuClose();
+    auth.logout();
+  }
 
+  const mobileMenuId = "primary-search-account-menu-mobile";
 
   const renderMobileMenu = (
     <Menu
@@ -43,7 +48,10 @@ const Navbar = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to={auth.isLoggedIn ? "/chat" : '/login'} style={{ textDecoration: "none" }}>
+      <Link
+        to={auth.isLoggedIn ? "/chat" : "/login"}
+        style={{ textDecoration: "none" }}
+      >
         <MenuItem onClick={handleMobileMenuClose}>
           <IconButton aria-label="Chat" color="inherit">
             <ChatBubbleIcon />
@@ -63,6 +71,14 @@ const Navbar = () => {
         </IconButton>
         <p>Settings</p>
       </MenuItem>
+      {auth.isLoggedIn && (
+        <MenuItem onClick={logoutHandler}>
+          <IconButton aria-label="Settings" color="inherit">
+            <ExitToAppIcon />
+          </IconButton>
+          <p>Logout</p>
+        </MenuItem>
+      )}
     </Menu>
   );
 
