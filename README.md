@@ -5,4 +5,4 @@
 
 3. Unity project here: https://github.com/Daanial11/AR-intern-Project
 
-4. Product Management: Mural
+4. Product Management: https://app.mural.co/invitation/mural/publicissapient7269/1626438609228?sender=ua5ceee1aaf8736134cb35959&key=b8a83b48-0870-4eb3-b324-222efc2085c6
