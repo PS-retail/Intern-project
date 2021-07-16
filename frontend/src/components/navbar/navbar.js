@@ -7,10 +7,10 @@ import {
   Menu,
   Typography,
 } from "@material-ui/core";
-import HelpIcon from "@material-ui/icons/Help";
-import SettingsIcon from "@material-ui/icons/Settings";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import VideoCallIcon from "@material-ui/icons/VideoCall";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const Navbar = () => {
     event.preventDefault();
     handleMobileMenuClose();
     auth.logout();
-  }
+  };
 
   const mobileMenuId = "primary-search-account-menu-mobile";
 
@@ -48,29 +48,22 @@ const Navbar = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link
-        to={auth.isLoggedIn ? "/chat" : "/login"}
-        style={{ textDecoration: "none" }}
-      >
+      <Link to={"/chat"} style={{ textDecoration: "none" }}>
         <MenuItem onClick={handleMobileMenuClose}>
           <IconButton aria-label="Chat" color="inherit">
             <ChatBubbleIcon />
           </IconButton>
-          <p>Chat with us</p>
+          <p>{"Chat with us"}</p>
         </MenuItem>
       </Link>
-      <MenuItem onClick={handleMobileMenuClose}>
-        <IconButton aria-label="Get Help" color="inherit">
-          <HelpIcon />
-        </IconButton>
-        <p>Help</p>
-      </MenuItem>
-      <MenuItem onClick={handleMobileMenuClose}>
-        <IconButton aria-label="Settings" color="inherit">
-          <SettingsIcon />
-        </IconButton>
-        <p>Settings</p>
-      </MenuItem>
+      {auth.isLoggedIn && (
+        <MenuItem onClick={handleMobileMenuClose}>
+          <IconButton aria-label="Settings" color="inherit">
+            <VideoCallIcon />
+          </IconButton>
+          <p>Schedule a Video Call with a representative</p>
+        </MenuItem>
+      )}
       {auth.isLoggedIn && (
         <MenuItem onClick={logoutHandler}>
           <IconButton aria-label="Settings" color="inherit">
@@ -103,13 +96,25 @@ const Navbar = () => {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.button} />
-          <IconButton
-            aria-label="Menu"
-            color="inherit"
-            onClick={openMenuHandler}
-          >
-            <MenuIcon />
-          </IconButton>
+          {auth.isLoggedIn && (
+            <IconButton
+              aria-label="Menu"
+              color="inherit"
+              onClick={openMenuHandler}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+          {!auth.isLoggedIn && (
+            <Link to={"/login"} style={{ textDecoration: "none" }}>
+              <MenuItem onClick={handleMobileMenuClose}>
+                <IconButton aria-label="Chat" color="inherit">
+                  <MeetingRoomIcon />
+                </IconButton>
+                <p>{"Login"}</p>
+              </MenuItem>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

@@ -78,7 +78,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (auth.isLoggedIn && !!auth.username && !!auth.password) {
-      history.push("/chat");
+      history.push("/");
     }
   }, [auth.isLoggedIn, auth.username, auth.password, history]);
 
