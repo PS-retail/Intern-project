@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -7,36 +7,37 @@ import {
   Menu,
   Typography,
 } from "@material-ui/core";
-import HelpIcon from "@material-ui/icons/Help";
-import SettingsIcon from "@material-ui/icons/Settings";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
+import VideoCallIcon from "@material-ui/icons/VideoCall";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { useHttpClient } from "../general/http-hook";
+import SearchBar from './searchBar';
 import logo from "../../assets/logo.png";
 import useStyles from "./styles";
+import { AuthContext } from "../general/auth-context";
 
 const Navbar = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const classes = useStyles();
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const auth = useContext(AuthContext);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
-
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
   const openMenuHandler = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
-
-  const getHandler = async () => {
-    const data = await sendRequest(
-      "https://api.chatengine.io/users/",
-      "get"
-    );
-    console.log(data);
+  const logoutHandler = (event) => {
+    event.preventDefault();
+    handleMobileMenuClose();
+    auth.logout();
   };
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
 
   const renderMobileMenu = (
     <Menu
@@ -48,26 +49,30 @@ const Navbar = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to="/chat" style={{ textDecoration: "none" }}>
-        <MenuItem>
+      <Link to={"/chat"} style={{ textDecoration: "none" }}>
+        <MenuItem onClick={handleMobileMenuClose}>
           <IconButton aria-label="Chat" color="inherit">
             <ChatBubbleIcon />
           </IconButton>
-          <p>Chat with us</p>
+          <p>{"Chat with us"}</p>
         </MenuItem>
       </Link>
-      <MenuItem onClick={getHandler}>
-        <IconButton aria-label="Get Help" color="inherit">
-          <HelpIcon />
-        </IconButton>
-        <p>Help</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="Settings" color="inherit">
-          <SettingsIcon />
-        </IconButton>
-        <p>Settings</p>
-      </MenuItem>
+      {auth.isLoggedIn && (
+        <MenuItem onClick={handleMobileMenuClose}>
+          <IconButton aria-label="Settings" color="inherit">
+            <VideoCallIcon />
+          </IconButton>
+          <p>Schedule a Video Call with a representative</p>
+        </MenuItem>
+      )}
+      {auth.isLoggedIn && (
+        <MenuItem onClick={logoutHandler}>
+          <IconButton aria-label="Settings" color="inherit">
+            <ExitToAppIcon />
+          </IconButton>
+          <p>Logout</p>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -91,14 +96,27 @@ const Navbar = () => {
             Bang & Olufsen
           </Typography>
           <div className={classes.grow} />
+          <SearchBar />
           <div className={classes.button} />
-          <IconButton
-            aria-label="Menu"
-            color="inherit"
-            onClick={openMenuHandler}
-          >
-            <MenuIcon />
-          </IconButton>
+          {auth.isLoggedIn && (
+            <IconButton
+              aria-label="Menu"
+              color="inherit"
+              onClick={openMenuHandler}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+          {!auth.isLoggedIn && (
+            <Link to={"/login"} style={{ textDecoration: "none" }}>
+              <MenuItem onClick={handleMobileMenuClose}>
+                <IconButton aria-label="Chat" color="inherit">
+                  <MeetingRoomIcon />
+                </IconButton>
+                <p>{"Login"}</p>
+              </MenuItem>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
