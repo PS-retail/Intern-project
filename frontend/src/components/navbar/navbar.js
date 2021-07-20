@@ -14,6 +14,7 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 
+import SearchBar from './searchBar';
 import logo from "../../assets/logo.png";
 import useStyles from "./styles";
 import { AuthContext } from "../general/auth-context";
@@ -95,6 +96,7 @@ const Navbar = () => {
             Bang & Olufsen
           </Typography>
           <div className={classes.grow} />
+          <SearchBar />
           <div className={classes.button} />
           {auth.isLoggedIn && (
             <IconButton
