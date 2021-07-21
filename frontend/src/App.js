@@ -6,12 +6,13 @@ import {
   Switch,
 } from "react-router-dom";
 
-import ProductList from "./components/stories/productList";
-import ProductPage from "./components/stories/productPage";
+import ProductList from "./components/products/productList";
+import ProductPage from "./components/products/productPage";
 import NavBar from "./components/navbar/navbar";
 import Chat from "./components/chat/chat";
 import LoginForm from "./components/chat/loginForm";
 import { AuthContext } from "./components/general/auth-context";
+import MeetingPage from "./components/meeting/meetingPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,6 +51,9 @@ const App = () => {
           </Route>
           <Route path="/login" exact>
             <LoginForm />
+          </Route>
+          <Route path="/meeting" exact>
+            <MeetingPage/>
           </Route>
           <Route path="/:storyId">
             <ProductPage />

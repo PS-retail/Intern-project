@@ -46,6 +46,7 @@ const SearchBar = () => {
           return
         }
         console.log(filteredProducts) 
+        return
       }
       console.log(product);
     } 
