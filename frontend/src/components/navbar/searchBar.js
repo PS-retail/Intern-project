@@ -1,66 +1,101 @@
 import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import SearchIcon from "@material-ui/icons/Search";
 import { IconButton } from "@material-ui/core";
 
 const SearchBar = () => {
-  const [sample, setSample] = useState(null);
-
-  const submitHandler = (event, newValue) => {
-      event.preventDefault();
-      console.log(event.target.value)
-  }
-
-  const stories = [
+  const { control } = useForm();
+  const [products, setProducts] = useState([
     {
       id: 1,
-      name: "Gaming",
-      description: "Gaming Experience",
+      name: "Bose 3000",
+      description: "Ultra High Power Speaker",
       image:
-        "https://images.ctfassets.net/8cd2csgvqd3m/2WXA1ohDoLlKq0WBBnd5kf/8019e522e39b3940c11425a2d0869498/Gaming_Square.jpg?q=90&fm=webp&w=480&h=480&fit=fill",
+        "https://m.media-amazon.com/images/I/81NI0UFz4zL._AC_SL1500_.jpg",
       favorite: false,
     },
     {
       id: 2,
-      name: "Passion",
-      description: "Ignite your passion",
+      name: "Beats 3",
+      description: "Cool Headphones",
       image:
-        "https://images.ctfassets.net/8cd2csgvqd3m/2sMP1i5MkrTE1qp9nSJ0CN/2608a755c73401d080c17f04cca7d667/Mosaic_2.jpg?q=90&fm=webp&w=1440&h=808&fit=fill",
+        "https://cdn.mos.cms.futurecdn.net/7xuuL9GAGDDjhietMy3RGJ.jpg",
       favorite: false,
     },
-  ];
+    {
+      id: 3,
+      name: "Bose 4000",
+      description: "Ultra High Power Speaker",
+      image:
+        "https://m.media-amazon.com/images/I/81NI0UFz4zL._AC_SL1500_.jpg",
+      favorite: false,
+    },
+  ]);
+
+  const searchHandler = (e, data) => {
+    if (typeof data === 'object' && data !== null) {
+      console.log(data)
+    } else if (typeof data === 'string' && data !== null) {
+      const product = products.find(product => product.name.toUpperCase() === data.toUpperCase());
+      if (!!product === false) {
+        const filteredProducts = products.filter(product => product.name.toUpperCase().split(' ').includes(data.toUpperCase()) === true)
+        if (filteredProducts.length === 0) {
+          console.log('No results found');
+          return
+        }
+        console.log(filteredProducts) 
+      }
+      console.log(product);
+    } 
+  };
 
   return (
     <div style={{ width: 300 }}>
-      <form id="Search Bar" onSubmit={submitHandler}>
-        <Autocomplete
-          id="free-solo-demo"
-          //onInputChange={searchHandler}
-          freeSolo
-          options={stories.map((option) => option.name)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search"
-              size="small"
-              margin="dense"
-              variant="outlined"
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <React.Fragment>
-                    <IconButton type = 'submit' aria-label="Search" color="inherit">
-                      <SearchIcon />
-                    </IconButton>
-                    {params.InputProps.endAdornment}
-                  </React.Fragment>
-                ),
-              }}
-            />
-          )}
-        />
-      </form>
+      <Controller
+        name="Search Bar"
+        render={(props) => (
+          <Autocomplete
+            {...props}
+            id="search"
+            value={props.value || ""}
+            freeSolo
+            options={products}
+            getOptionLabel={(option) =>
+              option.name ? option.name : ''
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Search"
+                size="small"
+                margin="dense"
+                variant="outlined"
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <React.Fragment>
+                      {params.InputProps.endAdornment}
+                      <IconButton
+                        onClick = {data => console.log(data)}
+                        aria-label="Search"
+                        color="inherit"
+                      >
+                        <SearchIcon />
+                      </IconButton>
+                    </React.Fragment>
+                  ),
+                }}
+              />
+            )}
+            onChange={searchHandler}
+          />
+        )}
+        onChange={([, data]) => data}
+        control={control}
+        defaultValue={null}
+      />
     </div>
   );
 };

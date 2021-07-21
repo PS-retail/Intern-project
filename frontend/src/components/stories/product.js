@@ -13,26 +13,26 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import useStyles from "./styles";
 
-const Story = (props) => {
+const Product = (props) => {
   const classes = useStyles();
-  const [iconFavorite, setIconFavorite] = useState(props.story.favorite);
+  const [iconFavorite, setIconFavorite] = useState(props.product.favorite);
 
   const onClickHandler = () => {
     setIconFavorite((prevState) => !prevState);
   };
   return (
     <Card className={classes.root}>
-      <Link to={`/${props.story.id}`}>
-        <CardMedia className={classes.media} image={props.story.image} />
+      <Link to={`/${props.product.id}`}>
+        <CardMedia className={classes.media} image={props.product.image} />
         <CardContent
           style={{ paperContainer: { backgroundImage: `url(props.image)` } }}
         >
           <div className={classes.cardContent}>
             <Typography variant="h5" gutterBottom>
-              {props.story.name}
+              {props.product.name}
             </Typography>
             <br />
-            <Typography variant="h6">{props.story.description}</Typography>
+            <Typography variant="h6">{props.product.description}</Typography>
           </div>
         </CardContent>
       </Link>
@@ -49,4 +49,4 @@ const Story = (props) => {
   );
 };
 
-export default Story;
+export default Product;
