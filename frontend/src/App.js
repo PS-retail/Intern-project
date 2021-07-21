@@ -6,8 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 
-import StoryList from "./components/stories/storyList";
-import StoryPage from "./components/stories/storyPage";
+import ProductList from "./components/stories/productList";
+import ProductPage from "./components/stories/productPage";
 import NavBar from "./components/navbar/navbar";
 import Chat from "./components/chat/chat";
 import LoginForm from "./components/chat/loginForm";
@@ -43,7 +43,7 @@ const App = () => {
         <NavBar />
         <Switch>
           <Route path="/" exact>
-            <StoryList />
+            <ProductList />
           </Route>
           <Route path="/chat" exact>
             <Chat />
@@ -52,7 +52,7 @@ const App = () => {
             <LoginForm />
           </Route>
           <Route path="/:storyId">
-            <StoryPage />
+            <ProductPage />
           </Route>
           <Redirect to="/" />
         </Switch>

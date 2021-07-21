@@ -6,7 +6,7 @@ import useStyles from "./styles";
 import ARModal from "../general/modal";
 import qrCode from '../../assets/qr.png'
 
-const StoryPage = () => {
+const ProductPage = () => {
   const classes = useStyles();
   const storyId = useParams().storyId;
   const [showModal, setShowModal] = useState(false);
@@ -38,4 +38,4 @@ const StoryPage = () => {
   );
 };
 
-export default StoryPage;
+export default ProductPage;
