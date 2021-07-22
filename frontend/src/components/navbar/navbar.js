@@ -10,14 +10,31 @@ import {
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import tw from "twin.macro";
 
-import SearchBar from './searchBar';
-import logo from "../../assets/logo.png";
+import SearchBar from "./searchBar";
 import useStyles from "./styles";
 import { AuthContext } from "../general/auth-context";
+
+const Title = styled.div`
+  ${tw`
+  text-2xl
+  font-bold
+  text-black
+`};
+`;
+
+const Headers = styled.div`
+  ${tw`
+  text-lg
+  font-bold
+  text-black
+`};
+`;
 
 const Navbar = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -58,12 +75,14 @@ const Navbar = () => {
         </MenuItem>
       </Link>
       {auth.isLoggedIn && (
-        <MenuItem onClick={handleMobileMenuClose}>
-          <IconButton aria-label="Settings" color="inherit">
-            <VideoCallIcon />
-          </IconButton>
-          <p>Schedule a Video Call with a representative</p>
-        </MenuItem>
+        <Link to={"meeting"} style={{ textDecoration: "none" }}>
+          <MenuItem onClick={handleMobileMenuClose}>
+            <IconButton aria-label="Settings" color="inherit">
+              <VideoCallIcon />
+            </IconButton>
+            <p>Arrange or View Videocall</p>
+          </MenuItem>
+        </Link>
       )}
       {auth.isLoggedIn && (
         <MenuItem onClick={logoutHandler}>
@@ -78,23 +97,34 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="relative" className={classes.appBar} color="inherit">
+      <AppBar
+        position="relative"
+        className={classes.appBar}
+        color="inherit"
+        style={{ textDecoration: "none" }}
+      >
         <Toolbar>
           <Typography
             component={Link}
             to="/"
-            variant="h6"
-            className={classes.title}
-            color="inherit"
+            style={{ textDecoration: "none" }}
           >
-            <img
-              src={logo}
-              alt="BangOlufsen"
-              height="25px"
-              className={classes.image}
-            />
-            Bang & Olufsen
+            <Title>Bang & Olufsen</Title>
           </Typography>
+          <div className={classes.grow} />
+          <Typography
+            style={{ textDecoration: "none" }}
+            component={Link}
+            to={"/products"}
+          >
+            <Headers>All Products</Headers>
+          </Typography>
+          <div className={classes.grow} />
+          <Headers>Speakers</Headers>
+          <div className={classes.grow} />
+          <Headers>Headphones</Headers>
+          <div className={classes.grow} />
+          <Headers>Accessories</Headers>
           <div className={classes.grow} />
           <SearchBar />
           <div className={classes.button} />
@@ -113,7 +143,7 @@ const Navbar = () => {
                 <IconButton aria-label="Chat" color="inherit">
                   <MeetingRoomIcon />
                 </IconButton>
-                <p>{"Login"}</p>
+                <Headers>{"Login"}</Headers>
               </MenuItem>
             </Link>
           )}

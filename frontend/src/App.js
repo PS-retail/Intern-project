@@ -13,6 +13,7 @@ import Chat from "./components/chat/chat";
 import LoginForm from "./components/chat/loginForm";
 import { AuthContext } from "./components/general/auth-context";
 import MeetingPage from "./components/meeting/meetingPage";
+import MainPage from "./components/mainPage/mainPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,7 +44,10 @@ const App = () => {
       <Router>
         <NavBar />
         <Switch>
-          <Route path="/" exact>
+        <Route path="/" exact>
+            <MainPage />
+          </Route>
+          <Route path="/products" exact>
             <ProductList />
           </Route>
           <Route path="/chat" exact>
