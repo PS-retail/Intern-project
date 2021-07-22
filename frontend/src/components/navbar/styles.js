@@ -31,6 +31,9 @@ export default makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
+  tabs: {
+    font: 'bold'
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
