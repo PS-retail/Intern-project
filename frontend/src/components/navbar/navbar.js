@@ -138,7 +138,7 @@ const Navbar = () => {
             </IconButton>
           )}
           {!auth.isLoggedIn && (
-            <Link to={"/login"} style={{ textDecoration: "none" }}>
+            <Link to={"/meeting"} style={{ textDecoration: "none" }}>
               <MenuItem onClick={handleMobileMenuClose}>
                 <IconButton aria-label="Chat" color="inherit">
                   <MeetingRoomIcon />

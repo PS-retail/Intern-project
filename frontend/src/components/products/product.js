@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { Link } from "react-router-dom";
@@ -47,32 +47,18 @@ const Product = (props) => {
   return (
     <Wrapper>
       <ProductContainer>
-        <BlobContainer>
-          <img
-            style={{ maxWidth: "100%", maxHeight: "100%" }}
-            src={props.product.image}
-            alt = 'Product Image'
-          />
-        </BlobContainer>
-        <Description>{props.product.name}</Description>
+        <Link to={`/${props.product.id}`}>
+          <BlobContainer>
+            <img
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+              src={props.product.image}
+              alt="Product"
+            />
+          </BlobContainer>
+          <Description>{props.product.name}</Description>
+        </Link>
       </ProductContainer>
     </Wrapper>
-    // <Card className={classes.root}>
-    //   <Link to={`/${props.product.id}`}>
-    //     <CardMedia className={classes.media} image={props.product.image} />
-    //     <CardContent
-    //       style={{ paperContainer: { backgroundImage: `url(props.image)` } }}
-    //     >
-    //       <div className={classes.cardContent}>
-    //         <Typography variant="h5" gutterBottom>
-    //           {props.product.name}
-    //         </Typography>
-    //         <br />
-    //         <Typography variant="h6">{props.product.description}</Typography>
-    //       </div>
-    //     </CardContent>
-    //   </Link>
-    // </Card>
   );
 };
 
