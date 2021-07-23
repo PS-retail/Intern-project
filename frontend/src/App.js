@@ -14,6 +14,7 @@ import LoginForm from "./components/chat/loginForm";
 import { AuthContext } from "./components/general/auth-context";
 import MeetingPage from "./components/meeting/meetingPage";
 import MainPage from "./components/mainPage/mainPage";
+import VideoChatPage from "./components/videoChat/videoChatPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,6 +59,9 @@ const App = () => {
           </Route>
           <Route path="/meeting" exact>
             <MeetingPage/>
+          </Route>
+          <Route path="/videoChat" exact>
+            <VideoChatPage/>
           </Route>
           <Route path="/:storyId">
             <ProductPage />
