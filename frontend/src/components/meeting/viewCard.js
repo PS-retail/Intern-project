@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { v4 as uuidv4 } from "uuid";
 
 
 import Marginer from "../general/marginer";
+import MeetingMenu from "./meetingMenu";
+import EditCard from "./editCard";
 
 const CardContainer = styled.div`
   display: flex;
@@ -85,6 +87,34 @@ items-center
 `;
 
 const ViewCard = () => {
+  const [editMenuOpen, setEditMenuOpen] = useState(false);
+  const editRef = useRef();
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          // if (isStartCalendarOpen) {
+          //     setStartCalendarOpen(false);
+          // }
+          setEditMenuOpen(false);
+        }
+      }
+
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+
+  useOutsideAlerter(editRef);
+
   const dummy_bookings = [
     {
       date: "Mon-Jul-26-2021",
@@ -114,6 +144,8 @@ const ViewCard = () => {
 
   return (
     <CardContainer>
+      <div ref = {editRef}>
+      </div>
       <Slogan>Pending Bookings</Slogan>
       <Marginer direction="vertical" margin="3em" />
       <ul style={{ listStyleType: "none" }}>
@@ -122,6 +154,7 @@ const ViewCard = () => {
           if (booking.status === 'Booked') {
             return (
               <li key={uuidv4()}>
+                {editMenuOpen && <EditCard/>}
                 <ItemContainer>
                   <Details>{booking.date}</Details>
                   <Marginer direction="horizontal" margin="1em" />
@@ -130,7 +163,8 @@ const ViewCard = () => {
                   <Marginer direction="horizontal" margin="1em" />
                   <VerticalSeperator />
                   <Details>{booking.status}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
+                  <Marginer direction="horizontal" margin="6em" />
+                  <MeetingMenu editMenuOpen = {editMenuOpen} setEditMenuOpen = {() => setEditMenuOpen(true)}/>
                 </ItemContainer>
                 <LineSeperator />
               </li>

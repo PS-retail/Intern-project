@@ -4,15 +4,15 @@ const HttpError = require("../models/http-error");
 const Product = require("../models/product");
 
 const getProducts = async (req, res, next) => {
-  let users;
+  let products;
   try {
-    users = await Product.find({});
+    products = await Product.find({});
   } catch (err) {
     const error = new HttpError("Fetching products failed.", 500);
     return next(error);
   }
 
-  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
+  res.json({ products: products.map((product) => product.toObject({ getters: true })) });
 };
 
 const createProduct = async (req, res, next) => {
