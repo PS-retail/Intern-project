@@ -8,6 +8,12 @@ const router = express.Router();
 
 router.get('/', meetingControllers.getMeetings);
 
+router.get('/:mid', meetingControllers.getMeetingById);
+
+router.patch('/:mid', meetingControllers.updateMeeting);
+
+router.delete('/:mid', meetingControllers.cancelMeeting);
+
 router.post('/', meetingControllers.createMeeting);
 
 
