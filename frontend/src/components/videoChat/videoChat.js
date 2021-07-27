@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Lobby from './lobby';
-import Token, { videoToken } from './token'
+import Token, { videoToken } from './token';
+import Room from './room';
 
 require('dotenv').config();
 
@@ -34,11 +35,7 @@ const VideoChat = () => {
   let render;
   if (token) {
     render = (
-      <div>
-        <p>Username: {username}</p>
-        <p>Room name: {roomName}</p>
-        <p>Token: {token}</p>
-      </div>
+      <Room roomName={roomName} token={token} handleLogout={handleLogout} />
     );
   } else {
     render = (
