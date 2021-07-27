@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
+import MenuItem from "@material-ui/core/MenuItem";
 import {
   faCalendarAlt,
   faCaretDown,
   faCaretUp,
   faClock,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { css } from "styled-components";
@@ -11,9 +13,11 @@ import tw from "twin.macro";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import MyTimePicker from "./timePicker";
+import Select from "@material-ui/core/Select";
 
 import Button from "../general/button";
 import Marginer from "../general/marginer";
+import Temporary from "../general/temporary";
 
 const CardContainer = styled.div`
   display: flex;
@@ -85,6 +89,22 @@ const LineSeperator = styled.span`
   `};
 `;
 
+const Slogan = styled.h1`
+  ${tw`
+    font-semibold
+    text-xl
+    text-center
+  `};
+`;
+
+const Footer = styled.h1`
+  ${tw`
+    text-base
+    text-center
+    text-green-400
+  `};
+`;
+
 const DateCalendar = styled(Calendar)`
   position: absolute;
   max-width: none;
@@ -102,17 +122,18 @@ const DateCalendar = styled(Calendar)`
 const BookCard = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [startTime, setStartTime] = useState("10:00");
-  const [reason, setReason] = useState(null);
+  const [reason, setReason] = useState("");
+  const[completion, setCompletion] = useState(false);
 
   const [isStartCalendarOpen, setStartCalendarOpen] = useState(false);
   const wrapperRef = useRef();
 
-  let meetingForm = {
-    date: startDate,
+  const meetingForm = {
+    date: startDate.toString().split(" ").slice(0, 4).join("-"),
     time: startTime,
-    reason: reason
+    reason: reason || "Unspecified",
+    status: "Booked",
   };
-
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -142,6 +163,7 @@ const BookCard = () => {
   };
 
   const submitHandler = () => {
+    setCompletion(true);
     console.log(meetingForm);
   };
 
@@ -149,12 +171,16 @@ const BookCard = () => {
 
   return (
     <CardContainer>
+      <Slogan>Select Details</Slogan>
+      <Marginer direction="vertical" margin="3em" />
       {/* Date Picker */}
       <ItemContainer ref={wrapperRef}>
         <Icon>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </Icon>
         <Name onClick={toggleStartDateCalendar}>Call Date</Name>
+        <Marginer direction="horizontal" margin="1em" />
+        <Name onClick={toggleStartDateCalendar}>{startDate.toString().split(" ").slice(0, 4).join("-")}</Name>
         <SmallIcon>
           <FontAwesomeIcon
             icon={isStartCalendarOpen ? faCaretUp : faCaretDown}
@@ -169,7 +195,7 @@ const BookCard = () => {
         <Icon>
           <FontAwesomeIcon icon={faClock} />
         </Icon>
-        <Name onClick={toggleStartDateCalendar}>Call Time</Name>
+        <Name>Call Time</Name>
         <Marginer direction="horizontal" margin="1em" />
         <MyTimePicker value={startTime} onChange={setStartTime} />
       </ItemContainer>
@@ -177,15 +203,30 @@ const BookCard = () => {
       {/* Choice Picker */}
       <ItemContainer>
         <Icon>
-          <FontAwesomeIcon icon={faClock} />
+          <FontAwesomeIcon icon={faAngleDown} />
         </Icon>
         <Name onClick={toggleStartDateCalendar}>Reason</Name>
         <Marginer direction="horizontal" margin="1em" />
-        <MyTimePicker value={startTime} onChange={setStartTime} />
+        <Select
+          value={reason}
+          onChange={(event) => setReason(event.target.value)}
+          displayEmpty
+          inputProps={{ "aria-label": "Without label" }}
+          style={{ width: 150 }}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={"Purchase"}>Purchase</MenuItem>
+          <MenuItem value={"Complaint"}>Complaint</MenuItem>
+          <MenuItem value={"Inquiry"}>Inquiry</MenuItem>
+        </Select>
       </ItemContainer>
-
+      <Marginer direction="vertical" margin="3em" />
       <LineSeperator />
-      <Marginer direction="vertical" margin="2em" />
+      <Marginer direction="vertical" margin="3em" />
+      {completion && (<Temporary completion = {completion}><Footer>Booking Completed</Footer></Temporary>)}
+      <Marginer direction="vertical" margin="1.4em" />
       <Button text="Book Your Call" onClick={submitHandler} />
     </CardContainer>
   );
