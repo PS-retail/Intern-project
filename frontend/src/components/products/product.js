@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { Link } from "react-router-dom";
+import "./product.css"
 
 const Wrapper = styled.main`
   ${tw`
@@ -45,18 +46,20 @@ const BlobContainer = styled.div`
 
 const Product = (props) => {
   return (
-    <Wrapper>
-      <ProductContainer>
-        <BlobContainer>
-          <img
-            style={{ maxWidth: "100%", maxHeight: "100%" }}
-            src={props.product.image}
-            alt = 'Product Image'
-          />
-        </BlobContainer>
-        <Description>{props.product.name}</Description>
-      </ProductContainer>
-    </Wrapper>
+    // <Wrapper>
+    //   <ProductContainer>
+    //     <BlobContainer>
+    //       <img
+    //         style={{ maxWidth: "100%", maxHeight: "100%" }}
+    //         src={props.product.image}
+    //         alt = 'Product Image'
+    //       />
+    //     </BlobContainer>
+    //     <Description>{props.product.name}</Description>
+    //   </ProductContainer>
+    // </Wrapper>
+
+
     // <Card className={classes.root}>
     //   <Link to={`/${props.product.id}`}>
     //     <CardMedia className={classes.media} image={props.product.image} />
@@ -73,6 +76,19 @@ const Product = (props) => {
     //     </CardContent>
     //   </Link>
     // </Card>
+
+    // ALEX
+    <div className ="card">
+        <div className="imgBx">
+            <img src={props.product.image}></img>
+        </div>
+        <div className="contentBx">
+            <h3>{props.product.name}</h3>
+            {/* <h2 class="price">$40.<small>99</small></h2> */}
+            <h2 className="description">{props.product.description}</h2>
+            <a href={props.product.augmentedReality} target="_blank" className="buy">Try in AR</a>
+        </div>
+    </div>
   );
 };
 
