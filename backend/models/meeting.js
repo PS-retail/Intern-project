@@ -8,7 +8,8 @@ const meetingSchema = new Schema({
     date: {type: String, required: true},
     time: {type: String, required: true},
     reason: {type: String, required: true},
-    status: {type: String}
+    status: {type: String},
+    participants: {type: Array}
 });
 
 meetingSchema.plugin(uniqueValidator);

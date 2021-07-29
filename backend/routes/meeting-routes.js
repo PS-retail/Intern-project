@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get('/', meetingControllers.getMeetings);
 
+router.get('/creator/:creator', meetingControllers.getMeetingsByCreator);
+
 router.get('/:mid', meetingControllers.getMeetingById);
 
 router.patch('/:mid', meetingControllers.updateMeeting);

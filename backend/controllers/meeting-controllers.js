@@ -23,7 +23,7 @@ const createMeeting = async (req, res, next) => {
     );
   }
 
-  const { date, time, reason } = req.body;
+  const { date, time, reason, participants } = req.body;
 
   let existingMeeting;
   try {
@@ -48,7 +48,8 @@ const createMeeting = async (req, res, next) => {
     date,
     time,
     reason,
-    status: "Booked"
+    status: "Booked",
+    participants
   });
 
   try {
@@ -89,7 +90,7 @@ const updateMeeting = async (req, res, next) => {
     throw new HttpError('Invalid inputs passed, please check your data.', 422);
   }
 
-  const { date, time, reason } = req.body;
+  const { date, time, reason, status, participants } = req.body;
   const meetingId = req.params.mid;
 
   let meeting;
@@ -104,6 +105,11 @@ const updateMeeting = async (req, res, next) => {
   meeting.date = date;
   meeting.time = time;
   meeting.reason = reason;
+  meeting.status = status;
+  
+  if (participants.length !== 0) {
+    meeting.participants = meeting.participants.concat(participants);
+  }
 
   try {
     await meeting.save();
@@ -144,6 +150,23 @@ const cancelMeeting = async (req, res, next) => {
   res.status(200).json({ meeting: meeting.toObject({getters: true}) });
 };
 
+const getMeetingsByCreator =  async (req, res, next) => {
+
+  const creator = req.params.creator;
+
+  let meetings;
+
+  try {
+    meetings = await Meeting.find({participants : {$in :[creator]}})
+    //.where(creator).in('participants');
+  } catch (err) {
+    const error = new HttpError('Fetching places failed', 500);
+    return next(error);
+  }
+  
+
+  res.json({ meetings: meetings.map((meeting) => meeting.toObject({ getters: true })) });
+};
 
 
 exports.getMeetings = getMeetings;
@@ -151,3 +174,4 @@ exports.getMeetingById = getMeetingById;
 exports.createMeeting = createMeeting;
 exports.updateMeeting = updateMeeting;
 exports.cancelMeeting = cancelMeeting;
+exports.getMeetingsByCreator = getMeetingsByCreator;
