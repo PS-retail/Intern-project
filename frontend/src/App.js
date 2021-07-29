@@ -16,6 +16,7 @@ import MeetingPage from "./components/meeting/meetingPage";
 import MainPage from "./components/mainPage/mainPage";
 import MainCustomerPage from "./components/customerService/mainCustomerPage";
 import VideoChatPage from "./components/videoChat/videoChatPage";
+import StoryList from "./components/stories/storyList/StoryList";
 
 
 const App = () => {
@@ -70,6 +71,9 @@ const App = () => {
           </Route>
           <Route path="/:storyId">
             <ProductPage />
+          </Route>
+          <Route path="/stories" exact>
+            <StoryList />
           </Route>
           <Redirect to="/" />
         </Switch>

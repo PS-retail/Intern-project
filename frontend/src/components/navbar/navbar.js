@@ -119,6 +119,16 @@ const Navbar = () => {
           >
             <Headers>All Products</Headers>
           </Typography>
+
+          <div className={classes.grow} />
+          <Typography
+            style={{ textDecoration: "none" }}
+            component={Link}
+            to={"/stories"}
+          >
+            <Headers>Stories</Headers>
+          </Typography>
+
           <div className={classes.grow} />
           <Typography
             style={{ textDecoration: "none" }}
