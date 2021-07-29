@@ -66,14 +66,14 @@ const App = () => {
           <Route path="/customer" exact>
             <MainCustomerPage/>
           </Route>
+          <Route path="/stories" exact>
+            <StoryList />
+          </Route>
           <Route path="/videoChat/:mId">
             <VideoChatPage/>
           </Route>
           <Route path="/:storyId">
             <ProductPage />
-          </Route>
-          <Route path="/stories" exact>
-            <StoryList />
           </Route>
           <Redirect to="/" />
         </Switch>
