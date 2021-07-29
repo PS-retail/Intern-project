@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import {
   faCalendarAlt,
@@ -15,6 +15,8 @@ import "react-calendar/dist/Calendar.css";
 import MyTimePicker from "./timePicker";
 import Select from "@material-ui/core/Select";
 
+import { AuthContext } from '../general/auth-context';
+import { useHttpClient } from "../general/http-hook";
 import Button from "../general/button";
 import Marginer from "../general/marginer";
 import Temporary from "../general/temporary";
@@ -123,7 +125,9 @@ const BookCard = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [startTime, setStartTime] = useState("10:00");
   const [reason, setReason] = useState("");
-  const[completion, setCompletion] = useState(false);
+  const [completion, setCompletion] = useState(false);
+  const auth = useContext(AuthContext);
+  const { sendRequest } = useHttpClient();
 
   const [isStartCalendarOpen, setStartCalendarOpen] = useState(false);
   const wrapperRef = useRef();
@@ -132,7 +136,7 @@ const BookCard = () => {
     date: startDate.toString().split(" ").slice(0, 4).join("-"),
     time: startTime,
     reason: reason || "Unspecified",
-    status: "Booked",
+    participants: [auth.userId]
   };
 
   const useOutsideAlerter = (ref) => {
@@ -162,9 +166,13 @@ const BookCard = () => {
     setStartCalendarOpen(!isStartCalendarOpen);
   };
 
-  const submitHandler = () => {
+  const submitHandler = async (event) => {
+    event.preventDefault();
     setCompletion(true);
-    console.log(meetingForm);
+    try {
+      let data = JSON.stringify(meetingForm);
+      await sendRequest({url: "http://localhost:5000/api/meetings", method: 'post', data: data, headers : {"Content-Type" : "application/json"}});
+    } catch (err) {}
   };
 
   useOutsideAlerter(wrapperRef);

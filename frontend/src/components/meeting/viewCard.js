@@ -7,6 +7,7 @@ import Marginer from "../general/marginer";
 import MeetingMenu from "./meetingMenu";
 import EditCard from "./editCard";
 import Button from "../general/button";
+import { useHttpClient } from "../general/http-hook";
 
 const CardContainer = styled.div`
   display: flex;
@@ -87,15 +88,17 @@ items-center
 `;
 
 const ViewCard = () => {
+  const { sendRequest } = useHttpClient();
   const [editMenuOpen, setEditMenuOpen] = useState(false);
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(new Date());
   const editRef = useRef();
-  
-  const currentTime = date.getHours() + ':' + date.getMinutes();
+  const [bookings, setBookings] = useState();
+
+  const currentTime = date.getHours() + ":" + date.getMinutes();
 
   const [dummyBookings, setDummyBookings] = useState([
     {
-      id : 123,
+      id: 123,
       date: "Mon-Jul-26-2021",
       time: "09:00",
       reason: "Purchase",
@@ -125,19 +128,35 @@ const ViewCard = () => {
       time: "11:00",
       reason: "Purchase",
       status: "Booked",
-    }
+    },
   ]);
 
   useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const responseData = await sendRequest({
+          url: "http://localhost:5000/api/meetings/creator/retailps",
+          headers: null,
+        });
+        setBookings(responseData.meetings);
+        console.log(responseData.meetings);
+      } catch (err) {}
+    };
+    fetchBookings();
+  }, [sendRequest]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      setDate(new Date())
+      setDate(new Date());
       var flag = true;
-      dummyBookings.forEach(booking => {
-        if (booking.status === 'Booked') {
-          flag = false;
-        }
-      })
-      if (flag){
+      if (bookings) {
+        bookings.forEach((booking) => {
+          if (booking.status === "Booked") {
+            flag = false;
+          }
+        });
+      }
+      if (flag) {
         clearInterval(interval);
       }
     }, 10000);
@@ -145,15 +164,16 @@ const ViewCard = () => {
   }, [dummyBookings]);
 
   useEffect(() => {
-    dummyBookings.forEach((booking, idx) => {
-      if (booking.time <= currentTime && booking.status === 'Booked'){
-        let prevState = [...dummyBookings];
-        prevState[idx].status = 'Active';
-        setDummyBookings(prevState);
-      }
-    })
-
-  }, [currentTime, dummyBookings]);
+    if (bookings) {
+      bookings.forEach((booking, idx) => {
+        if (booking.time <= currentTime && booking.status === "Booked") {
+          let prevState = [...dummyBookings];
+          prevState[parseInt(idx)].status = "Active";
+          setDummyBookings(prevState);
+        }
+      });
+    }
+  }, [currentTime, bookings]);
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -180,42 +200,51 @@ const ViewCard = () => {
 
   useOutsideAlerter(editRef);
 
-
-
   return (
     <CardContainer>
       <div ref={editRef}></div>
       <Slogan>Pending Bookings</Slogan>
       <Marginer direction="vertical" margin="3em" />
-      <ul style={{ listStyleType: "none" }}>
-        {/* Time Picker */}
-        {dummyBookings.map((booking) => {
-          if (booking.status === "Booked" || booking.status === 'Active') {
-            return (
-              <li key={uuidv4()}>
-                {editMenuOpen && <EditCard />}
-                <ItemContainer>
-                  <Details>{booking.date}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.time}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.status}</Details>
-                  <Marginer direction="horizontal" margin="3em" />
-                  <Button text={booking.status === 'Active' ? "Join Meeting" : "Not Available"} to = {`/videochat/${booking.id}`}size={"small"} disabled={booking.status !== 'Active'} />
-                  <Marginer direction="horizontal" margin="3em" />
-                  <MeetingMenu
-                    editMenuOpen={editMenuOpen}
-                    setEditMenuOpen={() => setEditMenuOpen(true)}
-                  />
-                </ItemContainer>
-                <LineSeperator />
-              </li>
-            );
-          }
-        })}
-      </ul>
+      {bookings && (
+        <ul style={{ listStyleType: "none" }}>
+          {/* Time Picker */}
+          {bookings.map((booking) => {
+            if (booking.status === "Booked" || booking.status === "Active") {
+              return (
+                <li key={uuidv4()}>
+                  {editMenuOpen && <EditCard />}
+                  <ItemContainer>
+                    <Details>{booking.date}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.time}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.status}</Details>
+                    <Marginer direction="horizontal" margin="3em" />
+                    <Button
+                      text={
+                        booking.status === "Active"
+                          ? "Join Meeting"
+                          : "Not Available"
+                      }
+                      to={`/videochat/${booking.id}`}
+                      size={"small"}
+                      disabled={booking.status !== "Active"}
+                    />
+                    <Marginer direction="horizontal" margin="3em" />
+                    <MeetingMenu
+                      editMenuOpen={editMenuOpen}
+                      setEditMenuOpen={() => setEditMenuOpen(true)}
+                    />
+                  </ItemContainer>
+                  <LineSeperator />
+                </li>
+              );
+            }
+          })}
+        </ul>
+      )}
 
       <Marginer direction="vertical" margin="3em" />
       <LineSeperator />
@@ -223,28 +252,33 @@ const ViewCard = () => {
 
       <Slogan>Past Bookings</Slogan>
       <Marginer direction="vertical" margin="3em" />
-      <ul style={{ listStyleType: "none" }}>
-        {/* Time Picker */}
-        {dummyBookings.map((booking) => {
-          if (booking.status === "Completed" || booking.status === 'Cancelled') {
-            return (
-              <li key={uuidv4()}>
-                <ItemContainer>
-                  <Details>{booking.date}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.time}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.status}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                </ItemContainer>
-                <LineSeperator />
-              </li>
-            );
-          }
-        })}
-      </ul>
+      {bookings && (
+        <ul style={{ listStyleType: "none" }}>
+          {/* Time Picker */}
+          {bookings.map((booking) => {
+            if (
+              booking.status === "Completed" ||
+              booking.status === "Cancelled"
+            ) {
+              return (
+                <li key={uuidv4()}>
+                  <ItemContainer>
+                    <Details>{booking.date}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.time}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.status}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                  </ItemContainer>
+                  <LineSeperator />
+                </li>
+              );
+            }
+          })}
+        </ul>
+      )}
     </CardContainer>
   );
 };
