@@ -4,8 +4,6 @@ import tw from "twin.macro";
 import { Grid } from "@material-ui/core";
 
 import Product from "./product";
-import { SCREENS } from "../responsive/screens";
-import Button from "../general/button";
 
 const products = [
   {
@@ -118,31 +116,6 @@ const Contents = styled.div`
 `;
 
 
-const ProductName = styled.h1`
-  ${tw`
-    font-bold
-    text-xl
-    xl:text-3xl
-    sm:text-xl
-    md:text-2xl
-    lg:font-black
-    md:font-extrabold
-    text-black
-    mb-4
-    sm:leading-snug
-    lg:leading-normal
-    xl:leading-relaxed
-  `};
-`;
-
-
-const ButtonsContainer = styled.div`
-  ${tw`
-    flex
-    flex-wrap
-    mt-4
-  `};
-`;
 
 // const ProductList = (props) => {
 //   return (

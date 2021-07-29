@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { Link } from "react-router-dom";
@@ -89,6 +89,7 @@ const Product = (props) => {
             <a href={props.product.augmentedReality} target="_blank" className="buy">Try in AR</a>
         </div>
     </div>
+
   );
 };
 

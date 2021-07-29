@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
 import Button from "../general/button";
+import BookCard from "./bookCard";
+import ViewCard from "./viewCard";
 
 const TopSectionContainer = styled.div`
   min-height: 400px;
@@ -11,7 +13,6 @@ const TopSectionContainer = styled.div`
     w-full
     max-w-screen-2xl
     flex
-    justify-between
     pl-3
     pr-3
     lg:pl-12
@@ -64,12 +65,29 @@ const ButtonsContainer = styled.div`
     relative
     flex
     flex-wrap
-    m-auto
     mt-6
   `};
 `;
 
 const MeetingPage = () => {
+  const [bookCardOpen, setBookCardOpen] = useState(false);
+  const [viewCardOpen, setViewCardOpen] = useState(false);
+
+  const toggleCardOpen = () => {
+    if (viewCardOpen){
+      setViewCardOpen(false);
+    }
+    setBookCardOpen(prevState => !prevState)
+  }
+  
+  const toggleViewCardOpen = () => {
+    if (bookCardOpen){
+      setBookCardOpen(false);
+    }
+    setViewCardOpen(prevState => !prevState)
+  }
+
+
   return (
     <TopSectionContainer>
       <Container>
@@ -80,9 +98,11 @@ const MeetingPage = () => {
           well!
         </Description>
         <ButtonsContainer>
-          <Button text="Book Your Meeting" />
-          <Button theme="filled" text="View Existing Meetings" />
+          <Button text="Book Your Meeting" onClick = {toggleCardOpen}/>
+          <Button theme="filled" text="View Existing Meetings" onClick = {toggleViewCardOpen}/>
         </ButtonsContainer>
+        {bookCardOpen && <BookCard />}
+        {viewCardOpen && <ViewCard/>}
       </Container>
     </TopSectionContainer>
   );

@@ -31,7 +31,7 @@ const Title = styled.div`
 const Headers = styled.div`
   ${tw`
   text-lg
-  font-bold
+  font-semibold
   text-black
 `};
 `;
@@ -120,14 +120,15 @@ const Navbar = () => {
             <Headers>All Products</Headers>
           </Typography>
           <div className={classes.grow} />
-          <Headers>Speakers</Headers>
+          <Typography
+            style={{ textDecoration: "none" }}
+            component={Link}
+            to={"/customer"}
+          >
+          <Headers>Customer Service</Headers>
+          </Typography>
           <div className={classes.grow} />
-          <Headers>Headphones</Headers>
-          <div className={classes.grow} />
-          <Headers>Accessories</Headers>
-          <div className={classes.grow} />
-          <SearchBar />
-          <div className={classes.button} />
+          <SearchBar/>
           {auth.isLoggedIn && (
             <IconButton
               aria-label="Menu"

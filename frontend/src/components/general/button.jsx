@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import { Link } from "react-router-dom";
 
 const BaseButton = styled.button`
   ${tw`
@@ -33,6 +34,18 @@ const OutlinedButton = styled(BaseButton)`
   `};
 `;
 
+const SmallButton = styled(BaseButton)`
+  ${tw`
+    bg-black
+    pl-4
+    pr-4
+    pt-2
+    pb-2
+    bg-gray-100
+    text-black
+  `};
+`;
+
 const FilledButton = styled(BaseButton)`
   ${tw`
     border-black
@@ -45,11 +58,35 @@ const FilledButton = styled(BaseButton)`
 `;
 
 const Button = (props) => {
-  const { theme, text, className } = props;
+  const { theme, text, className, onClick, type, to = '/', size, disabled } = props;
 
-  if (theme === "filled")
-    return <FilledButton className={className}>{text}</FilledButton>;
-  else return <OutlinedButton className={className}>{text}</OutlinedButton>;
-}
+  if (size === "small") {
+    return (
+      <Link to={to}>
+        <SmallButton
+          className={className}
+          onClick={onClick}
+          type={type}
+          disabled={disabled}
+        >
+          {text}
+        </SmallButton>
+      </Link>
+    );
+  } else {
+    if (theme === "filled")
+      return (
+          <FilledButton className={className} onClick={onClick} type={type}>
+            {text}
+          </FilledButton>
+      );
+    else
+      return (
+          <OutlinedButton className={className} onClick={onClick} type={type}>
+            {text}
+          </OutlinedButton>
+      );
+  }
+};
 
 export default Button;
