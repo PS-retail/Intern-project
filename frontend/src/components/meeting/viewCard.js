@@ -91,7 +91,6 @@ const ViewCard = () => {
   const [date, setDate] = useState(new Date())
   const editRef = useRef();
   
-  const time = '15:55';
   const currentTime = date.getHours() + ':' + date.getMinutes();
 
   const [dummyBookings, setDummyBookings] = useState([
@@ -143,7 +142,7 @@ const ViewCard = () => {
       }
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [dummyBookings]);
 
   useEffect(() => {
     dummyBookings.forEach((booking, idx) => {

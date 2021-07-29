@@ -3,7 +3,6 @@ import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import MenuIcon from "@material-ui/icons/Menu";
 import BlockIcon from "@material-ui/icons/Block";
-import { Link } from "react-router-dom";
 
 const MeetingMenu = ({ editMenuOpen, setEditMenuOpen }) => {
   const [AnchorEl, setAnchorEl] = useState(null);
@@ -25,6 +24,7 @@ const MeetingMenu = ({ editMenuOpen, setEditMenuOpen }) => {
 
   const cancelHandler = () => {
     console.log("Cancel");
+    setAnchorEl(null);
   };
 
   const openMenu = (
@@ -43,7 +43,7 @@ const MeetingMenu = ({ editMenuOpen, setEditMenuOpen }) => {
         </IconButton>
         <p>{"Edit"}</p>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem onClick={cancelHandler}>
         <IconButton aria-label="Cancel" color="inherit">
           <BlockIcon />
         </IconButton>
