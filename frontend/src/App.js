@@ -65,7 +65,7 @@ const App = () => {
           <Route path="/customer" exact>
             <MainCustomerPage/>
           </Route>
-          <Route path="/videoChat" exact>
+          <Route path="/videoChat/:mId">
             <VideoChatPage/>
           </Route>
           <Route path="/:storyId">
