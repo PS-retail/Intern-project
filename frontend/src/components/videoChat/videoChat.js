@@ -1,36 +1,41 @@
-import React, { useState, useCallback } from 'react';
-import Lobby from './lobby';
-import Token, { videoToken } from './token';
-import Room from './room';
+import React, { useState, useEffect, useCallback } from "react";
+import { useHistory } from "react-router";
+import { videoToken } from "./token";
+import styled from "styled-components";
+import tw from "twin.macro";
+import Room from "./room";
 
-require('dotenv').config();
+require("dotenv").config();
 
-const VideoChat = () => {
-  const [username, setUsername] = useState('');
-  const [roomName, setRoomName] = useState('');
+const Slogan = styled.span`
+  ${tw`
+    font-semibold
+    text-xl
+    text-center
+  `};
+`;
+
+const VideoChat = ({ username, roomName }) => {
   const [token, setToken] = useState(null);
+  const history = useHistory();
 
- 
 
-  const handleUsernameChange = useCallback(event => {
-    setUsername(event.target.value);
-  }, []);
+  const handleSubmit = useCallback(
+    async () => {
+      const data = videoToken(username, roomName);
+      setToken(data.toJwt());
+    },
+    [username, roomName]
+  );
 
-  const handleRoomNameChange = useCallback(event => {
-    setRoomName(event.target.value);
-  }, []);
+  useEffect(() => {
+    handleSubmit();
+  }, [handleSubmit]);
 
-  
-
-  const handleSubmit = useCallback(async event => {
-    event.preventDefault();
-    const data = videoToken(username, roomName)
-    setToken(data.toJwt());
-  }, [username, roomName]);
-
-  const handleLogout = useCallback(event => {
+  const handleLogout = useCallback((event) => {
     setToken(null);
-  }, []);
+    history.push('/');
+  }, [history]);
 
   let render;
   if (token) {
@@ -39,13 +44,9 @@ const VideoChat = () => {
     );
   } else {
     render = (
-      <Lobby
-         username={username}
-         roomName={roomName}
-         handleUsernameChange={handleUsernameChange}
-         handleRoomNameChange={handleRoomNameChange}
-         handleSubmit={handleSubmit}
-      />
+      <div style = {{display: 'flex'}}>
+        <Slogan>Error. Please Try Again! Log back in or refresh your session!</Slogan>
+      </div>
     );
   }
   return render;

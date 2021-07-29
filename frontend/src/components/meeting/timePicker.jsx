@@ -1,6 +1,6 @@
 import React from "react";
 import TimePicker from "react-time-picker";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import tw from "twin.macro";
 
 const Picker = styled(TimePicker)`

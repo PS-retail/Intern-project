@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Temporary = ({ children, waitAfterShow = 9000, completion }) => {
   const [isShown, setIsShown] = useState(true);

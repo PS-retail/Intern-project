@@ -3,10 +3,10 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { v4 as uuidv4 } from "uuid";
 
-
 import Marginer from "../general/marginer";
 import MeetingMenu from "./meetingMenu";
 import EditCard from "./editCard";
+import Button from "../general/button";
 
 const CardContainer = styled.div`
   display: flex;
@@ -88,7 +88,72 @@ items-center
 
 const ViewCard = () => {
   const [editMenuOpen, setEditMenuOpen] = useState(false);
+  const [date, setDate] = useState(new Date())
   const editRef = useRef();
+  
+  const currentTime = date.getHours() + ':' + date.getMinutes();
+
+  const [dummyBookings, setDummyBookings] = useState([
+    {
+      id : 123,
+      date: "Mon-Jul-26-2021",
+      time: "09:00",
+      reason: "Purchase",
+      status: "Booked",
+    },
+    {
+      id: 123,
+      date: "Mon-Jul-24-2021",
+      time: "11:00",
+      reason: "Purchase",
+      status: "Completed",
+    },
+    {
+      date: "Mon-Jul-23-2021",
+      time: "11:00",
+      reason: "Purchase",
+      status: "Cancelled",
+    },
+    {
+      date: "Mon-Jul-21-2021",
+      time: "11:00",
+      reason: "Purchase",
+      status: "Completed",
+    },
+    {
+      date: "Mon-Jul-31-2021",
+      time: "11:00",
+      reason: "Purchase",
+      status: "Booked",
+    }
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDate(new Date())
+      var flag = true;
+      dummyBookings.forEach(booking => {
+        if (booking.status === 'Booked') {
+          flag = false;
+        }
+      })
+      if (flag){
+        clearInterval(interval);
+      }
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [dummyBookings]);
+
+  useEffect(() => {
+    dummyBookings.forEach((booking, idx) => {
+      if (booking.time <= currentTime && booking.status === 'Booked'){
+        let prevState = [...dummyBookings];
+        prevState[idx].status = 'Active';
+        setDummyBookings(prevState);
+      }
+    })
+
+  }, [currentTime, dummyBookings]);
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -115,46 +180,20 @@ const ViewCard = () => {
 
   useOutsideAlerter(editRef);
 
-  const dummy_bookings = [
-    {
-      date: "Mon-Jul-26-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Booked",
-    },
-    {
-      date: "Mon-Jul-24-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Completed",
-    },
-    {
-      date: "Mon-Jul-23-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Cancelled",
-    },
-    {
-      date: "Mon-Jul-21-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Completed",
-    },
-  ];
+
 
   return (
     <CardContainer>
-      <div ref = {editRef}>
-      </div>
+      <div ref={editRef}></div>
       <Slogan>Pending Bookings</Slogan>
       <Marginer direction="vertical" margin="3em" />
       <ul style={{ listStyleType: "none" }}>
         {/* Time Picker */}
-        {dummy_bookings.map((booking) => {
-          if (booking.status === 'Booked') {
+        {dummyBookings.map((booking) => {
+          if (booking.status === "Booked" || booking.status === 'Active') {
             return (
               <li key={uuidv4()}>
-                {editMenuOpen && <EditCard/>}
+                {editMenuOpen && <EditCard />}
                 <ItemContainer>
                   <Details>{booking.date}</Details>
                   <Marginer direction="horizontal" margin="1em" />
@@ -163,8 +202,13 @@ const ViewCard = () => {
                   <Marginer direction="horizontal" margin="1em" />
                   <VerticalSeperator />
                   <Details>{booking.status}</Details>
-                  <Marginer direction="horizontal" margin="6em" />
-                  <MeetingMenu editMenuOpen = {editMenuOpen} setEditMenuOpen = {() => setEditMenuOpen(true)}/>
+                  <Marginer direction="horizontal" margin="3em" />
+                  <Button text={booking.status === 'Active' ? "Join Meeting" : "Not Available"} to = {`/videochat/${booking.id}`}size={"small"} disabled={booking.status !== 'Active'} />
+                  <Marginer direction="horizontal" margin="3em" />
+                  <MeetingMenu
+                    editMenuOpen={editMenuOpen}
+                    setEditMenuOpen={() => setEditMenuOpen(true)}
+                  />
                 </ItemContainer>
                 <LineSeperator />
               </li>
@@ -181,8 +225,8 @@ const ViewCard = () => {
       <Marginer direction="vertical" margin="3em" />
       <ul style={{ listStyleType: "none" }}>
         {/* Time Picker */}
-        {dummy_bookings.map((booking) => {
-          if (booking.status !== 'Booked') {
+        {dummyBookings.map((booking) => {
+          if (booking.status === "Completed" || booking.status === 'Cancelled') {
             return (
               <li key={uuidv4()}>
                 <ItemContainer>
@@ -201,8 +245,6 @@ const ViewCard = () => {
           }
         })}
       </ul>
-
-
     </CardContainer>
   );
 };
