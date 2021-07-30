@@ -19,17 +19,6 @@ const inlineStyle = {
     transform: 'translate(-50%, -50%)',
 }
 
-const section = { 
-    background: '#fff',
-    position: 'relative',
-    // height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    // color: 'white';
-    // text-shadow: 0 0 5px #000;
-  }
-
 
 function StoryPage() {
     return (
