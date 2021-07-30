@@ -14,7 +14,7 @@ const VideoChatPage = () => {
   return (
     <div className="VideoChatPage">
       <header>
-        <h1>Video Chat with Hooks</h1>
+        <h1>B & O VideoChat(Under Construction)</h1>
       </header>
       <main>
         <VideoChat username = {username} roomName = {meetingId}/>
