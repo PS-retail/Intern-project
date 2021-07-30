@@ -2,6 +2,7 @@ import React from "react";
 import { Background, Parallax } from "react-parallax"
 import "./StoryPage.css"
 
+const goodImage = "https://source.unsplash.com/9vDdkxSCAD4/1920x1280"
 
 function StoryPage() {
     return (
