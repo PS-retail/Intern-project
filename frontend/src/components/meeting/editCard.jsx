@@ -10,8 +10,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import DatePicker from "react-datepicker";
+import "../../../node_modules/react-datepicker/dist/react-datepicker.css";
 import MyTimePicker from "./timePicker";
 import Select from "@material-ui/core/Select";
 
@@ -106,7 +106,7 @@ const Footer = styled.h1`
   `};
 `;
 
-const DateCalendar = styled(Calendar)`
+const DateCalendar = styled(DatePicker)`
   position: absolute;
   max-width: none;
   user-select: none;
@@ -119,7 +119,6 @@ const DateCalendar = styled(Calendar)`
       left: -6em;
     `};
 `;
-
 const EditCard = () => {
   const meetingForm = {
     date: "Mon-Jul-26-2021",
@@ -189,7 +188,12 @@ const EditCard = () => {
           />
         </SmallIcon>
         {isStartCalendarOpen && (
-          <DateCalendar value={startDate} onChange={setStartDate} offset />
+          <DateCalendar
+            value={startDate}
+            onChange={(date) => setStartDate(date)}
+            offset
+            inline
+          />
         )}
       </ItemContainer>
       {/* Time Picker */}

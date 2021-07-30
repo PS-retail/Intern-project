@@ -10,12 +10,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import DatePicker from "react-datepicker";
+import "../../../node_modules/react-datepicker/dist/react-datepicker.css";
 import MyTimePicker from "./timePicker";
 import Select from "@material-ui/core/Select";
 
-import { AuthContext } from '../general/auth-context';
+import { AuthContext } from "../general/auth-context";
 import { useHttpClient } from "../general/http-hook";
 import Button from "../general/button";
 import Marginer from "../general/marginer";
@@ -107,7 +107,7 @@ const Footer = styled.h1`
   `};
 `;
 
-const DateCalendar = styled(Calendar)`
+const DateCalendar = styled(DatePicker)`
   position: absolute;
   max-width: none;
   user-select: none;
@@ -136,7 +136,7 @@ const BookCard = () => {
     date: startDate.toString().split(" ").slice(0, 4).join("-"),
     time: startTime,
     reason: reason || "Unspecified",
-    participants: [auth.userId]
+    participants: [auth.userId],
   };
 
   const useOutsideAlerter = (ref) => {
@@ -171,7 +171,12 @@ const BookCard = () => {
     setCompletion(true);
     try {
       let data = JSON.stringify(meetingForm);
-      await sendRequest({url: "http://localhost:5000/api/meetings", method: 'post', data: data, headers : {"Content-Type" : "application/json"}});
+      await sendRequest({
+        url: "http://localhost:5000/api/meetings",
+        method: "post",
+        data: data,
+        headers: { "Content-Type": "application/json" },
+      });
     } catch (err) {}
   };
 
@@ -188,14 +193,21 @@ const BookCard = () => {
         </Icon>
         <Name onClick={toggleStartDateCalendar}>Call Date</Name>
         <Marginer direction="horizontal" margin="1em" />
-        <Name onClick={toggleStartDateCalendar}>{startDate.toString().split(" ").slice(0, 4).join("-")}</Name>
+        <Name onClick={toggleStartDateCalendar}>
+          {startDate.toString().split(" ").slice(0, 4).join("-")}
+        </Name>
         <SmallIcon>
           <FontAwesomeIcon
             icon={isStartCalendarOpen ? faCaretUp : faCaretDown}
           />
         </SmallIcon>
         {isStartCalendarOpen && (
-          <DateCalendar value={startDate} onChange={setStartDate} offset />
+            <DateCalendar
+              value={startDate}
+              onChange={(date) => setStartDate(date)}
+              offset
+              inline
+            />
         )}
       </ItemContainer>
       {/* Time Picker */}
@@ -233,7 +245,11 @@ const BookCard = () => {
       <Marginer direction="vertical" margin="3em" />
       <LineSeperator />
       <Marginer direction="vertical" margin="3em" />
-      {completion && (<Temporary completion = {completion}><Footer>Booking Completed</Footer></Temporary>)}
+      {completion && (
+        <Temporary completion={completion}>
+          <Footer>Booking Completed</Footer>
+        </Temporary>
+      )}
       <Marginer direction="vertical" margin="1.4em" />
       <Button text="Book Your Call" onClick={submitHandler} />
     </CardContainer>

@@ -202,7 +202,7 @@ const ViewCard = () => {
 
   return (
     <CardContainer>
-      <div ref={editRef}></div>
+      <div ref={editRef}>
       <Slogan>Pending Bookings</Slogan>
       <Marginer direction="vertical" margin="3em" />
       {bookings && (
@@ -279,6 +279,7 @@ const ViewCard = () => {
           })}
         </ul>
       )}
+      </div>
     </CardContainer>
   );
 };
