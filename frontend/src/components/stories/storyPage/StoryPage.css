@@ -21,14 +21,59 @@
 {
     background-color: #1E2125;
 }
-.title
-{
-    text-align: left;
-    font-size: 100px;
-    padding-left: 50px;
-    text-transform: uppercase;
-}
 .description
 {
     color: #fff;
+    text-align: left;
+    padding-left: 50px;
+    padding-right: 50px;
 }
+.description-title
+{
+    font-size: 100px;
+    text-transform: uppercase;
+    padding-top: 50px;
+}
+.paragraph
+{
+    font-size: 30px;
+    padding-bottom: 80px;
+}
+.experience
+{
+    color: #fff;
+    font-size: 100px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+.featured-products
+{
+    color: #fff;
+    font-size: 40px;
+    text-transform: uppercase;
+    padding-top: 150px;
+}
+
+.horizontal-line
+{
+    color: white; 
+    margin-left: 150px; 
+    margin-right: 150px; 
+    border: 1.5px solid #fff;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.button {
+    transition-duration: 0.2s;
+    height: 80px;
+    width: 306px;
+    font-size: 30px;
+    letter-spacing: 6px;
+    border-radius: 25px 25px 25px 25px;
+    margin-bottom: 30px;
+  }
+  
+  .button:hover {
+    background-color: black; 
+    color: white;
+  }
