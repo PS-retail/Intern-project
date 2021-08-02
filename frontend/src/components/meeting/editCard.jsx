@@ -14,7 +14,7 @@ import DatePicker from "react-datepicker";
 import "../../../node_modules/react-datepicker/dist/react-datepicker.css";
 import MyTimePicker from "./timePicker";
 import Select from "@material-ui/core/Select";
-import { useParams, useHistory } from 'react-router';
+import { useParams } from 'react-router';
 
 import { useHttpClient } from "../general/http-hook";
 import Button from "../general/button";
@@ -172,7 +172,7 @@ const EditCard = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      var responseData = await sendRequest({
+        await sendRequest({
         url: `http://localhost:5000/api/meetings/${id}`,
         method: "patch",
         data: JSON.stringify({

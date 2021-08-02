@@ -5,10 +5,12 @@ import EditIcon from "@material-ui/icons/Edit";
 import MenuIcon from "@material-ui/icons/Menu";
 import BlockIcon from "@material-ui/icons/Block";
 
+import { useHttpClient } from "../general/http-hook";
+
 const MeetingMenu = ({ id }) => {
   const [AnchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
-  
+  const { sendRequest } = useHttpClient();
 
   const isMenuOpen = Boolean(AnchorEl);
 
@@ -25,8 +27,18 @@ const MeetingMenu = ({ id }) => {
 
   const openMenuHandler = (event) => setAnchorEl(event.currentTarget);
 
-  const cancelHandler = () => {
-    console.log("Cancel");
+  const cancelHandler = async (event) => {
+    event.preventDefault();
+    try {
+        await sendRequest({
+        url: `http://localhost:5000/api/meetings/${id}`,
+        method: "delete",
+        data: null,
+        headers: null,
+      });
+    } catch (err) {
+      console.log(err);
+    }
     setAnchorEl(null);
   };
 

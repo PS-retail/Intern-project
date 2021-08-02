@@ -3,11 +3,11 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { v4 as uuidv4 } from "uuid";
 
+import { useHttpClient } from "../general/http-hook"
 import Marginer from "../general/marginer";
 import MeetingMenu from "./meetingMenu";
-import EditCard from "./editCard";
 import Button from "../general/button";
-import { useHttpClient } from "../general/http-hook";
+
 
 const CardContainer = styled.div`
   display: flex;
