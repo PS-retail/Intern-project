@@ -48,7 +48,7 @@ const createMeeting = async (req, res, next) => {
     date,
     time,
     reason,
-    status: "Booked",
+    status: "Active",
     participants
   });
 
