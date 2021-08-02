@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 const productRoutes = require("./routes/product-routes");
 const meetingRoutes = require("./routes/meeting-routes");
+const sample = require("./batch/test");
 const HttpError = require("./models/http-error");
 
 const app = express();
@@ -54,5 +55,6 @@ mongoose
   )
   .then(() => {
     app.listen(5000);
+    //setInterval(sample, 1500);
   })
   .catch((err) => console.log(err));
