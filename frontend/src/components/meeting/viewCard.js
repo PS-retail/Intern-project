@@ -14,6 +14,7 @@ const CardContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 25em;
+  min-width: 50em;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
@@ -34,8 +35,8 @@ const ItemContainer = styled.div`
     justify-center
     rounded-md
     hover:bg-gray-200
-    w-[700px]
-    min-h-[4em]
+    w-full
+    h-full
   `};
 `;
 
@@ -96,40 +97,6 @@ const ViewCard = () => {
 
   const currentTime = date.getHours() + ":" + date.getMinutes();
 
-  const [dummyBookings, setDummyBookings] = useState([
-    {
-      id: 123,
-      date: "Mon-Jul-26-2021",
-      time: "09:00",
-      reason: "Purchase",
-      status: "Booked",
-    },
-    {
-      id: 123,
-      date: "Mon-Jul-24-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Completed",
-    },
-    {
-      date: "Mon-Jul-23-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Cancelled",
-    },
-    {
-      date: "Mon-Jul-21-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Completed",
-    },
-    {
-      date: "Mon-Jul-31-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Booked",
-    },
-  ]);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -139,37 +106,19 @@ const ViewCard = () => {
           headers: null,
         });
         setBookings(responseData.meetings);
-        console.log(responseData.meetings);
       } catch (err) {}
     };
     fetchBookings();
   }, [sendRequest]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDate(new Date());
-      var flag = true;
-      if (bookings) {
-        bookings.forEach((booking) => {
-          if (booking.status === "Booked") {
-            flag = false;
-          }
-        });
-      }
-      if (flag) {
-        clearInterval(interval);
-      }
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [dummyBookings]);
 
   useEffect(() => {
     if (bookings) {
       bookings.forEach((booking, idx) => {
         if (booking.time <= currentTime && booking.status === "Booked") {
-          let prevState = [...dummyBookings];
+          let prevState = [...bookings];
           prevState[parseInt(idx)].status = "Active";
-          setDummyBookings(prevState);
+          setBookings(prevState);
         }
       });
     }
@@ -212,7 +161,6 @@ const ViewCard = () => {
             if (booking.status === "Booked" || booking.status === "Active") {
               return (
                 <li key={uuidv4()}>
-                  {editMenuOpen && <EditCard />}
                   <ItemContainer>
                     <Details>{booking.date}</Details>
                     <Marginer direction="horizontal" margin="1em" />
@@ -221,7 +169,10 @@ const ViewCard = () => {
                     <Marginer direction="horizontal" margin="1em" />
                     <VerticalSeperator />
                     <Details>{booking.status}</Details>
-                    <Marginer direction="horizontal" margin="3em" />
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.reason}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
                     <Button
                       text={
                         booking.status === "Active"
@@ -234,8 +185,7 @@ const ViewCard = () => {
                     />
                     <Marginer direction="horizontal" margin="3em" />
                     <MeetingMenu
-                      editMenuOpen={editMenuOpen}
-                      setEditMenuOpen={() => setEditMenuOpen(true)}
+                      id = {booking.id}
                     />
                   </ItemContainer>
                   <LineSeperator />

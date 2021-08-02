@@ -14,7 +14,9 @@ import DatePicker from "react-datepicker";
 import "../../../node_modules/react-datepicker/dist/react-datepicker.css";
 import MyTimePicker from "./timePicker";
 import Select from "@material-ui/core/Select";
+import { useParams, useHistory } from 'react-router';
 
+import { useHttpClient } from "../general/http-hook";
 import Button from "../general/button";
 import Marginer from "../general/marginer";
 import Temporary from "../general/temporary";
@@ -120,19 +122,28 @@ const DateCalendar = styled(DatePicker)`
     `};
 `;
 const EditCard = () => {
-  const meetingForm = {
-    date: "Mon-Jul-26-2021",
-    time: "11:30",
-    reason: "Purchase",
-    status: "Booked",
-  };
-  const [startDate, setStartDate] = useState(meetingForm.date);
-  const [startTime, setStartTime] = useState(meetingForm.time);
-  const [reason, setReason] = useState(meetingForm.reason);
+  const [form, setForm] = useState(null);
   const [completion, setCompletion] = useState(false);
+  const { sendRequest } = useHttpClient();
+  const id = useParams().id;
 
   const [isStartCalendarOpen, setStartCalendarOpen] = useState(false);
   const wrapperRef = useRef();
+
+  useEffect(() => {
+    const fetchBooking = async () => {
+      try {
+        const responseData = await sendRequest({
+          url: `http://localhost:5000/api/meetings/${id}`,
+          headers: null,
+        });
+        setForm(responseData.meeting);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchBooking();
+  }, [sendRequest, id]);
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -141,9 +152,6 @@ const EditCard = () => {
        */
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          // if (isStartCalendarOpen) {
-          //     setStartCalendarOpen(false);
-          // }
           setStartCalendarOpen(false);
         }
       }
@@ -161,9 +169,29 @@ const EditCard = () => {
     setStartCalendarOpen(!isStartCalendarOpen);
   };
 
-  const submitHandler = () => {
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      var responseData = await sendRequest({
+        url: `http://localhost:5000/api/meetings/${id}`,
+        method: "patch",
+        data: JSON.stringify({
+          date: form.date.toString().split(" ").slice(0, 4).join("-"),
+          time: form.time,
+          reason: form.reason || "",
+          participants: form.participants,
+          status: form.status,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      console.log(err);
+    }
     setCompletion(true);
-    console.log(meetingForm);
+  };
+
+  const handleChange = (event) => {
+    setForm({ ...form, reason: event.target.value });
   };
 
   useOutsideAlerter(wrapperRef);
@@ -173,61 +201,71 @@ const EditCard = () => {
       <Slogan>Edit Details</Slogan>
       <Marginer direction="vertical" margin="3em" />
       {/* Date Picker */}
-      <ItemContainer ref={wrapperRef}>
-        <Icon>
-          <FontAwesomeIcon icon={faCalendarAlt} />
-        </Icon>
-        <Name onClick={toggleStartDateCalendar}>Call Date</Name>
-        <Marginer direction="horizontal" margin="1em" />
-        <Name onClick={toggleStartDateCalendar}>
-          {startDate.toString().split(" ").slice(0, 4).join("-")}
-        </Name>
-        <SmallIcon>
-          <FontAwesomeIcon
-            icon={isStartCalendarOpen ? faCaretUp : faCaretDown}
-          />
-        </SmallIcon>
-        {isStartCalendarOpen && (
-          <DateCalendar
-            value={startDate}
-            onChange={(date) => setStartDate(date)}
-            offset
-            inline
-          />
-        )}
-      </ItemContainer>
+      {form && (
+        <ItemContainer ref={wrapperRef}>
+          <Icon>
+            <FontAwesomeIcon icon={faCalendarAlt} />
+          </Icon>
+          <Name onClick={toggleStartDateCalendar}>Call Date</Name>
+          <Marginer direction="horizontal" margin="1em" />
+          <Name onClick={toggleStartDateCalendar}>
+            {form.date.toString().split(" ").slice(0, 4).join("-")}
+          </Name>
+          <SmallIcon>
+            <FontAwesomeIcon
+              icon={isStartCalendarOpen ? faCaretUp : faCaretDown}
+            />
+          </SmallIcon>
+          {isStartCalendarOpen && (
+            <DateCalendar
+              value={form.date}
+              onChange={(date) => setForm({ ...form, date: date })}
+              offset
+              inline
+            />
+          )}
+        </ItemContainer>
+      )}
       {/* Time Picker */}
-      <ItemContainer>
-        <Icon>
-          <FontAwesomeIcon icon={faClock} />
-        </Icon>
-        <Name>Call Time</Name>
-        <Marginer direction="horizontal" margin="1em" />
-        <MyTimePicker value={startTime} onChange={setStartTime} />
-      </ItemContainer>
-
+      {form && (
+        <ItemContainer>
+          <Icon>
+            <FontAwesomeIcon icon={faClock} />
+          </Icon>
+          <Name>Call Time</Name>
+          <Marginer direction="horizontal" margin="1em" />
+          <MyTimePicker
+            value={form.time}
+            onChange={(time) => {
+              console.log(form);
+              setForm({ ...form, time: time });
+            }}
+          />
+        </ItemContainer>
+      )}
       {/* Choice Picker */}
-      <ItemContainer>
-        <Icon>
-          <FontAwesomeIcon icon={faAngleDown} />
-        </Icon>
-        <Name onClick={toggleStartDateCalendar}>Reason</Name>
-        <Marginer direction="horizontal" margin="1em" />
-        <Select
-          value={reason}
-          onChange={(event) => setReason(event.target.value)}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
-          style={{ width: 150 }}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={"Purchase"}>Purchase</MenuItem>
-          <MenuItem value={"Complaint"}>Complaint</MenuItem>
-          <MenuItem value={"Inquiry"}>Inquiry</MenuItem>
-        </Select>
-      </ItemContainer>
+      {form && (
+        <ItemContainer>
+          <Icon>
+            <FontAwesomeIcon icon={faAngleDown} />
+          </Icon>
+          <Name>Reason</Name>
+          <Marginer direction="horizontal" margin="1em" />
+          <Select
+            labelId="demo-simple-select-label"
+            style = {{minWidth : 120}}
+            displayEmpty
+            inputProps={{ "aria-label": "Without label" }}
+            value={form.reason}
+            onChange={handleChange}
+          >
+            <MenuItem value={'Purchase'}>Purchase</MenuItem>
+            <MenuItem value={'Inquiry'}>Inquiry</MenuItem>
+            <MenuItem value={'Delivery'}>Delivery</MenuItem>
+            <MenuItem value={'Unspecified'}>Unspecified</MenuItem>
+          </Select>
+        </ItemContainer>
+      )}
       <Marginer direction="vertical" margin="3em" />
       <LineSeperator />
       <Marginer direction="vertical" margin="3em" />

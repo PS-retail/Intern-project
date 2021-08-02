@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import MenuIcon from "@material-ui/icons/Menu";
 import BlockIcon from "@material-ui/icons/Block";
 
-const MeetingMenu = ({ editMenuOpen, setEditMenuOpen }) => {
+const MeetingMenu = ({ id }) => {
   const [AnchorEl, setAnchorEl] = useState(null);
+  const history = useHistory();
+  
 
   const isMenuOpen = Boolean(AnchorEl);
 
   const handleEdit = () => {
-    setEditMenuOpen();
+    history.push(`/edit/${id}`)
     setAnchorEl(null);
   };
 

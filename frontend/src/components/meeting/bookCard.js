@@ -136,7 +136,7 @@ const BookCard = () => {
     date: startDate.toString().split(" ").slice(0, 4).join("-"),
     time: startTime,
     reason: reason || "Unspecified",
-    participants: [auth.userId],
+    participants: [auth.username],
   };
 
   const useOutsideAlerter = (ref) => {
@@ -225,7 +225,7 @@ const BookCard = () => {
         <Icon>
           <FontAwesomeIcon icon={faAngleDown} />
         </Icon>
-        <Name onClick={toggleStartDateCalendar}>Reason</Name>
+        <Name>Reason</Name>
         <Marginer direction="horizontal" margin="1em" />
         <Select
           value={reason}

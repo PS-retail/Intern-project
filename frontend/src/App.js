@@ -6,6 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 
+import EditCard from "./components/meeting/editCard";
 import ProductList from "./components/products/productList";
 import ProductPage from "./components/products/productPage";
 import NavBar from "./components/navbar/navbar";
@@ -64,6 +65,9 @@ const App = () => {
           </Route>
           <Route path="/customer" exact>
             <MainCustomerPage/>
+          </Route>
+          <Route path="/edit/:id" exact>
+            <EditCard/>
           </Route>
           <Route path="/videoChat/:mId">
             <VideoChatPage/>
