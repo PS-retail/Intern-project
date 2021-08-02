@@ -107,6 +107,7 @@ const Participant = ({ participant }) => {
       <ParticipantVideo ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} muted={true} />
     </ParticipantContainer>
+
   );
 };
 

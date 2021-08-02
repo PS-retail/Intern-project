@@ -55,6 +55,6 @@ mongoose
   )
   .then(() => {
     app.listen(5000);
-    setInterval(sample, 1500);
+    //setInterval(sample, 1500);
   })
   .catch((err) => console.log(err));
