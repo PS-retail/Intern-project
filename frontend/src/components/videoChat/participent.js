@@ -1,4 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
+import styled from "styled-components";
+import tw from "twin.macro";
+
+
+const ParticipantContainer = styled.div`
+  ${tw`
+    
+    h-full
+
+    
+    relative
+    
+  `};
+`;
+
+const ParticipantName = styled.p`
+  ${tw`
+    
+    text-center
+    text-lg
+    font-semibold
+    text-black
+    
+    
+  `};
+`;
+
+const ParticipantVideo = styled.video`
+  ${tw`
+    h-full
+    
+    border-solid 
+    border-8 
+    border-black
+    rounded-lg
+    
+    
+  `};
+`;
 
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
@@ -63,11 +102,11 @@ const Participant = ({ participant }) => {
 
 
   return (
-    <div className="participant">
-      <h3>{participant.identity}</h3>
-      <video ref={videoRef} autoPlay={true} />
+    <ParticipantContainer>
+      <ParticipantName>{participant.identity}</ParticipantName>
+      <ParticipantVideo ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} muted={true} />
-    </div>
+    </ParticipantContainer>
   );
 };
 

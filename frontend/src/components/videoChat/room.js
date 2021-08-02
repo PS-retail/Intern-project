@@ -3,8 +3,72 @@ import Video from 'twilio-video';
 import Participant from './participent';
 
 
+import styled from "styled-components";
+import tw from "twin.macro";
 
 
+
+const LocalContainer= styled.div`
+  ${tw`
+    p-4
+    
+    absolute bottom-1/4 left-0
+    h-[250px]
+    
+
+  `}
+`;
+
+const RemoteContainer= styled.div`
+  ${tw`
+    
+   
+    h-[700px]
+    
+    py-8
+    absolute left-1/4
+    
+    
+    
+  `}
+`;
+
+const RoomContainer= styled.div`
+  ${tw`
+    w-screen
+    h-screen
+    flex
+    relative   
+    
+
+  `}
+`;
+
+const RoomName= styled.h3`
+  ${tw`
+    text-left
+    p-4
+
+    
+    
+
+  `}
+`;
+
+const RoomLeaveButton= styled.button`
+  ${tw`
+    absolute top-5 right-5
+    p-1
+    text-lg
+    font-semibold
+    text-black
+    border-solid
+    border-2 
+    border-black
+    
+
+  `}
+`;
 
 const Room = ({ roomName, token, handleLogout }) => {
     const [room, setRoom] = useState(null);
@@ -48,24 +112,31 @@ const Room = ({ roomName, token, handleLogout }) => {
     const remoteParticipants = participants.map(participant => (
         <Participant key={participant.sid} participant={participant} />
     ));  
-
+    
+    
+    
     return (
-    <div className="room">
-        <h2>Room: {roomName}</h2>
-        <button onClick={handleLogout}>Log out</button>
-        <div className="local-participant">
+
+      
+    <RoomContainer>
+        <RoomName>Room ID: {roomName}</RoomName>
+        <RoomLeaveButton onClick={handleLogout}>Leave room</RoomLeaveButton>
+        <RemoteContainer>
+        {remoteParticipants}
+        </RemoteContainer>
+        
+        <LocalContainer >
         {room ? (
-            <Participant
+            <Participant 
+            
             key={room.localParticipant.sid}
             participant={room.localParticipant}
             />
         ) : (
             ''
         )}
-        </div>
-        <h3>Remote Participants</h3>
-        <div className="remote-participants">{remoteParticipants}</div>
-    </div>
+        </LocalContainer>
+    </RoomContainer>
     );  
 };
 
