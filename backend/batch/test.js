@@ -18,7 +18,7 @@ const sample = async () => {
         var currentDate = new Date();
 
     
-        if(Date.parse(currentDate)>Date.parse(meetingDate)){
+        if(Date.parse(currentDate)>Date.parse(meetingDate) && meeting.status != "Completed" && meeting.status != "Cancelled"){
             meeting.status = "Active";
         }
         
