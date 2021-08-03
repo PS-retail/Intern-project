@@ -9,7 +9,14 @@ function StoryPage(props) {
     if (props.id == undefined) {
         story = storiesData[1]
     } else {
-        story = storiesData[props.id - 1]
+        for (let i = 0 ; i < storiesData.length ; i++) {
+            if (storiesData[i].id == props.id) {
+                story = storiesData[i]
+            }
+        }
+        if (story == undefined) {
+            story = storiesData[1]
+        }
     }
 
     return (
