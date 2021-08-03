@@ -9,7 +9,7 @@ function StoryPage(props) {
     if (props.id == undefined) {
         story = storiesData[1]
     } else {
-        story = storiesData[props.id]
+        story = storiesData[props.id - 1]
     }
 
     return (
@@ -19,7 +19,7 @@ function StoryPage(props) {
                 strength={100}
                 bgImageStyle={{opacity: "0.9"}}
             >
-                {/* <div style={{ height:1000}}> */}
+                {/* Title of the story on top of th parallax */}
                 <div style={{ height:1000, objectPosition:'100% 100%'}}>
                     <div className="inlineStyle">{story.name}</div>
                 </div>
