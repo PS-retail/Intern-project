@@ -3,11 +3,11 @@
     flex-wrap: wrap;
 } */
 * {
-    padding: 0;
-    margin: 0;
+    padding: 10;
+    margin: 10;
   }
 .background{
-    
+
     position: absolute;
     height: 200%;
     width: 100%;
@@ -20,3 +20,24 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+
+
+.each-slide > div {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  background-size: cover;
+  height: 500px;
+}
+
+.each-slide span {
+
+
+  padding-right:20px;
+  text-align: left;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
