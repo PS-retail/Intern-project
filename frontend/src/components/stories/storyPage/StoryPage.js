@@ -7,7 +7,7 @@ import ProductList from "../../products/productList";
 function StoryPage(props) {
     let story
     if (props.id == undefined) {
-        story = storiesData[2]
+        story = storiesData[1]
     } else {
         story = storiesData[props.id]
     }
@@ -25,7 +25,7 @@ function StoryPage(props) {
                 </div>
             </Parallax>
 
-            <div className="background">
+            <div className="background-story-page">
                 {/* Description section */}
                 <div className="description">
                     <h1 className="description-title">{story.tagline}</h1>
