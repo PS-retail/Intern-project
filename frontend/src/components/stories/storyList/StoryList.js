@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import "./storyList.css";
-import storiesData from "../storiesData.js";
+import storiesData from "../storiesData";
 import 'react-slideshow-image/dist/styles.css'
 import { Link } from "react-router-dom";
 import { Slide } from 'react-slideshow-image';
-
+import { Background, Parallax } from "react-parallax"
 const slideImages = [
   'https://www.wearable-technologies.com/wp-content/uploads/2018/10/Unity-ar-ads-1.png',
   'https://bevel.space/wp-content/uploads/2018/10/Bevel_Mobile_AR_header-crop.png',
@@ -29,6 +29,7 @@ const Container = styled.div`
     min-h-0
   `};
 `;
+
 
 
 const Slideing = styled.div`
@@ -63,17 +64,38 @@ const Textsml = styled.div`
   text-left
 `};
 `;
-function StoryList() {
+const BlackText = styled.div`
+  ${tw`
+  text-3xl
+
+
+  text-black
+
+  text-left
+
+
+`};
+`;
+const BlackTextsml = styled.div`
+  ${tw`
+  text-base
+  text-gray-500
+
+`};
+`;
+function StoryList(props) {
+      let story0
+      let story1
+      let story2
+      story0 = storiesData[0]
+      story1 = storiesData[1]
+      story2 = storiesData[2]
+
     return (
         <main>
-
-
-
         <div>
-
           <Slide easing="ease">
             <div className="each-slide">
-
               <div style={{'backgroundImage': `url(${slideImages[0]})`}}>
               <Text ><Textsml > Augmented Reality</Textsml>
                 Not sure a device would fit your aesthetic? View it in your home today</Text>
@@ -97,52 +119,60 @@ function StoryList() {
 
 
 
-
         <div class="grid grid-cols-10 grid-rows-10 ">
 
-            <div class="col-start-0 col-span-6 row-start-0 row-span-2 ">
+            <div class="col-start-0 col-span-6 row-start-0 row-span-2 imageblock">
                 <Link to={"/story1"} style = {{textDecoration: 'none'}}>
 
-                    <Container
-                          style={{
-                          backgroundImage: `url("https://scontent.fman4-2.fna.fbcdn.net/v/t31.18172-8/18237778_10154308772756607_8484243844086929707_o.jpg?_nc_cat=103&ccb=1-3&_nc_sid=973b4a&_nc_ohc=ArIitRTwEoMAX8kThDc&_nc_ht=scontent.fman4-2.fna&oh=ea0b93405c40e9be39be6ae477108ec9&oe=612FD005")`,
-                          }}
-                    >
-                        <Contents>
-                        <Text >Childcare night to day   </Text>
-                        </Contents>
-                    </Container>
-
-                  </Link>
-              </div>
-
-
-            <div class="col-start-0 col-span-10 row-start-3 row-span 5 ">
-                <Link to={"/products"} style = {{textDecoration: 'none'}}>
-                <Container
-                    style={{
-                        backgroundImage: `url("https://images.ctfassets.net/8cd2csgvqd3m/6MtLXbfhaybi4ez8T534on/5f76e80aec5f10d13d0248aa50c9a8ec/XL.jpg")`,
-                        }}
+                        <Parallax
+                            bgImage= {story0.bgImage}
                         >
-                  <Contents>
-                  <Text >Experience the ultimate cinematic experience in your home</Text>
-                  </Contents>
-                  </Container>
+                        <p>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                        </p>
+                        </Parallax>
+                        <div>
+                        <BlackTextsml >{story0.tagline}</BlackTextsml>
+                        <BlackText >{story0.name}</BlackText>
+                        <BlackTextsml >{story0.type}</BlackTextsml>
+                        </div>
                   </Link>
               </div>
 
-              <div class="col-start-0 col-span-4 row-start-0 row-span-2">
+
+            <div class="col-start-0 col-span-10 row-start-3 row-span 5 imageblock">
+                <Link to={"/products"} style = {{textDecoration: 'none'}}>
+                <Parallax
+                    bgImage= {story1.bgImage}
+                >
+                <p>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                </p>
+                </Parallax>
+                <div>
+                <BlackTextsml >{story1.tagline}</BlackTextsml>
+                <BlackText >{story1.name}</BlackText>
+                <BlackTextsml >{story1.type}</BlackTextsml>
+                </div>
+
+                  </Link>
+              </div>
+
+              <div class="col-start-0 col-span-4 row-start-0 row-span-2 imageblock ">
                   <Link to={"/products"} style = {{textDecoration: 'none'}}>
 
-                  <Container
-                  style={{
-                    backgroundImage: `url('https://www.jebiga.com/wp-content/uploads/2016/04/Bang-Olufsen-Beoplay-A1-1.jpg')`,
-                  }}
+                  <Parallax
+                      bgImage= {story2.bgImage}
                   >
-                  <Contents>
-                  <Text>Party in your home  </Text>
-                  </Contents>
-                  </Container>
+                  <p>
+                  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                  </p>
+                  </Parallax>
+                  <div>
+                  <BlackTextsml >{story2.tagline}</BlackTextsml>
+                  <BlackText >{story2.name}</BlackText>
+                  <BlackTextsml >{story2.type}</BlackTextsml>
+                  </div>
                   </Link>
             </div>
 
