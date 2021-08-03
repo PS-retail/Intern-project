@@ -7,6 +7,14 @@ import 'react-slideshow-image/dist/styles.css'
 import { Link } from "react-router-dom";
 import { Slide } from 'react-slideshow-image';
 import { Background, Parallax } from "react-parallax"
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import FormControl from "react-bootstrap/FormControl";
+import NavDropdown from "react-bootstrap/NavDropdown";
 const slideImages = [
   'https://www.wearable-technologies.com/wp-content/uploads/2018/10/Unity-ar-ads-1.png',
   'https://bevel.space/wp-content/uploads/2018/10/Bevel_Mobile_AR_header-crop.png',
@@ -56,6 +64,19 @@ const Text = styled.div`
 
 `};
 `;
+
+const HeadText = styled.div`
+  ${tw`
+  text-3xl
+
+  m-10
+  text-left
+
+
+`};
+`;
+
+
 const Textsml = styled.div`
   ${tw`
   text-base
@@ -83,6 +104,9 @@ const BlackTextsml = styled.div`
 
 `};
 `;
+
+
+
 function StoryList() {
       let story0
       let story1
@@ -92,7 +116,10 @@ function StoryList() {
       story2 = storiesData[2]
 
     return (
-        <main>
+        <main><HeadText><BlackText >
+        Stories</BlackText >
+<BlackTextsml>
+<br />Get inspired by our collection of narratives </BlackTextsml ></HeadText>
         <div>
           <Slide easing="ease">
             <div className="each-slide">
@@ -117,11 +144,30 @@ function StoryList() {
 
         </div>
 
+        <br />
 
+<div class = "border-solid border-gray-100 ">
+        <Navbar variant="light" >
+          <Nav  >
+          <div class = "hover:underline " >
+          <Nav.Link href="#home" >  &nbsp;All&nbsp;</Nav.Link>
+          </div>
+          <div class = "hover:underline " >
+          <Nav.Link href="#home" >{story0.name}</Nav.Link>
+          </div>
+          <div class = "hover:underline " >
+          <Nav.Link  href="#features">{story1.name}</Nav.Link>
+          </div>
+          <div class = "hover:underline " >
+          <Nav.Link href="#pricing">{story2.name}</Nav.Link>
+          </div>
+          </Nav>
+        </Navbar>
 
+</div>
         <div class="grid grid-cols-10 grid-rows-10 ">
 
-            <div class="col-start-0 col-span-6 row-start-0 row-span-2 imageblock">
+            <div class="col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100">
                 <Link to={"/story1" } params= {1} style = {{textDecoration: 'none'}}>
 
                         <Parallax
@@ -140,7 +186,7 @@ function StoryList() {
               </div>
 
 
-            <div class="col-start-0 col-span-10 row-start-3 row-span 5 imageblock">
+            <div class="col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100">
                 <Link to={"/products"} style = {{textDecoration: 'none'}}>
                 <Parallax
                     bgImage= {story1.bgImage}
@@ -158,7 +204,7 @@ function StoryList() {
                   </Link>
               </div>
 
-              <div class="col-start-0 col-span-4 row-start-0 row-span-2 imageblock ">
+              <div class="col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100 ">
                   <Link to={"/products"} style = {{textDecoration: 'none'}}>
 
                   <Parallax
