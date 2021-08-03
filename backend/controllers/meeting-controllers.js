@@ -150,6 +150,37 @@ const cancelMeeting = async (req, res, next) => {
   res.status(200).json({ meeting: meeting.toObject({getters: true}) });
 };
 
+const addUserToMeeting = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    throw new HttpError('Invalid inputs passed, please check your data.', 422);
+  }
+
+  const { participants } = req.body;
+  const meetingId = req.params.mid;
+
+  let meeting;
+
+  try {
+    meeting = await Meeting.findById(meetingId)
+  } catch (err) {
+    const error = new HttpError('Updating Place failed', 500);
+    return next(error);
+  }
+  
+  meeting.participants = meeting.participants.concat(participants);
+
+
+  try {
+    await meeting.save();
+  } catch (err) {
+    const error = new HttpError('Could not update place', 500);
+    return next(error);
+  }
+
+  res.status(200).json({ meeting: meeting.toObject({getters: true}) });
+};
+
 const getMeetingsByCreator =  async (req, res, next) => {
 
   const creator = req.params.creator;
@@ -175,3 +206,4 @@ exports.createMeeting = createMeeting;
 exports.updateMeeting = updateMeeting;
 exports.cancelMeeting = cancelMeeting;
 exports.getMeetingsByCreator = getMeetingsByCreator;
+exports.addUserToMeeting = addUserToMeeting;
