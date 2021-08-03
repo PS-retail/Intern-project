@@ -1,45 +1,50 @@
 import React from "react";
 import { Background, Parallax } from "react-parallax"
 import "./StoryPage.css"
-// import Button from "../../general/button";
+import storiesData from "../storiesData";
+import ProductList from "../../products/productList";
 
-const goodImage = "https://source.unsplash.com/9vDdkxSCAD4/1920x1280"
+function StoryPage(props) {
+    let story
+    if (props.id == undefined) {
+        story = storiesData[2]
+    } else {
+        story = storiesData[props.id]
+    }
 
-function StoryPage() {
     return (
-        <div style= {{ textAlign: 'center' }}>
+        <div>
             <Parallax 
-                bgImage= { goodImage } 
+                bgImage= {story.bgImage} 
                 strength={100}
-                // bgImageSizes={{height:"1500"}}
                 bgImageStyle={{opacity: "0.9"}}
             >
                 {/* <div style={{ height:1000}}> */}
                 <div style={{ height:1000, objectPosition:'100% 100%'}}>
-                    <div className="inlineStyle">Party in AR</div>
+                    <div className="inlineStyle">{story.name}</div>
                 </div>
             </Parallax>
 
-            {/* Description section */}
             <div className="background">
+                {/* Description section */}
                 <div className="description">
-                    <h1 className="description-title">Party</h1>
-                    <p className="paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-            </div>
+                    <h1 className="description-title">{story.tagline}</h1>
+                    <p className="paragraph">{story.description}</p>
+                </div>
 
-                {/* Experience it in AR section */}
-                <div>
+                {/* "Experience it in AR" section */}
+                <div style={{textAlign: 'center'}}>
                     <hr className="horizontal-line"></hr>
                     <h1 className="experience">Experience it in AR</h1>
-                    <button className="button">START HERE</button>
+                    <a href={story.link} target="_blank" className="button">START HERE</a>
                     <hr className="horizontal-line"></hr>
                 </div>
 
-                {/* Featured Product section */}
+                {/* "Featured Product" section */}
                 <div>
                     <h1 className="featured-products">Featured Products</h1>
+                    <ProductList productsId={story.productsIncluded}></ProductList>
                 </div>
-
             </div>
         </div>
     )
