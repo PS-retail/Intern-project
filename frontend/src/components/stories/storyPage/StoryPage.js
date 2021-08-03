@@ -7,9 +7,16 @@ import ProductList from "../../products/productList";
 function StoryPage(props) {
     let story
     if (props.id == undefined) {
-        story = storiesData[2]
+        story = storiesData[1]
     } else {
-        story = storiesData[props.id]
+        for (let i = 0 ; i < storiesData.length ; i++) {
+            if (storiesData[i].id == props.id) {
+                story = storiesData[i]
+            }
+        }
+        if (story == undefined) {
+            story = storiesData[1]
+        }
     }
 
     return (
@@ -19,13 +26,13 @@ function StoryPage(props) {
                 strength={100}
                 bgImageStyle={{opacity: "0.9"}}
             >
-                {/* <div style={{ height:1000}}> */}
+                {/* Title of the story on top of th parallax */}
                 <div style={{ height:1000, objectPosition:'100% 100%'}}>
                     <div className="inlineStyle">{story.name}</div>
                 </div>
             </Parallax>
 
-            <div className="background">
+            <div className="background-story-page">
                 {/* Description section */}
                 <div className="description">
                     <h1 className="description-title">{story.tagline}</h1>
