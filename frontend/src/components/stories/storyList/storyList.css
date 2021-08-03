@@ -39,5 +39,4 @@
   text-align: left;
 }
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
