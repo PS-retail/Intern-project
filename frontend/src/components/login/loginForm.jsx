@@ -13,7 +13,9 @@ import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../general/http-hook";
 import Logo from "../../assets/bang-and-olufsen.png";
 import LoginField from "./loginField";
+import Checkbox from "@material-ui/core/Checkbox";
 import { AuthContext } from "../general/auth-context";
+import { FormControlLabel } from "@material-ui/core";
 
 const Copyright = () => {
   return (
@@ -67,6 +69,7 @@ const LoginForm = () => {
   const classes = useStyles();
   const methods = useForm();
 
+  const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
   const [loginMode, setLoginMode] = useState(true);
   const prevMode = useRef();
@@ -94,7 +97,6 @@ const LoginForm = () => {
   const submitHandler = methods.handleSubmit(async (data) => {
     await until(() => prevMode.current === loginMode);
 
-
     if (loginMode) {
       const authObject = {
         "Project-ID": projectID,
@@ -112,6 +114,20 @@ const LoginForm = () => {
       } catch (err) {
         setError("Invalid credentials! Please try again.");
       }
+      try {
+        const responseData = await sendRequest({
+          url: "https://api.chatengine.io/users/",
+          method: "put",
+          headers: {"PRIVATE-KEY": "e517b4dd-8f14-4a54-b8ad-df456cbc8b50"},
+          data: {
+            username: data.username,
+            secret: data.password
+          }
+        });
+        console.log(responseData)
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       const body = {
         username: data.username,
@@ -119,9 +135,10 @@ const LoginForm = () => {
         email: data.email,
         first_name: data.firstName,
         last_name: data.lastName,
+        custom_json: { admin: checked },
       };
       try {
-       await sendRequest({
+        await sendRequest({
           url: "https://api.chatengine.io/users/",
           method: "post",
           data: body,
@@ -132,8 +149,16 @@ const LoginForm = () => {
           "User-Name": data.username,
           "User-Secret": data.password,
         };
-        const chat = { "usernames": ["retailps"] , "title" : `Customer Service for ${data.username}`};
-        await sendRequest({url: 'https://api.chatengine.io/chats/', method: 'put', data: chat, headers: authObject});
+        const chat = {
+          usernames: ["retailps"],
+          title: `Customer Service for ${data.username}`,
+        };
+        await sendRequest({
+          url: "https://api.chatengine.io/chats/",
+          method: "put",
+          data: chat,
+          headers: authObject,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -181,6 +206,21 @@ const LoginForm = () => {
                 label={"password"}
                 type="password"
               />
+              {!loginMode && (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked}
+                      onChange={(event) => setChecked(event.target.checked)}
+                      name="admin"
+                      type="checkbox"
+                      id="admin"
+                      style = {{color: 'black'}}
+                    />
+                  }
+                  label = {'Admin Rights'}
+                />
+              )}
               <Button
                 type="submit"
                 fullWidth

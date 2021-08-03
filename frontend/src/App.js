@@ -11,7 +11,7 @@ import ProductList from "./components/products/productList";
 import ProductPage from "./components/products/productPage";
 import NavBar from "./components/navbar/navbar";
 import Chat from "./components/chat/chat";
-import LoginForm from "./components/chat/loginForm";
+import LoginForm from "./components/login/loginForm";
 import { AuthContext } from "./components/general/auth-context";
 import MeetingPage from "./components/meeting/meetingPage";
 import MainPage from "./components/mainPage/mainPage";
