@@ -83,7 +83,7 @@ const BlackTextsml = styled.div`
 
 `};
 `;
-function StoryList(props) {
+function StoryList() {
       let story0
       let story1
       let story2
@@ -122,7 +122,7 @@ function StoryList(props) {
         <div class="grid grid-cols-10 grid-rows-10 ">
 
             <div class="col-start-0 col-span-6 row-start-0 row-span-2 imageblock">
-                <Link to={"/story1"} style = {{textDecoration: 'none'}}>
+                <Link to={"/story1" } params= {1} style = {{textDecoration: 'none'}}>
 
                         <Parallax
                             bgImage= {story0.bgImage}
