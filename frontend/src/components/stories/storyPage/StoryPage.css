@@ -1,3 +1,4 @@
+
 .imageStyle
 {
     height: 1000;
@@ -8,8 +9,8 @@
 
 .inlineStyle 
 {
-    /* background: #fff; */
     font-size: 125px;
+    text-align: center;
     color: #fff;
     left: 50%;
     top: 50%;
@@ -31,7 +32,6 @@
 .description-title
 {
     font-size: 100px;
-    text-transform: uppercase;
     padding-top: 50px;
 }
 .paragraph
@@ -43,7 +43,6 @@
 {
     color: #fff;
     font-size: 100px;
-    padding-top: 50px;
     padding-bottom: 30px;
 }
 .featured-products
@@ -52,8 +51,8 @@
     font-size: 40px;
     text-transform: uppercase;
     padding-top: 150px;
+    text-align: center;
 }
-
 .horizontal-line
 {
     color: white; 
@@ -61,6 +60,7 @@
     margin-right: 150px; 
     border: 1.5px solid #fff;
     border-radius: 10px 10px 10px 10px;
+    margin-top: 50px;
 }
 
 .button {
@@ -70,7 +70,8 @@
     font-size: 30px;
     letter-spacing: 6px;
     border-radius: 25px 25px 25px 25px;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
+    text-decoration: none;
   }
   
   .button:hover {

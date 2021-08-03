@@ -143,19 +143,52 @@ const products = [
 // };
 
 // ALEX
+function getProductById(id) {
+  console.log("getProductById called")
+  for (let i = 0 ; i < products.length ; i++) {
+    if (id == products[i].id) {
+      return products[i]
+    }
+  }
+  // console.log(product)
+  // return product
+}
+
 function ProductList (props) {
+  // Delete once the "All products" page has been removed"
+  if (props.productsId == undefined) {
+    console.log("here")
+    const productsPageList = products.map(item => 
+      <Product 
+        key={item.id}
+        product={item} />
+    )
+    return (
+      <div className="container" >
+        {productsPageList}
+      </div>
+    )
+
+  } else {
+    const productsList = props.productsId.map(id => {
+      return getProductById(id)
+    })
+
+    const productsPageList = productsList.map(item => 
+      <Product 
+        key={item.id}
+        product={item} />
+    )
+    
+    return (
+      <div className="container" >
+        {productsPageList}
+      </div>
+    )
+  }
   
-  const productsPageList = products.map(item => 
-    <Product 
-      key={item.id}
-      product={item} />
-  )
+
   
-  return (
-    <div className="container" >
-      {productsPageList}
-    </div>
-  )
 }
 
 

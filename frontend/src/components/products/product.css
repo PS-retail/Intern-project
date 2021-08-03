@@ -3,8 +3,9 @@
 .container {
     display: flex;
     flex-wrap: wrap;
-    /* margin: 0 -10px; */
-    /* margin: 0 10px; */
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
   }
   
 .container li {
@@ -16,7 +17,6 @@
     position: relative;
     width: 320px;
     height: 420px;
-    /* background: #122936; */
     background: #c8c3b9;
     border-radius: 20px;
     overflow: hidden;
@@ -73,7 +73,6 @@
 .card .contentBx
 {
     position: relative;
-    /* padding: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,6 +94,7 @@
     color: #fff;
     font-weight: 500;
     text-transform: uppercase;
+    text-align: center;
     letter-spacing: 1px;
 }
 .card .contentBx .buy
@@ -118,8 +118,3 @@
     top: 0;
     opacity: 1;
 }
-/* @media (max-width: 500px) {
-    .container {
-        grid-template-columns: repeat(1, 1fr);
-    }
-} */
