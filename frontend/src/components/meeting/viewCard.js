@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { v4 as uuidv4 } from "uuid";
 
-import { useHttpClient } from "../general/http-hook"
+import { AuthContext } from "../general/auth-context";
+import { useHttpClient } from "../general/http-hook";
 import Marginer from "../general/marginer";
 import MeetingMenu from "./meetingMenu";
 import Button from "../general/button";
-
 
 const CardContainer = styled.div`
   display: flex;
@@ -90,27 +90,34 @@ items-center
 
 const ViewCard = () => {
   const { sendRequest } = useHttpClient();
-  const [editMenuOpen, setEditMenuOpen] = useState(false);
   const [date, setDate] = useState(new Date());
-  const editRef = useRef();
   const [bookings, setBookings] = useState();
+  const auth = useContext(AuthContext);
 
   const currentTime = date.getHours() + ":" + date.getMinutes();
 
-
   useEffect(() => {
     const fetchBookings = async () => {
-      try {
-        const responseData = await sendRequest({
-          url: "http://localhost:5000/api/meetings/creator/retailps",
-          headers: null,
-        });
-        setBookings(responseData.meetings);
-      } catch (err) {}
+      if (auth.isAdmin) {
+        try {
+          const responseData = await sendRequest({
+            url: "http://localhost:5000/api/meetings/creator/retailps",
+            headers: null,
+          });
+          setBookings(responseData.meetings);
+        } catch (err) {}
+      } else {
+        try {
+          const responseData = await sendRequest({
+            url: "http://localhost:5000/api/meetings/",
+            headers: null,
+          });
+          setBookings(responseData.meetings);
+        } catch (err) {}
+      }
     };
     fetchBookings();
-  }, [sendRequest]);
-
+  }, [sendRequest, auth.isAdmin]);
 
   useEffect(() => {
     if (bookings) {
@@ -123,112 +130,84 @@ const ViewCard = () => {
       });
     }
   }, [currentTime, bookings]);
-
-  const useOutsideAlerter = (ref) => {
-    useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          // if (isStartCalendarOpen) {
-          //     setStartCalendarOpen(false);
-          // }
-          setEditMenuOpen(false);
-        }
-      }
-
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  };
-
-  useOutsideAlerter(editRef);
-
   return (
     <CardContainer>
-      <div ref={editRef}>
-      <Slogan>Pending Bookings</Slogan>
-      <Marginer direction="vertical" margin="3em" />
-      {bookings && (
-        <ul style={{ listStyleType: "none" }}>
-          {/* Time Picker */}
-          {bookings.map((booking) => {
-            if (booking.status === "Booked" || booking.status === "Active") {
-              return (
-                <li key={uuidv4()}>
-                  <ItemContainer>
-                    <Details>{booking.date}</Details>
-                    <Marginer direction="horizontal" margin="1em" />
-                    <VerticalSeperator />
-                    <Details>{booking.time}</Details>
-                    <Marginer direction="horizontal" margin="1em" />
-                    <VerticalSeperator />
-                    <Details>{booking.status}</Details>
-                    <Marginer direction="horizontal" margin="1em" />
-                    <VerticalSeperator />
-                    <Details>{booking.reason}</Details>
-                    <Marginer direction="horizontal" margin="1em" />
-                    <Button
-                      text={
-                        booking.status === "Active"
-                          ? "Join Meeting"
-                          : "Not Available"
-                      }
-                      to={`/videochat/${booking.id}`}
-                      size={"small"}
-                      disabled={booking.status !== "Active"}
-                    />
-                    <Marginer direction="horizontal" margin="3em" />
-                    <MeetingMenu
-                      id = {booking.id}
-                    />
-                  </ItemContainer>
-                  <LineSeperator />
-                </li>
-              );
-            }
-          })}
-        </ul>
-      )}
+      <div>
+        <Slogan>Pending Bookings</Slogan>
+        <Marginer direction="vertical" margin="3em" />
+        {bookings && (
+          <ul style={{ listStyleType: "none" }}>
+            {/* Time Picker */}
+            {bookings.map((booking) => {
+              if (booking.status === "Booked" || booking.status === "Active") {
+                return (
+                  <li key={uuidv4()}>
+                    <ItemContainer>
+                      <Details>{booking.date}</Details>
+                      <Marginer direction="horizontal" margin="1em" />
+                      <VerticalSeperator />
+                      <Details>{booking.time}</Details>
+                      <Marginer direction="horizontal" margin="1em" />
+                      <VerticalSeperator />
+                      <Details>{booking.status}</Details>
+                      <Marginer direction="horizontal" margin="1em" />
+                      <VerticalSeperator />
+                      <Details>{booking.reason}</Details>
+                      <Marginer direction="horizontal" margin="1em" />
+                      <Button
+                        text={
+                          booking.status === "Active"
+                            ? "Join Meeting"
+                            : "Not Available"
+                        }
+                        to={`/videochat/${booking.id}`}
+                        size={"small"}
+                        disabled={booking.status !== "Active"}
+                      />
+                      <Marginer direction="horizontal" margin="3em" />
+                      <MeetingMenu id={booking.id} />
+                    </ItemContainer>
+                    <LineSeperator />
+                  </li>
+                );
+              }
+            })}
+          </ul>
+        )}
 
-      <Marginer direction="vertical" margin="3em" />
-      <LineSeperator />
-      <Marginer direction="vertical" margin="3em" />
+        <Marginer direction="vertical" margin="3em" />
+        <LineSeperator />
+        <Marginer direction="vertical" margin="3em" />
 
-      <Slogan>Past Bookings</Slogan>
-      <Marginer direction="vertical" margin="3em" />
-      {bookings && (
-        <ul style={{ listStyleType: "none" }}>
-          {/* Time Picker */}
-          {bookings.map((booking) => {
-            if (
-              booking.status === "Completed" ||
-              booking.status === "Cancelled"
-            ) {
-              return (
-                <li key={uuidv4()}>
-                  <ItemContainer>
-                    <Details>{booking.date}</Details>
-                    <Marginer direction="horizontal" margin="1em" />
-                    <VerticalSeperator />
-                    <Details>{booking.time}</Details>
-                    <Marginer direction="horizontal" margin="1em" />
-                    <VerticalSeperator />
-                    <Details>{booking.status}</Details>
-                    <Marginer direction="horizontal" margin="1em" />
-                  </ItemContainer>
-                  <LineSeperator />
-                </li>
-              );
-            }
-          })}
-        </ul>
-      )}
+        <Slogan>Past Bookings</Slogan>
+        <Marginer direction="vertical" margin="3em" />
+        {bookings && (
+          <ul style={{ listStyleType: "none" }}>
+            {/* Time Picker */}
+            {bookings.map((booking) => {
+              if (
+                booking.status === "Completed" ||
+                booking.status === "Cancelled"
+              ) {
+                return (
+                  <li key={uuidv4()}>
+                    <ItemContainer>
+                      <Details>{booking.date}</Details>
+                      <Marginer direction="horizontal" margin="1em" />
+                      <VerticalSeperator />
+                      <Details>{booking.time}</Details>
+                      <Marginer direction="horizontal" margin="1em" />
+                      <VerticalSeperator />
+                      <Details>{booking.status}</Details>
+                      <Marginer direction="horizontal" margin="1em" />
+                    </ItemContainer>
+                    <LineSeperator />
+                  </li>
+                );
+              }
+            })}
+          </ul>
+        )}
       </div>
     </CardContainer>
   );

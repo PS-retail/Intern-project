@@ -110,7 +110,6 @@ const LoginForm = () => {
           method: "get",
           headers: authObject,
         });
-        auth.login(data.username, data.password);
       } catch (err) {
         setError("Invalid credentials! Please try again.");
       }
@@ -124,7 +123,7 @@ const LoginForm = () => {
             secret: data.password
           }
         });
-        console.log(responseData)
+        auth.login(data.username, data.password, responseData.custom_json.admin);
       } catch (err) {
         console.log(err);
       }

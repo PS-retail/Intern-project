@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const Meeting = require("../models/meeting");
+const subsetList = require("../middleware/subset-list");
 
 const getMeetings = async (req, res, next) => {
   let meetings;
@@ -108,7 +109,8 @@ const updateMeeting = async (req, res, next) => {
   meeting.status = status;
   
   if (participants.length !== 0) {
-    meeting.participants = meeting.participants.concat(participants);
+    newParticipants = subsetList(meeting.participants, participants)
+    meeting.participants = meeting.participants.concat(newParticipants);
   }
 
   try {
@@ -167,8 +169,10 @@ const addUserToMeeting = async (req, res, next) => {
     const error = new HttpError('Updating Place failed', 500);
     return next(error);
   }
+
+  newParticipants = subsetList(meeting.participants, participants)
   
-  meeting.participants = meeting.participants.concat(participants);
+  meeting.participants = meeting.participants.concat(newParticipants);
 
 
   try {
