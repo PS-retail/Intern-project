@@ -214,7 +214,9 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
                         <br />
                         <BlackTextsml >{story0.tagline}</BlackTextsml>
                         <BlackText >{story0.name}</BlackText>
-                        <BlackTextsml >{story0.type}</BlackTextsml>
+                        <BlackTextsml >    <div class=" border-solid border-gray-100 w-20 text-center">
+                            {story0.type}
+                             </div></BlackTextsml>
                         </div>
                   </Link>
               </div>
@@ -233,8 +235,17 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
                 <br />
                 <BlackTextsml >{story1.tagline}</BlackTextsml>
                 <BlackText >{story1.name}</BlackText>
-                <BlackTextsml >{story1.type}</BlackTextsml>
+
+
+
+
+                <BlackTextsml >
+                <div class=" border-solid border-gray-100 w-20 text-center">
+                {story1.type}
+                 </div>
+                 </BlackTextsml>
                 </div>
+
 
                   </Link>
               </div>
@@ -253,7 +264,9 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
                   <br />
                   <BlackTextsml >{story2.tagline}</BlackTextsml>
                   <BlackText >{story2.name}</BlackText>
-                  <BlackTextsml >{story2.type}</BlackTextsml>
+                  <BlackTextsml >    <div class=" border-solid border-gray-100 w-20 text-center">
+                      {story2.type}
+                       </div></BlackTextsml>
                   </div>
                   </Link>
             </div>
