@@ -201,8 +201,12 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
           <div class="grid grid-cols-10 grid-rows-10 ">
 
             <div class="col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100">
-                <Link to={"/story1" } params= {1} style = {{textDecoration: 'none'}}>
-
+                <Link style={{textDecoration: 'none' }} to= {{
+                  pathname: "/story1",
+                  state: {
+                    id: story0.id,
+                  },
+                }}>
                         <Parallax
                             bgImage= {story0.bgImage}
                         >
@@ -223,7 +227,12 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
 
 
             <div class="col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100">
-                <Link to={"/products"} style = {{textDecoration: 'none'}}>
+            <Link style={{textDecoration: 'none' }} to= {{
+                  pathname: "/story1",
+                  state: {
+                    id: story1.id,
+                  },
+                }}>
                 <Parallax
                     bgImage= {story1.bgImage}
                 >
@@ -251,7 +260,12 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
               </div>
 
               <div class="col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100 ">
-                  <Link to={"/products"} style = {{textDecoration: 'none'}}>
+              <Link style={{textDecoration: 'none' }} to= {{
+                  pathname: "/story1",
+                  state: {
+                    id: story2.id,
+                  },
+                }}>
 
                   <Parallax
                       bgImage= {story2.bgImage}
