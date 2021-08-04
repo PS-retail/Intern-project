@@ -3,14 +3,20 @@ import { Background, Parallax } from "react-parallax"
 import "./StoryPage.css"
 import storiesData from "../storiesData";
 import ProductList from "../../products/productList";
+import { useLocation } from "react-router-dom";
 
 function StoryPage(props) {
+
+    // Use to gather props from Link in StoryList page
+    const location = useLocation()  
+    const storyId  = location.state.id
+
     let story
-    if (props.id == undefined) {
+    if (storyId == undefined) {
         story = storiesData[1]
     } else {
         for (let i = 0 ; i < storiesData.length ; i++) {
-            if (storiesData[i].id == props.id) {
+            if (storiesData[i].id == storyId) {
                 story = storiesData[i]
             }
         }
