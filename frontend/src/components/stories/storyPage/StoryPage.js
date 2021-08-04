@@ -26,7 +26,7 @@ function StoryPage(props) {
                 strength={100}
                 bgImageStyle={{opacity: "0.9"}}
             >
-                {/* Title of the story on top of th parallax */}
+                {/* Title of the story on top of the parallax */}
                 <div style={{ height:1000, objectPosition:'100% 100%'}}>
                     <div className="inlineStyle">{story.name}</div>
                 </div>
