@@ -24,7 +24,13 @@ const slideImages = [
   //'https://d3boo0lmrw6bqz.cloudfront.net/img/iws/iws_header.jpg'
 ];
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
 
+    &:focus, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
+`;
 
 const Container = styled.div`
   ${tw`
@@ -75,6 +81,17 @@ const HeadText = styled.div`
 
 `};
 `;
+
+
+const Menu = styled.div`
+  ${tw`
+hover:underline
+  text-center
+text-gray-100
+
+`};
+`;
+
 
 
 const Textsml = styled.div`
@@ -146,26 +163,30 @@ function StoryList() {
 
         <br />
 
-<div class = "border-solid border-gray-100 ">
-        <Navbar variant="light" >
-          <Nav  >
-          <div class = "hover:underline " >
-          <Nav.Link href="#home" >  &nbsp;All&nbsp;</Nav.Link>
-          </div>
-          <div class = "hover:underline " >
-          <Nav.Link href="#home" >{story0.name}</Nav.Link>
-          </div>
-          <div class = "hover:underline " >
-          <Nav.Link  href="#features">{story1.name}</Nav.Link>
-          </div>
-          <div class = "hover:underline " >
-          <Nav.Link href="#pricing">{story2.name}</Nav.Link>
-          </div>
-          </Nav>
-        </Navbar>
 
+
+<div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 " >
+
+  <div class=" flex-1 text-gray-200  hover:underline text-gray-200 ">
+  <Nav.Link href="#home"  > All</Nav.Link>
+  </div>
+  <div class="contents">
+    <div class="flex-1 hover:underline flex-1" >
+    <Nav.Link href="#home" >{story0.name}</Nav.Link></div>
+    <div class="flex-1 hover:underline flex-1" >
+    <Nav.Link  href="#features">{story1.name}</Nav.Link>
+    </div>
+  </div>
+  <div class="flex-1 hover:underline flex-1" >
+  <Nav.Link href="#pricing">{story2.name}</Nav.Link>
+  </div>
 </div>
-        <div class="grid grid-cols-10 grid-rows-10 ">
+
+
+
+
+
+          <div class="grid grid-cols-10 grid-rows-10 ">
 
             <div class="col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100">
                 <Link to={"/story1" } params= {1} style = {{textDecoration: 'none'}}>
