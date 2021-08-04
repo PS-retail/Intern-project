@@ -63,8 +63,10 @@ const Text = styled.div`
   p-10
   m-10
   text-white
+  font-thin
   w-1/3
   text-left
+  tracking-wider
 
 
 `};
@@ -73,8 +75,9 @@ const Text = styled.div`
 const HeadText = styled.div`
   ${tw`
   text-3xl
-
-  m-10
+tracking-wider
+font-thin
+  ml-60
   text-left
 
 
@@ -85,6 +88,8 @@ const HeadText = styled.div`
 const Menu = styled.div`
   ${tw`
 hover:underline
+tracking-widest
+font-thin
   text-center
 text-gray-100
 
@@ -95,17 +100,20 @@ text-gray-100
 
 const Textsml = styled.div`
   ${tw`
-  text-base
+    text-xs
+    font-mono
+    font-thin
+    tracking-widest
 
-  text-white
-  text-left
+    m-1
+    text-white
 `};
 `;
 const BlackText = styled.div`
   ${tw`
   text-3xl
-
-
+tracking-wider
+font-thin
   text-black
 
   text-left
@@ -115,7 +123,12 @@ const BlackText = styled.div`
 `;
 const BlackTextsml = styled.div`
   ${tw`
-  text-base
+  text-xs
+  font-mono
+  font-thin
+  tracking-widest
+  uppercase
+  m-1
   text-gray-500
 
 `};
@@ -132,11 +145,11 @@ function StoryList() {
       story2 = storiesData[2]
 
     return (
-        <main><HeadText><BlackText >
-        Stories</BlackText >
-<BlackTextsml>
-<br />Get inspired by our collection of narratives </BlackTextsml ></HeadText>
-        <div>
+        <main ><HeadText ><BlackText>
+        <p style={{ letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p></BlackText >
+<br /><BlackTextsml  >
+Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadText>
+        <div style={{fontFamily:'Arial', letterSpacing:'2px'}}>
           <Slide easing="ease">
             <div className="each-slide">
               <div style={{'backgroundImage': `url(${slideImages[0]})`}}>
@@ -164,20 +177,20 @@ function StoryList() {
 
 
 
-<div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 " >
+<div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
 
-  <div class=" flex-1 text-gray-200  hover:underline text-gray-200 ">
-  <Nav.Link href="#home"  > All</Nav.Link>
+  <div class="text-gray-200 flex-1 text-gray-200  hover:underline  ">
+  <Nav.Link href="#home" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Nav.Link>
   </div>
   <div class="contents">
     <div class="flex-1 hover:underline flex-1" >
-    <Nav.Link href="#home" >{story0.name}</Nav.Link></div>
+    <Nav.Link href="#home" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{story0.name}</Nav.Link></div>
     <div class="flex-1 hover:underline flex-1" >
-    <Nav.Link  href="#features">{story1.name}</Nav.Link>
+    <Nav.Link  href="#features" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{story1.name}</Nav.Link>
     </div>
   </div>
   <div class="flex-1 hover:underline flex-1" >
-  <Nav.Link href="#pricing">{story2.name}</Nav.Link>
+  <Nav.Link href="#pricing" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{story2.name}</Nav.Link>
   </div>
 </div>
 
@@ -198,6 +211,7 @@ function StoryList() {
                         </p>
                         </Parallax>
                         <div>
+                        <br />
                         <BlackTextsml >{story0.tagline}</BlackTextsml>
                         <BlackText >{story0.name}</BlackText>
                         <BlackTextsml >{story0.type}</BlackTextsml>
@@ -216,6 +230,7 @@ function StoryList() {
                 </p>
                 </Parallax>
                 <div>
+                <br />
                 <BlackTextsml >{story1.tagline}</BlackTextsml>
                 <BlackText >{story1.name}</BlackText>
                 <BlackTextsml >{story1.type}</BlackTextsml>
@@ -235,6 +250,7 @@ function StoryList() {
                   </p>
                   </Parallax>
                   <div>
+                  <br />
                   <BlackTextsml >{story2.tagline}</BlackTextsml>
                   <BlackText >{story2.name}</BlackText>
                   <BlackTextsml >{story2.type}</BlackTextsml>
