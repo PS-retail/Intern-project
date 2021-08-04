@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { Slide } from 'react-slideshow-image';
 import { Background, Parallax } from "react-parallax"
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
