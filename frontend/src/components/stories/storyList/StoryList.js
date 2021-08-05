@@ -96,11 +96,11 @@ function StoryList() {
 
         {/* navbar section */}  {/* navs have been automated */}
         <div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
-          <div class=" flex-1 m-auto">
+          <div class="m-auto">
             <Nav.Link style = {{textDecoration: 'underline', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Nav.Link>
           </div>
           {storycolstart.map((storycolstart, index) => (
-            <div class="flex-1 hover:underline flex-1 m-auto" >
+            <div class="hover:underline m-auto" >
               <Link to= {{ pathname: "/story1",state: {id: storiesData[index].id,},}}
                 style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[index].name}</Link>
             </div>
@@ -121,7 +121,7 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[index].tagline}</BlackTextsml>
                     <BlackText >{storiesData[index].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-24 text-center m-3">
+                    <div class=" border-solid border-gray-100 w-24 text-center">
                       <BlackTextsml >{storiesData[index].type}</BlackTextsml>
                     </div>
                   </div>
