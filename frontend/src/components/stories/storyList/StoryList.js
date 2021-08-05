@@ -66,11 +66,11 @@ function StoryList() {
         <main >
 
             <BlackText >
-              <p style={{ marginLeft:'200px',letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p>
+              <p style={{ marginLeft:'100px',letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p>
             </BlackText>
             <br />
             <BlackTextsml>
-              <p style = {{marginLeft:'200px'}}>Get inspired by our collection of narratives</p>
+              <p style = {{marginLeft:'100px'}}>Get inspired by our collection of narratives</p>
               <br />
             </BlackTextsml >
             <br />
