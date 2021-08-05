@@ -19,7 +19,17 @@ const slideImages = [
   'https://images.ctfassets.net/8cd2csgvqd3m/3EL23prP6eVLesg8FxrGv6/4f8dfc2c714d2717b33c0f9bb8f6192a/connected_speakers_family.jpg',
   'https://www.scandinaviandesign.com/wp-content/uploads/2020/12/LS_A1_2ndGen_GreyMist_Moment_13-scaled-1.jpg',
 ];
+const slidePositions=[
+  '0% 50%',
+  '0% 60%',
+  '10% 80%',
+]
 
+const slideText=[
+  'Not sure a device would fit your aesthetic? View it in your home today',
+  'Many designs and colours to choose from',
+  'For all the family members and occasions you could image',
+]
 const StyledLink = styled(Link)`
     text-decoration: none;
 
@@ -146,42 +156,20 @@ function StoryList() {
             <br />
           </HeadText>
 
-        {/* Slideshow section */}
+        {/* Slideshow section */}  {/* Slides have been automated */}
         <div style={{fontFamily:'Arial', letterSpacing:'2px'}}>
           <Slide easing="ease">
-
-            {/* First slide */}
-            <div className="each-slide">
-              <div style={{'backgroundImage': `url(${slideImages[0]})`, backgroundPosition: '0% 50%'}}>
-                <Text>
-                  <Textsml>Augmented Reality</Textsml>
-                  Not sure a device would fit your aesthetic? View it in your home today
-                </Text>
+            {slideImages.map((slideImage, index) => (
+              <div className="each-slide">
+                <div style={{'backgroundImage': `url(${slideImage})`, backgroundPosition: slidePositions[index]}}>
+                  <Text>
+                    <Textsml>Augmented Reality</Textsml>
+                    {slideText[index]}
+                  </Text>
+                </div>
               </div>
-            </div>
-
-            {/* Second slide */}
-            <div className="each-slide">
-              <div style={{'backgroundImage': `url(${slideImages[1]})`, backgroundPosition: '0% 60%'}}>
-              <Text>
-                <Textsml>Augmented Reality</Textsml>
-                Many designs and colours to choose from
-              </Text>
-              </div>
-            </div>
-
-            {/* Third slide */}
-            <div className="each-slide">
-              <div style={{'backgroundImage': `url(${slideImages[2]})`, backgroundPosition: '10% 80%'}}>
-              <Text>
-                <Textsml>Augmented Reality</Textsml>
-                For all the family members and occasions you could image
-              </Text>
-              </div>
-            </div>
-
+            ))}
           </Slide>
-
         </div>
 
         <br />
@@ -283,6 +271,7 @@ function StoryList() {
                   </div>
                   </Link>
             </div>
+
         </div>
         </main>
     )
