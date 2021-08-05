@@ -61,18 +61,8 @@ const Container = styled.div`
   `};
 `;
 
-const Slideing = styled.div`
-  ${tw`
-    w-1/2
 
-  `};
-`;
 
-const Contents = styled.div`
-  ${tw`
-  m-auto
-`};
-`;
 
 const Text = styled.div`
   ${tw`
@@ -187,22 +177,18 @@ function StoryList() {
 
 
 
-<div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
+        <div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
+          <div class=" flex-1 m-auto">
+            <Nav.Link style = {{textDecoration: 'underline', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Nav.Link>
+          </div>
+          {storycolstart.map((storycolstart, index) => (
+            <div class="flex-1 hover:underline flex-1 m-auto" >
+              <Link to= {{ pathname: "/story1",state: {id: storiesData[index].id,},}}
+                style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[index].name}</Link>
+            </div>
+          ))}
 
-  <div class="text-gray-200 flex-1 text-gray-200  hover:underline  ">
-  <Nav.Link href="#home" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Nav.Link>
-  </div>
-  <div class="contents">
-    <div class="flex-1 hover:underline flex-1" >
-    <Nav.Link href="#home" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[0].name}</Nav.Link></div>
-    <div class="flex-1 hover:underline flex-1" >
-    <Nav.Link  href="#features" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[1].name}</Nav.Link>
-    </div>
-  </div>
-  <div class="flex-1 hover:underline flex-1" >
-  <Nav.Link href="#pricing" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[2].name}</Nav.Link>
-  </div>
-</div>
+        </div>
 
           <div class="grid grid-cols-10 grid-rows-10 ">
             {/* stories have been automated */}
