@@ -30,6 +30,22 @@ const slideText=[
   'Many designs and colours to choose from',
   'For all the family members and occasions you could image',
 ]
+
+const storyvalue=[
+  storiesData[0],
+  storiesData[1],
+  storiesData[2],
+]
+
+const storycolstart=[
+  "col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100",
+
+]
+
+
+
 const StyledLink = styled(Link)`
     text-decoration: none;
 
@@ -193,84 +209,30 @@ function StoryList() {
   </div>
 </div>
 
-
-
-
-
           <div class="grid grid-cols-10 grid-rows-10 ">
-
-            <div class="col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100">
-                <Link style={{textDecoration: 'none' }} to= {{
-                  pathname: "/story1",
-                  state: {
-                    id: storiesData[0].id,
-                  },
-                }}>
-                  <Parallax bgImage= {storiesData[0].bgImage}>
-                    <p>
-                      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                    </p>
-                  </Parallax>
+            {/* stories have been automated */}
+              {storyvalue.map((storyvalue, index) => (
+                <div class={storycolstart[index]}>
+                  <Link style={{textDecoration: 'none' }} to= {{
+                    pathname: "/story1",
+                    state: {
+                      id: storyvalue.id,
+                    },
+                  }}>
+                  <img src={storyvalue.bgImage} alt="..." className="align-middle max-h-full max-w-full" />
                   <div>
                     <br />
-                    <BlackTextsml >{storiesData[0].tagline}</BlackTextsml>
-                    <BlackText >{storiesData[0].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-24 text-center m-2">
-                      <BlackTextsml >{storiesData[0].type}</BlackTextsml>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-
-
-            <div class="col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100">
-            <Link style={{textDecoration: 'none' }} to= {{
-                  pathname: "/story1",
-                  state: {
-                    id: storiesData[1].id,
-                  },
-                }}>
-                <Parallax>
-
-                    <img src={storiesData[1].bgImage} alt="..." className="align-middle max-h-full max-w-full" />
-                </Parallax>
-                <div>
-                <br />
-                  <BlackTextsml >{storiesData[1].tagline}</BlackTextsml>
-                  <BlackText >{storiesData[1].name}</BlackText>
-                  <div class=" border-solid border-gray-100 w-24 text-center m-3">
-                      <BlackTextsml >{storiesData[1].type}</BlackTextsml>
-
-                  </div>
-                </div>
-
-
-                  </Link>
-              </div>
-
-              <div class="col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100 ">
-              <Link style={{textDecoration: 'none' }} to= {{
-                  pathname: "/story1",
-                  state: {
-                    id: storiesData[2].id,
-                  },
-                }}>
-
-                  <Parallax bgImage= {storiesData[2].bgImage}>
-                      <p>
-                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                      </p>
-                  </Parallax>
-                  <div>
-                    <br />
-                    <BlackTextsml >{storiesData[2].tagline}</BlackTextsml>
-                    <BlackText >{storiesData[2].name}</BlackText>
+                    <BlackTextsml >{storyvalue.tagline}</BlackTextsml>
+                    <BlackText >{storyvalue.name}</BlackText>
                     <div class=" border-solid border-gray-100 w-24 text-center m-3">
-                      <BlackTextsml >{storiesData[2].type}</BlackTextsml>
+                      <BlackTextsml >{storyvalue.type}</BlackTextsml>
+                    
                     </div>
                   </div>
                   </Link>
-            </div>
+                </div>
+              ))}
+
 
         </div>
         </main>
