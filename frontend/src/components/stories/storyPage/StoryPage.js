@@ -48,7 +48,7 @@ function StoryPage(props) {
                 {/* "Experience it in AR" section */}
                 <div style={{textAlign: 'center'}}>
                     <hr className="horizontal-line"></hr>
-                    <h1 className="experience">Experience it in AR</h1>
+                    <h1 className="experience">Try it in your own space</h1>
                     <a href={story.link} target="_blank" className="button">START HERE</a>
                     <hr className="horizontal-line"></hr>
                 </div>
