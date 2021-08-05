@@ -140,7 +140,7 @@ function StoryList() {
             </BlackText>
             <br />
             <BlackTextsml>
-              Get inspired by our collection of narratives 
+              Get inspired by our collection of narratives
               <br />
             </BlackTextsml >
             <br />
@@ -179,7 +179,7 @@ function StoryList() {
               </Text>
               </div>
             </div>
-            
+
           </Slide>
 
         </div>
@@ -227,7 +227,7 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[0].tagline}</BlackTextsml>
                     <BlackText >{storiesData[0].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-20 text-center">
+                    <div class=" border-solid border-gray-100 w-24 text-center">
                       <BlackTextsml >{storiesData[0].type}</BlackTextsml>
                     </div>
                   </div>
@@ -251,7 +251,7 @@ function StoryList() {
                 <br />
                   <BlackTextsml >{storiesData[1].tagline}</BlackTextsml>
                   <BlackText >{storiesData[1].name}</BlackText>
-                  <div class=" border-solid border-gray-100 w-20 text-center">
+                  <div class=" border-solid border-gray-100 w-24 text-center">
                       <BlackTextsml >{storiesData[1].type}</BlackTextsml>
                   </div>
                 </div>
@@ -277,7 +277,7 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[2].tagline}</BlackTextsml>
                     <BlackText >{storiesData[2].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-20 text-center">
+                    <div class=" border-solid border-gray-100 w-24 text-center">
                       <BlackTextsml >{storiesData[2].type}</BlackTextsml>
                     </div>
                   </div>
