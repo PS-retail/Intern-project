@@ -58,9 +58,29 @@ const FilledButton = styled(BaseButton)`
 `;
 
 const Button = (props) => {
-  const { theme, text, className, onClick, type, to = '/', size, disabled } = props;
+  const {
+    theme,
+    text,
+    className,
+    onClick,
+    type,
+    to = "/",
+    size,
+    disabled,
+  } = props;
 
-  if (size === "small") {
+  if (size === "small" && type === "video") {
+    return (
+      <SmallButton
+        onClick={onClick}
+        className={className}
+        type={type}
+        disabled={disabled}
+      >
+        {text}
+      </SmallButton>
+    );
+  } else if (size === "small") {
     return (
       <Link to={to}>
         <SmallButton
@@ -76,15 +96,15 @@ const Button = (props) => {
   } else {
     if (theme === "filled")
       return (
-          <FilledButton className={className} onClick={onClick} type={type}>
-            {text}
-          </FilledButton>
+        <FilledButton className={className} onClick={onClick} type={type}>
+          {text}
+        </FilledButton>
       );
     else
       return (
-          <OutlinedButton className={className} onClick={onClick} type={type}>
-            {text}
-          </OutlinedButton>
+        <OutlinedButton className={className} onClick={onClick} type={type}>
+          {text}
+        </OutlinedButton>
       );
   }
 };
