@@ -115,7 +115,7 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[index].tagline}</BlackTextsml>
                     <BlackText >{storiesData[index].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-24 text-center">
+                    <div class=" border-solid border-gray-100 w-24 text-center m-3">
                       <BlackTextsml >{storiesData[index].type}</BlackTextsml>
                     </div>
                   </div>
