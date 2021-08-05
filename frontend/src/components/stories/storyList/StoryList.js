@@ -15,12 +15,9 @@ import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import NavDropdown from "react-bootstrap/NavDropdown";
 const slideImages = [
-  'https://www.wearable-technologies.com/wp-content/uploads/2018/10/Unity-ar-ads-1.png',
-  'https://bevel.space/wp-content/uploads/2018/10/Bevel_Mobile_AR_header-crop.png',
-  'https://cdn.shopify.com/s/files/1/1551/3581/files/AR_Room_Edited_02_large.jpg?v=1556729184',
-  //'https://dynl.mktgcdn.com/p/4TZImYskTdK9zkIEkix4H3qhsKNgUVNMwDHszZPdUsI/619x412.jpg',
-  //'https://images.ctfassets.net/8cd2csgvqd3m/6MtLXbfhaybi4ez8T534on/5f76e80aec5f10d13d0248aa50c9a8ec/XL.jpg',
-  //'https://d3boo0lmrw6bqz.cloudfront.net/img/iws/iws_header.jpg'
+  'https://images.ctfassets.net/8cd2csgvqd3m/6KBshSexIngc2pqhSFerUs/b1873823238aa5c74a4de6647add6db8/hero_ar_app_web.jpg',
+  'https://images.ctfassets.net/8cd2csgvqd3m/3EL23prP6eVLesg8FxrGv6/4f8dfc2c714d2717b33c0f9bb8f6192a/connected_speakers_family.jpg',
+  'https://www.scandinaviandesign.com/wp-content/uploads/2020/12/LS_A1_2ndGen_GreyMist_Moment_13-scaled-1.jpg',
 ];
 
 const StyledLink = styled(Link)`
@@ -43,14 +40,13 @@ const Container = styled.div`
   `};
 `;
 
-
-
 const Slideing = styled.div`
   ${tw`
     w-1/2
 
   `};
 `;
+
 const Contents = styled.div`
   ${tw`
   m-auto
@@ -84,7 +80,6 @@ font-thin
 `};
 `;
 
-
 const Menu = styled.div`
   ${tw`
 hover:underline
@@ -95,8 +90,6 @@ text-gray-100
 
 `};
 `;
-
-
 
 const Textsml = styled.div`
   ${tw`
@@ -109,6 +102,7 @@ const Textsml = styled.div`
     text-white
 `};
 `;
+
 const BlackText = styled.div`
   ${tw`
   text-3xl
@@ -135,40 +129,57 @@ const BlackTextsml = styled.div`
 `;
 
 
-
 function StoryList() {
-      let story0
-      let story1
-      let story2
-      story0 = storiesData[0]
-      story1 = storiesData[1]
-      story2 = storiesData[2]
 
     return (
-        <main ><HeadText ><BlackText>
-        <p style={{ letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p></BlackText >
-<br /><BlackTextsml  >
-Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadText>
+        // Header of the page
+        <main >
+          <HeadText>
+            <BlackText>
+              <p style={{ letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p>
+            </BlackText>
+            <br />
+            <BlackTextsml>
+              Get inspired by our collection of narratives 
+              <br />
+            </BlackTextsml >
+            <br />
+          </HeadText>
+
+        {/* Slideshow section */}
         <div style={{fontFamily:'Arial', letterSpacing:'2px'}}>
           <Slide easing="ease">
-            <div className="each-slide">
-              <div style={{'backgroundImage': `url(${slideImages[0]})`}}>
-              <Text ><Textsml > Augmented Reality</Textsml>
-                Not sure a device would fit your aesthetic? View it in your home today</Text>
 
+            {/* First slide */}
+            <div className="each-slide">
+              <div style={{'backgroundImage': `url(${slideImages[0]})`, backgroundPosition: '0% 50%'}}>
+                <Text>
+                  <Textsml>Augmented Reality</Textsml>
+                  Not sure a device would fit your aesthetic? View it in your home today
+                </Text>
               </div>
             </div>
-            <div className="each-slide">
-              <div style={{'backgroundImage': `url(${slideImages[1]})`}}>
-              <Text ><Textsml > Augmented Reality</Textsml>Many designs and colours to choose from</Text>
-              </div>
-            </div>
-            <div className="each-slide">
-              <div style={{'backgroundImage': `url(${slideImages[2]})`}}>
-              <Text ><Textsml > Augmented Reality</Textsml>For all the family members and occasions you could image</Text>
 
+            {/* Second slide */}
+            <div className="each-slide">
+              <div style={{'backgroundImage': `url(${slideImages[1]})`, backgroundPosition: '0% 60%'}}>
+              <Text>
+                <Textsml>Augmented Reality</Textsml>
+                Many designs and colours to choose from
+              </Text>
               </div>
             </div>
+
+            {/* Third slide */}
+            <div className="each-slide">
+              <div style={{'backgroundImage': `url(${slideImages[2]})`, backgroundPosition: '10% 80%'}}>
+              <Text>
+                <Textsml>Augmented Reality</Textsml>
+                For all the family members and occasions you could image
+              </Text>
+              </div>
+            </div>
+            
           </Slide>
 
         </div>
@@ -184,13 +195,13 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
   </div>
   <div class="contents">
     <div class="flex-1 hover:underline flex-1" >
-    <Nav.Link href="#home" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{story0.name}</Nav.Link></div>
+    <Nav.Link href="#home" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[0].name}</Nav.Link></div>
     <div class="flex-1 hover:underline flex-1" >
-    <Nav.Link  href="#features" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{story1.name}</Nav.Link>
+    <Nav.Link  href="#features" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[1].name}</Nav.Link>
     </div>
   </div>
   <div class="flex-1 hover:underline flex-1" >
-  <Nav.Link href="#pricing" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{story2.name}</Nav.Link>
+  <Nav.Link href="#pricing" style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[2].name}</Nav.Link>
   </div>
 </div>
 
@@ -204,23 +215,21 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
                 <Link style={{textDecoration: 'none' }} to= {{
                   pathname: "/story1",
                   state: {
-                    id: story0.id,
+                    id: storiesData[0].id,
                   },
                 }}>
-                        <Parallax
-                            bgImage= {story0.bgImage}
-                        >
-                        <p>
-                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                        </p>
-                        </Parallax>
-                        <div>
-                        <br />
-                        <BlackTextsml >{story0.tagline}</BlackTextsml>
-                        <BlackText >{story0.name}</BlackText>
-                        <BlackTextsml >{story0.type}</BlackTextsml>
-                        </div>
-                  </Link>
+                  <Parallax bgImage= {storiesData[0].bgImage}>
+                    <p>
+                      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    </p>
+                  </Parallax>
+                  <div>
+                    <br />
+                    <BlackTextsml >{storiesData[0].tagline}</BlackTextsml>
+                    <BlackText >{storiesData[0].name}</BlackText>
+                    <BlackTextsml >{storiesData[0].type}</BlackTextsml>
+                  </div>
+                </Link>
               </div>
 
 
@@ -228,21 +237,19 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
             <Link style={{textDecoration: 'none' }} to= {{
                   pathname: "/story1",
                   state: {
-                    id: story1.id,
+                    id: storiesData[1].id,
                   },
                 }}>
-                <Parallax
-                    bgImage= {story1.bgImage}
-                >
-                <p>
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                </p>
+                <Parallax bgImage= {storiesData[1].bgImage}>
+                  <p>
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                  </p>
                 </Parallax>
                 <div>
                 <br />
-                <BlackTextsml >{story1.tagline}</BlackTextsml>
-                <BlackText >{story1.name}</BlackText>
-                <BlackTextsml >{story1.type}</BlackTextsml>
+                  <BlackTextsml >{storiesData[1].tagline}</BlackTextsml>
+                  <BlackText >{storiesData[1].name}</BlackText>
+                  <BlackTextsml >{storiesData[1].type}</BlackTextsml>
                 </div>
 
                   </Link>
@@ -252,22 +259,20 @@ Get inspired by our collection of narratives <br /></BlackTextsml ><br /></HeadT
               <Link style={{textDecoration: 'none' }} to= {{
                   pathname: "/story1",
                   state: {
-                    id: story2.id,
+                    id: storiesData[2].id,
                   },
                 }}>
 
-                  <Parallax
-                      bgImage= {story2.bgImage}
-                  >
-                  <p>
-                  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                  </p>
+                  <Parallax bgImage= {storiesData[2].bgImage}>
+                      <p>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                      </p>
                   </Parallax>
                   <div>
-                  <br />
-                  <BlackTextsml >{story2.tagline}</BlackTextsml>
-                  <BlackText >{story2.name}</BlackText>
-                  <BlackTextsml >{story2.type}</BlackTextsml>
+                    <br />
+                    <BlackTextsml >{storiesData[2].tagline}</BlackTextsml>
+                    <BlackText >{storiesData[2].name}</BlackText>
+                    <BlackTextsml >{storiesData[2].type}</BlackTextsml>
                   </div>
                   </Link>
             </div>
