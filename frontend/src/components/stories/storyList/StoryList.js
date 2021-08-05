@@ -227,7 +227,7 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[0].tagline}</BlackTextsml>
                     <BlackText >{storiesData[0].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-24 text-center">
+                    <div class=" border-solid border-gray-100 w-24 text-center m-2">
                       <BlackTextsml >{storiesData[0].type}</BlackTextsml>
                     </div>
                   </div>
@@ -242,17 +242,17 @@ function StoryList() {
                     id: storiesData[1].id,
                   },
                 }}>
-                <Parallax bgImage= {storiesData[1].bgImage}>
-                  <p>
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                  </p>
+                <Parallax>
+
+                    <img src={storiesData[1].bgImage} alt="..." className="align-middle max-h-full max-w-full" />
                 </Parallax>
                 <div>
                 <br />
                   <BlackTextsml >{storiesData[1].tagline}</BlackTextsml>
                   <BlackText >{storiesData[1].name}</BlackText>
-                  <div class=" border-solid border-gray-100 w-24 text-center">
+                  <div class=" border-solid border-gray-100 w-24 text-center m-3">
                       <BlackTextsml >{storiesData[1].type}</BlackTextsml>
+
                   </div>
                 </div>
 
@@ -277,18 +277,13 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[2].tagline}</BlackTextsml>
                     <BlackText >{storiesData[2].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-24 text-center">
+                    <div class=" border-solid border-gray-100 w-24 text-center m-3">
                       <BlackTextsml >{storiesData[2].type}</BlackTextsml>
                     </div>
                   </div>
                   </Link>
             </div>
-
         </div>
-
-
-
-
         </main>
     )
 }
