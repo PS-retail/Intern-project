@@ -102,35 +102,6 @@ const Navbar = () => {
 
     <>
 
-    <nav class="w-screen fixed bg-white z-50 flex items-center justify-between flex-wrap bg-teal " >
-  <div class="flex items-center flex-no-shrink text-white mr-6" >
-<span class="font-semibold text-xl tracking-tight">Tailwind CSS</span>
-
-
-  </div>
-  <div class="text-center lg:flex-grow ">
-    <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
-
-      <img src="https://www.luxussound.com/img/logos/logo-bangolufsen.png" width="120" />
-    </a>
-  </div>
-  <div>
-    <a href="#" class="inline-block text-sm px-4 leading-none border rounded text-black border-white hover:border-transparent hover:text-teal hover:bg-white  ">
-    {!auth.isLoggedIn && (
-      <Link to={"/login"} style={{ textDecoration: "none" }}>
-        <MenuItem onClick={handleMobileMenuClose}>
-          <IconButton aria-label="Chat" color="inherit">
-            <MeetingRoomIcon />
-          </IconButton>
-          <Headers>{"Login"}</Headers>
-        </MenuItem>
-      </Link>
-    )}
-    </a>
-
-  </div>
-</nav>
-
 
 
       <AppBar
