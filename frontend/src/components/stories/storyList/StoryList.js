@@ -6,14 +6,8 @@ import storiesData from "../storiesData";
 import 'react-slideshow-image/dist/styles.css'
 import { Link } from "react-router-dom";
 import { Slide } from 'react-slideshow-image';
-import { Background, Parallax } from "react-parallax"
 
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import FormControl from "react-bootstrap/FormControl";
-import NavDropdown from "react-bootstrap/NavDropdown";
+
 const slideImages = [
   'https://images.ctfassets.net/8cd2csgvqd3m/6KBshSexIngc2pqhSFerUs/b1873823238aa5c74a4de6647add6db8/hero_ar_app_web.jpg',
   'https://images.ctfassets.net/8cd2csgvqd3m/3EL23prP6eVLesg8FxrGv6/4f8dfc2c714d2717b33c0f9bb8f6192a/connected_speakers_family.jpg',
@@ -97,7 +91,7 @@ function StoryList() {
         {/* navbar section */}  {/* navs have been automated */}
         <div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
           <div class=" flex-1 m-auto">
-            <Nav.Link style = {{textDecoration: 'underline', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Nav.Link>
+            <Link style = {{textDecoration: 'underline', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Link>
           </div>
           {storycolstart.map((storycolstart, index) => (
             <div class="flex-1 hover:underline flex-1 m-auto" >
