@@ -31,11 +31,6 @@ const slideText=[
   'For all the family members and occasions you could image',
 ]
 
-const storyvalue=[
-  storiesData[0],
-  storiesData[1],
-  storiesData[2],
-]
 
 const storycolstart=[
   "col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100",
@@ -211,22 +206,22 @@ function StoryList() {
 
           <div class="grid grid-cols-10 grid-rows-10 ">
             {/* stories have been automated */}
-              {storyvalue.map((storyvalue, index) => (
-                <div class={storycolstart[index]}>
+              {storycolstart.map((storycolstart, index) => (
+                <div class={storycolstart}>
                   <Link style={{textDecoration: 'none' }} to= {{
                     pathname: "/story1",
                     state: {
-                      id: storyvalue.id,
+                      id: storiesData[index].id,
                     },
                   }}>
-                  <img src={storyvalue.bgImage} alt="..." className="align-middle max-h-full max-w-full" />
+                  <img src={storiesData[index].bgImage} alt="..." className="align-middle max-h-full max-w-full" />
                   <div>
                     <br />
-                    <BlackTextsml >{storyvalue.tagline}</BlackTextsml>
-                    <BlackText >{storyvalue.name}</BlackText>
+                    <BlackTextsml >{storiesData[index].tagline}</BlackTextsml>
+                    <BlackText >{storiesData[index].name}</BlackText>
                     <div class=" border-solid border-gray-100 w-24 text-center m-3">
-                      <BlackTextsml >{storyvalue.type}</BlackTextsml>
-                    
+                      <BlackTextsml >{storiesData[index].type}</BlackTextsml>
+
                     </div>
                   </div>
                   </Link>
