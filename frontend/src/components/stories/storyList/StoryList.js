@@ -227,7 +227,9 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[0].tagline}</BlackTextsml>
                     <BlackText >{storiesData[0].name}</BlackText>
-                    <BlackTextsml >{storiesData[0].type}</BlackTextsml>
+                    <div class=" border-solid border-gray-100 w-20 text-center">
+                      <BlackTextsml >{storiesData[0].type}</BlackTextsml>
+                    </div>
                   </div>
                 </Link>
               </div>
@@ -249,8 +251,11 @@ function StoryList() {
                 <br />
                   <BlackTextsml >{storiesData[1].tagline}</BlackTextsml>
                   <BlackText >{storiesData[1].name}</BlackText>
-                  <BlackTextsml >{storiesData[1].type}</BlackTextsml>
+                  <div class=" border-solid border-gray-100 w-20 text-center">
+                      <BlackTextsml >{storiesData[1].type}</BlackTextsml>
+                  </div>
                 </div>
+
 
                   </Link>
               </div>
@@ -272,7 +277,9 @@ function StoryList() {
                     <br />
                     <BlackTextsml >{storiesData[2].tagline}</BlackTextsml>
                     <BlackText >{storiesData[2].name}</BlackText>
-                    <BlackTextsml >{storiesData[2].type}</BlackTextsml>
+                    <div class=" border-solid border-gray-100 w-20 text-center">
+                      <BlackTextsml >{storiesData[2].type}</BlackTextsml>
+                    </div>
                   </div>
                   </Link>
             </div>
