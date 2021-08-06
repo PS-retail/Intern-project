@@ -3,16 +3,18 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { v4 as uuidv4 } from "uuid";
 
+import { useHttpClient } from "../general/http-hook"
 import Marginer from "../general/marginer";
 import MeetingMenu from "./meetingMenu";
-import EditCard from "./editCard";
 import Button from "../general/button";
+
 
 const CardContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 25em;
+  min-width: 50em;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
@@ -33,8 +35,8 @@ const ItemContainer = styled.div`
     justify-center
     rounded-md
     hover:bg-gray-200
-    w-[700px]
-    min-h-[4em]
+    w-full
+    h-full
   `};
 `;
 
@@ -87,73 +89,40 @@ items-center
 `;
 
 const ViewCard = () => {
+  const { sendRequest } = useHttpClient();
   const [editMenuOpen, setEditMenuOpen] = useState(false);
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(new Date());
   const editRef = useRef();
-  
-  const currentTime = date.getHours() + ':' + date.getMinutes();
+  const [bookings, setBookings] = useState();
 
-  const [dummyBookings, setDummyBookings] = useState([
-    {
-      id : 123,
-      date: "Mon-Jul-26-2021",
-      time: "09:00",
-      reason: "Purchase",
-      status: "Booked",
-    },
-    {
-      id: 123,
-      date: "Mon-Jul-24-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Completed",
-    },
-    {
-      date: "Mon-Jul-23-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Cancelled",
-    },
-    {
-      date: "Mon-Jul-21-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Completed",
-    },
-    {
-      date: "Mon-Jul-31-2021",
-      time: "11:00",
-      reason: "Purchase",
-      status: "Booked",
-    }
-  ]);
+  const currentTime = date.getHours() + ":" + date.getMinutes();
+
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDate(new Date())
-      var flag = true;
-      dummyBookings.forEach(booking => {
-        if (booking.status === 'Booked') {
-          flag = false;
+    const fetchBookings = async () => {
+      try {
+        const responseData = await sendRequest({
+          url: "http://localhost:5000/api/meetings/creator/retailps",
+          headers: null,
+        });
+        setBookings(responseData.meetings);
+      } catch (err) {}
+    };
+    fetchBookings();
+  }, [sendRequest]);
+
+
+  useEffect(() => {
+    if (bookings) {
+      bookings.forEach((booking, idx) => {
+        if (booking.time <= currentTime && booking.status === "Booked") {
+          let prevState = [...bookings];
+          prevState[parseInt(idx)].status = "Active";
+          setBookings(prevState);
         }
-      })
-      if (flag){
-        clearInterval(interval);
-      }
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [dummyBookings]);
-
-  useEffect(() => {
-    dummyBookings.forEach((booking, idx) => {
-      if (booking.time <= currentTime && booking.status === 'Booked'){
-        let prevState = [...dummyBookings];
-        prevState[idx].status = 'Active';
-        setDummyBookings(prevState);
-      }
-    })
-
-  }, [currentTime, dummyBookings]);
+      });
+    }
+  }, [currentTime, bookings]);
 
   const useOutsideAlerter = (ref) => {
     useEffect(() => {
@@ -180,42 +149,52 @@ const ViewCard = () => {
 
   useOutsideAlerter(editRef);
 
-
-
   return (
     <CardContainer>
-      <div ref={editRef}></div>
+      <div ref={editRef}>
       <Slogan>Pending Bookings</Slogan>
       <Marginer direction="vertical" margin="3em" />
-      <ul style={{ listStyleType: "none" }}>
-        {/* Time Picker */}
-        {dummyBookings.map((booking) => {
-          if (booking.status === "Booked" || booking.status === 'Active') {
-            return (
-              <li key={uuidv4()}>
-                {editMenuOpen && <EditCard />}
-                <ItemContainer>
-                  <Details>{booking.date}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.time}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.status}</Details>
-                  <Marginer direction="horizontal" margin="3em" />
-                  <Button text={booking.status === 'Active' ? "Join Meeting" : "Not Available"} to = {`/videochat/${booking.id}`}size={"small"} disabled={booking.status !== 'Active'} />
-                  <Marginer direction="horizontal" margin="3em" />
-                  <MeetingMenu
-                    editMenuOpen={editMenuOpen}
-                    setEditMenuOpen={() => setEditMenuOpen(true)}
-                  />
-                </ItemContainer>
-                <LineSeperator />
-              </li>
-            );
-          }
-        })}
-      </ul>
+      {bookings && (
+        <ul style={{ listStyleType: "none" }}>
+          {/* Time Picker */}
+          {bookings.map((booking) => {
+            if (booking.status === "Booked" || booking.status === "Active") {
+              return (
+                <li key={uuidv4()}>
+                  <ItemContainer>
+                    <Details>{booking.date}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.time}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.status}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.reason}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <Button
+                      text={
+                        booking.status === "Active"
+                          ? "Join Meeting"
+                          : "Not Available"
+                      }
+                      to={`/videochat/${booking.id}`}
+                      size={"small"}
+                      disabled={booking.status !== "Active"}
+                    />
+                    <Marginer direction="horizontal" margin="3em" />
+                    <MeetingMenu
+                      id = {booking.id}
+                    />
+                  </ItemContainer>
+                  <LineSeperator />
+                </li>
+              );
+            }
+          })}
+        </ul>
+      )}
 
       <Marginer direction="vertical" margin="3em" />
       <LineSeperator />
@@ -223,28 +202,34 @@ const ViewCard = () => {
 
       <Slogan>Past Bookings</Slogan>
       <Marginer direction="vertical" margin="3em" />
-      <ul style={{ listStyleType: "none" }}>
-        {/* Time Picker */}
-        {dummyBookings.map((booking) => {
-          if (booking.status === "Completed" || booking.status === 'Cancelled') {
-            return (
-              <li key={uuidv4()}>
-                <ItemContainer>
-                  <Details>{booking.date}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.time}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                  <VerticalSeperator />
-                  <Details>{booking.status}</Details>
-                  <Marginer direction="horizontal" margin="1em" />
-                </ItemContainer>
-                <LineSeperator />
-              </li>
-            );
-          }
-        })}
-      </ul>
+      {bookings && (
+        <ul style={{ listStyleType: "none" }}>
+          {/* Time Picker */}
+          {bookings.map((booking) => {
+            if (
+              booking.status === "Completed" ||
+              booking.status === "Cancelled"
+            ) {
+              return (
+                <li key={uuidv4()}>
+                  <ItemContainer>
+                    <Details>{booking.date}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.time}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                    <VerticalSeperator />
+                    <Details>{booking.status}</Details>
+                    <Marginer direction="horizontal" margin="1em" />
+                  </ItemContainer>
+                  <LineSeperator />
+                </li>
+              );
+            }
+          })}
+        </ul>
+      )}
+      </div>
     </CardContainer>
   );
 };
