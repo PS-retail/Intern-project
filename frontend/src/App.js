@@ -17,6 +17,8 @@ import MeetingPage from "./components/meeting/meetingPage";
 import MainPage from "./components/mainPage/mainPage";
 import MainCustomerPage from "./components/customerService/mainCustomerPage";
 import VideoChatPage from "./components/videoChat/videoChatPage";
+import StoryList from "./components/stories/storyList/StoryList";
+import StoryPage from "./components/stories/storyPage/StoryPage";
 
 
 const App = () => {
@@ -65,6 +67,13 @@ const App = () => {
           </Route>
           <Route path="/customer" exact>
             <MainCustomerPage/>
+          </Route>
+
+          <Route path="/stories" exact>
+            <StoryList />
+          </Route>
+          <Route path="/story1" exact>
+            <StoryPage />
           </Route>
           <Route path="/edit/:id" exact>
             <EditCard/>
