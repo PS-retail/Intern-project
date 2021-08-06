@@ -14,6 +14,8 @@ router.get('/:mid', meetingControllers.getMeetingById);
 
 router.patch('/:mid', meetingControllers.updateMeeting);
 
+router.patch('/add/:mid', meetingControllers.addUserToMeeting);
+
 router.delete('/:mid', meetingControllers.cancelMeeting);
 
 router.post('/', meetingControllers.createMeeting);

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
 import Button from "../general/button";
 import BookCard from "./bookCard";
 import ViewCard from "./viewCard";
+import { AuthContext } from "../general/auth-context";
 
 const TopSectionContainer = styled.div`
   min-height: 400px;
@@ -73,36 +74,51 @@ const MeetingPage = () => {
   const [bookCardOpen, setBookCardOpen] = useState(false);
   const [viewCardOpen, setViewCardOpen] = useState(false);
 
+  const auth = useContext(AuthContext);
+
   const toggleCardOpen = () => {
-    if (viewCardOpen){
+    if (viewCardOpen) {
       setViewCardOpen(false);
     }
-    setBookCardOpen(prevState => !prevState)
-  }
-  
+    setBookCardOpen((prevState) => !prevState);
+  };
+
   const toggleViewCardOpen = () => {
-    if (bookCardOpen){
+    if (bookCardOpen) {
       setBookCardOpen(false);
     }
-    setViewCardOpen(prevState => !prevState)
-  }
-
+    setViewCardOpen((prevState) => !prevState);
+  };
 
   return (
     <TopSectionContainer>
       <Container>
         <Slogan>Book or View a Meeting</Slogan>
-        <Description>
-          Book a meeting with one of our representatives now! Have you already
-          booked a meeting with us? You can change it or book another one as
-          well!
-        </Description>
-        <ButtonsContainer>
-          <Button text="Book Your Meeting" onClick = {toggleCardOpen}/>
-          <Button theme="filled" text="View Existing Meetings" onClick = {toggleViewCardOpen}/>
-        </ButtonsContainer>
-        {bookCardOpen && <BookCard />}
-        {viewCardOpen && <ViewCard/>}
+        {auth.isLoggedIn && (
+          <React.Fragment>
+            <Description>
+              Book a meeting with one of our representatives now! Have you
+              already booked a meeting with us? You can change it or book
+              another one as well!
+            </Description>
+            <ButtonsContainer>
+              <Button text="Book Your Meeting" onClick={toggleCardOpen} />
+              <Button
+                theme="filled"
+                text="View Existing Meetings"
+                onClick={toggleViewCardOpen}
+              />
+            </ButtonsContainer>
+            {bookCardOpen && <BookCard />}
+            {viewCardOpen && <ViewCard />}
+          </React.Fragment>
+        )}
+
+        {!auth.isLoggedIn && (
+          <Description>
+            Please log in to access the video chat feature!
+          </Description>
+        )}
       </Container>
     </TopSectionContainer>
   );
