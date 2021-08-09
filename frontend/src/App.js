@@ -17,6 +17,8 @@ import MeetingPage from "./components/meeting/meetingPage";
 import MainPage from "./components/mainPage/mainPage";
 import MainCustomerPage from "./components/customerService/mainCustomerPage";
 import VideoChatPage from "./components/videoChat/videoChatPage";
+import playGroundPage from "./components/playGround/playGroundPage";
+import PlayGroundPage from "./components/playGround/playGroundPage";
 
 
 const App = () => {
@@ -71,6 +73,9 @@ const App = () => {
           </Route>
           <Route path="/videoChat/:mId">
             <VideoChatPage/>
+          </Route>
+          <Route path="/playGround">
+            <PlayGroundPage/>
           </Route>
           <Route path="/:storyId">
             <ProductPage />

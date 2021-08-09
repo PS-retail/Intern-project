@@ -11,6 +11,9 @@ const HttpError = require("./models/http-error");
 
 const app = express();
 
+
+
+
 app.use(express.json());
 
 //app.use('/uploads/images', express.static(path.join('uploads', 'images')));
@@ -30,6 +33,8 @@ app.use("/api/products", productRoutes);
 
 app.use("/api/meetings", meetingRoutes);
 
+
+
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   throw error;
@@ -48,13 +53,27 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
+const httpServer = app.listen(5000);
+
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+
+
+io.on("connection", socket => { console.log("connec") });
+
+
 mongoose
   .connect(
     "mongodb+srv://vas:vamvakas@cluster0.uregh.mongodb.net/products?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
-    app.listen(5000);
+    
+    
     //setInterval(sample, 1500);
   })
   .catch((err) => console.log(err));
