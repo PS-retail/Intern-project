@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 function StoryPage(props) {
 
     // Use to gather props from Link in StoryList page
-    const location = useLocation()  
+    const location = useLocation()
     const storyId  = location.state.id
 
     let story
@@ -26,9 +26,9 @@ function StoryPage(props) {
     }
 
     return (
-        <div>
-            <Parallax 
-                bgImage= {story.bgImage} 
+        <div class = "z-10">
+            <Parallax
+                bgImage= {story.bgImage}
                 strength={100}
                 bgImageStyle={{opacity: "0.9"}}
             >

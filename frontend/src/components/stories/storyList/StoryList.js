@@ -57,7 +57,7 @@ function StoryList() {
 
     return (
         // Header of the page
-        <main >
+        <main class = "z-10">
 
             <BlackText >
               <p style={{ marginLeft:'100px',letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p>
@@ -89,7 +89,7 @@ function StoryList() {
         <br />
 
         {/* navbar section */}  {/* navs have been automated */}
-        <div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
+        <div class="flex text-gray-200 border-solid border-gray-100  z-10 text-center text-gray-100 p-2 " >
           <div class="m-auto">
             <Link style = {{textDecoration: 'underline', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Link>
           </div>
@@ -103,7 +103,7 @@ function StoryList() {
         </div>
 
         {/* stories section */}  {/* stories have been automated */}
-          <div class="grid grid-cols-10 grid-rows-10 ">
+          <div class="grid grid-cols-10 grid-rows-10 z-30 ">
               {storycolstart.map((storycolstart, index) => (
                 <div class={storycolstart}>
                   <Link style={{textDecoration: 'none' }} to= {{
