@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const productRoutes = require("./routes/product-routes");
 const meetingRoutes = require("./routes/meeting-routes");
 const sample = require("./batch/test");
+const speechToText = require("./middleware/speech-to-text");
 const HttpError = require("./models/http-error");
 
 const app = express();
@@ -29,6 +30,8 @@ app.use((req, res, next) => {
 app.use("/api/products", productRoutes);
 
 app.use("/api/meetings", meetingRoutes);
+
+app.use("/api/speech-to-text", (req, res, next) => speechToText(req,res,next));
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
