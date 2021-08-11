@@ -20,7 +20,7 @@ const ProductPage = () => {
   };
 
   return (
-    <div class = "z-10">
+    <div>
       {showModal && (
         <ARModal
           open={showModal}
