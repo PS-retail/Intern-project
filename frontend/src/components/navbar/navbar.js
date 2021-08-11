@@ -84,29 +84,6 @@ const Navbar = () => {
   };
 
 
-  function useOutsideAlerter(ref) {
-     useEffect(() => {
-       /**
-        * Close toast if clicked on outside of element
-        */
-       function handleClickOutside(event) {
-         if (ref.current && !ref.current.contains(event.target)) {
-           setShow(false);
-         }
-       }
-       // Bind the event listener
-       document.addEventListener("mousedown", handleClickOutside);
-       return () => {
-         // Unbind the event listener on clean up
-         document.removeEventListener("mousedown", handleClickOutside);
-       };
-     }, [ref]);
-   }
-
-   const wrapperRef = useRef(null);
-   useOutsideAlerter(wrapperRef);
-
-
    return (
 
      <>
@@ -146,23 +123,23 @@ const Navbar = () => {
 <br/>
        <Toast onClose={() => setShowglasses(false)} data-testid="toast" show={showglasses} delay={3000} class = "z-1">
 
-               <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setShowglasses(false) & setYellowglasses(false) & setRedglasses(false) & setGreenglasses(false) & setBlueglasses(false)}>NoGlasses</Button>
-             <Button onClick={() => setBlueglasses(true)}>Blue</Button>
-             <Button onClick={() => setGreenglasses(true)}>Green</Button>
-             <Button onClick={() => setYellowglasses(true)}>Yellow</Button>
-             <Button onClick={() => setRedglasses(true)}>Red</Button>
+               <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setShowglasses(false) & setYellowglasses(false) & setRedglasses(false) & setGreenglasses(false) & setBlueglasses(false)}>❌</Button>
+             <Button onClick={() => setBlueglasses(true)}>🔵</Button>
+             <Button onClick={() => setGreenglasses(true)}>🟢</Button>
+             <Button onClick={() => setYellowglasses(true)}>🟡</Button>
+             <Button onClick={() => setRedglasses(true)}>🔴</Button>
 
              <Toast onClose={() => setBlueglasses(false)} data-testid="toast" show={showBlueglasses} delay={3000} class = "z-1">
-                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setBlueglasses(false)}>NoBlue</Button>
+                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setBlueglasses(false)}>🟦</Button>
              </Toast>
              <Toast onClose={() => setGreenglasses(false)} data-testid="toast" show={showGreenglasses} delay={3000} class = "z-1">
-                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setGreenglasses(false)}>NoGreen</Button>
+                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setGreenglasses(false)}>🟩</Button>
              </Toast>
              <Toast onClose={() => setYellowglasses(false)} data-testid="toast" show={showYellowglasses} delay={3000} class = "z-1">
-                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setYellowglasses(false)}>NoYellow</Button>
+                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setYellowglasses(false)}>🟨</Button>
              </Toast>
              <Toast onClose={() => setRedglasses(false)} data-testid="toast" show={showRedglasses} delay={3000} class = "z-1">
-                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setRedglasses(false)}>NoRed</Button>
+                     <Button class = "text-xl bg-white cursor-pointer  border-none  " onClick={() => setRedglasses(false)}>🟥</Button>
              </Toast>
              </Toast>
 
@@ -177,19 +154,19 @@ const Navbar = () => {
     <Toast.Body class = "bg-black w-screen h-screen z-50 ">
     <br /><br /><br/>
      <Link to={"/products"} style={{ textDecoration: "none" }}>
-         <button class = "text-3xl bg-transparent text-white cursor-pointer  py-2 px-4 border-none  ">
+         <button class = "text-3xl bg-transparent text-white cursor-pointer  py-2 px-4 border-none  " onClick={() => setShow(false)} >
          All Products
          </button>
      </Link>
      <br/>
      <Link to={"/stories"} style={{ textDecoration: "none" }}>
-         <button class = "text-3xl bg-transparent text-white cursor-pointer  py-2 px-4 border-none  ">
+         <button class = "text-3xl bg-transparent text-white cursor-pointer  py-2 px-4 border-none  "onClick={() => setShow(false)}>
          Stories
          </button>
      </Link>
      <br/>
      <Link to={"/customer"} style={{ textDecoration: "none" }}>
-         <button class = "text-3xl bg-transparent text-white cursor-pointer  py-2 px-4 border-none  ">
+         <button class = "text-3xl bg-transparent text-white cursor-pointer  py-2 px-4 border-none  "onClick={() => setShow(false)}>
          Customer Service
          </button>
             <br />
