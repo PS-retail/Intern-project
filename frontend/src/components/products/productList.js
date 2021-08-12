@@ -146,7 +146,7 @@ const products = [
 function getProductById(id) {
   console.log("getProductById called")
   for (let i = 0 ; i < products.length ; i++) {
-    if (id == products[i].id) {
+    if (id === products[i].id) {
       return products[i]
     }
   }
@@ -156,7 +156,7 @@ function getProductById(id) {
 
 function ProductList (props) {
   // Delete once the "All products" page has been removed"
-  if (props.productsId == undefined) {
+  if (props.productsId === undefined) {
     console.log("here")
     const productsPageList = products.map(item => 
       <Product 

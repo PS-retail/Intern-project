@@ -12,21 +12,21 @@ function StoryPage(props) {
     const storyId  = location.state.id
 
     let story
-    if (storyId == undefined) {
+    if (storyId === undefined) {
         story = storiesData[1]
     } else {
         for (let i = 0 ; i < storiesData.length ; i++) {
-            if (storiesData[i].id == storyId) {
+            if (storiesData[i].id === storyId) {
                 story = storiesData[i]
             }
         }
-        if (story == undefined) {
+        if (story === undefined) {
             story = storiesData[1]
         }
     }
 
     return (
-        <div class = "z-10">
+        <div className = "z-10">
             <Parallax
                 bgImage= {story.bgImage}
                 strength={100}
