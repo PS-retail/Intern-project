@@ -11,6 +11,7 @@ import AccessibilityIcon from "@material-ui/icons/Accessibility";
 import { makeStyles } from "@material-ui/core";
 import Canvas from './canvas';
 import '@google/model-viewer';
+import MediaCard from './card'
 
 const useStyles = makeStyles({
   appContainer: {
@@ -22,12 +23,12 @@ const useStyles = makeStyles({
 
   container: {
     display: "flex",
-    height: "100%",
-    width: "100%"
+    
   },
   panel: {
     width: "100%"
-  }
+  },
+
 });
 export default function PlayGroundPage() {
   const [value, setValue] = React.useState("1");
@@ -55,9 +56,26 @@ export default function PlayGroundPage() {
           <TabPanel value="1" className={classes.panel}>
             <Box
               className={classes.container}
-              style={{ backgroundColor: "red" }}
+              
+              
             >
-              Content 1
+              <MediaCard
+                productName = "Beolab 50"
+                imageSrc = "https://images.ctfassets.net/8cd2csgvqd3m/5idLXKkPidYN49NvdNciUa/284fc74753af424361a55700a11b1eef/72529431_1118767524988584_1950461824411369472_n.jpg.png?q=90&fm=png&w=480&h=480&fit=fill"
+                description = "The future of sound"
+                className={classes.card}
+              >
+                
+              </MediaCard>
+              
+              <MediaCard
+                productName = "Beovision Eclipse"
+                imageSrc = "https://images.ctfassets.net/8cd2csgvqd3m/5phw37OsT8BoeyhmqfJaud/d0509804927b87fb96aad5d13b0f41e6/55_natural_mot_stand_light_oak.png?q=90&fm=png&w=480&h=480&fit=fill"
+                description = "Crafted sound design"
+                className={classes.card}
+              >
+
+              </MediaCard>
             </Box>
           </TabPanel>
           <TabPanel value="2" className={classes.panel}>

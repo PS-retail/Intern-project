@@ -57,13 +57,30 @@ const httpServer = app.listen(5000);
 
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "*",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });
 
 
-io.on("connection", socket => { console.log("connec") });
+io.on("connection", socket => { 
+  
+  console.log("connec" + socket.id);
+  
+  socket.on('rotation', rotationUpdate);
+
+  function rotationUpdate(data){
+    socket.broadcast.emit('rotationUpdate', data);
+  }
+
+  socket.on('draw', drawUpdate);
+
+  function drawUpdate(data){
+    socket.broadcast.emit('drawUpdate', data);
+  }
+
+
+});
 
 
 mongoose
