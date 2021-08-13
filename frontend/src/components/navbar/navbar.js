@@ -27,9 +27,9 @@ import VideoCallIcon from "@material-ui/icons/VideoCall";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import MenuIcon from "@material-ui/icons/Menu";
-import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
-import SearchIcon from '@material-ui/icons/Search';
-import AccessibilityNewRoundedIcon from '@material-ui/icons/AccessibilityNewRounded';
+import AccountBoxRoundedIcon from "@material-ui/icons/AccountBoxRounded";
+import SearchIcon from "@material-ui/icons/Search";
+import AccessibilityNewRoundedIcon from "@material-ui/icons/AccessibilityNewRounded";
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -115,31 +115,31 @@ const Navbar = () => {
         </div>
 
         <div class="text-center lg:flex-grow ">
-        <Link to={"/"} style={{ textDecoration: "none" }}>
-          <a
-            class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4"
-          >
-            <img
-              src="https://www.luxussound.com/img/logos/logo-bangolufsen.png"
-              width="120"
-            />
-          </a>
-         </Link>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <a class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
+              <img
+                src="https://www.luxussound.com/img/logos/logo-bangolufsen.png"
+                width="120"
+              />
+            </a>
+          </Link>
         </div>
         <div class="inline-block text-sm px-4 leading-none border rounded text-black border-white hover:border-transparent hover:text-teal hover:bg-white  ">
           {!auth.isLoggedIn && (
             <Link to={"/login"} style={{ textDecoration: "none" }}>
-              <Button class="text-3xl bg-transparent text-white cursor-pointer  py-2 px-4 border-none  ">
-                👤
+              <Button>
+                <AccountBoxRoundedIcon fontSize="large"></AccountBoxRoundedIcon>
               </Button>
             </Link>
           )}
-          <AccountBoxRoundedIcon fontSize="large">
-            </AccountBoxRoundedIcon>
-          <SearchIcon fontSize="large"></SearchIcon>
-          <AccessibilityNewRoundedIcon fontSize="large"></AccessibilityNewRoundedIcon>
-          <Button onClick={() => setShowsearch(true)}>🔍</Button>
-          <Button onClick={() => setShowglasses(true)}>🕶</Button>
+
+          <Button onClick={() => setShowsearch(true)}>
+            <SearchIcon fontSize="large"></SearchIcon>
+          </Button>
+
+          <Button onClick={() => setShowglasses(true)}>
+            <AccessibilityNewRoundedIcon fontSize="large"></AccessibilityNewRoundedIcon>
+          </Button>
           <Toast
             onClose={() => setShowsearch(false)}
             show={showsearch}
@@ -147,7 +147,6 @@ const Navbar = () => {
             autohide
           >
             <SearchBar />
-
           </Toast>
           <br />
           <Toast
