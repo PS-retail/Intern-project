@@ -17,7 +17,7 @@ import MeetingPage from "./components/meeting/meetingPage";
 import MainPage from "./components/mainPage/mainPage";
 import MainCustomerPage from "./components/customerService/mainCustomerPage";
 import VideoChatPage from "./components/videoChat/videoChatPage";
-import playGroundPage from "./components/playGround/playGroundPage";
+import PlayGroundPage from "./components/playGround/playGroundPage";
 import StoryList from "./components/stories/storyList/StoryList";
 import StoryPage from "./components/stories/storyPage/StoryPage";
 
