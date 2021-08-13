@@ -30,6 +30,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountBoxRoundedIcon from "@material-ui/icons/AccountBoxRounded";
 import SearchIcon from "@material-ui/icons/Search";
 import AccessibilityNewRoundedIcon from "@material-ui/icons/AccessibilityNewRounded";
+//import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
+import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
+import RadioButtonUncheckedRoundedIcon from "@material-ui/icons/RadioButtonUncheckedRounded";
+import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
+
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -97,7 +102,7 @@ const Navbar = () => {
             autohide
             onClick={() => setShow(true)}
           >
-            ≡
+            <MenuRoundedIcon fontSize="large"></MenuRoundedIcon>
           </Button>
           <Toast
             onClose={() => setShow(false)}
@@ -109,7 +114,7 @@ const Navbar = () => {
               class="text-xl bg-transparent cursor-pointer  border-none  "
               onClick={() => setShow(false)}
             >
-              X
+              <ClearRoundedIcon fontSize="large"></ClearRoundedIcon>
             </Button>
           </Toast>
         </div>
@@ -166,9 +171,14 @@ const Navbar = () => {
                 setBlueglasses(false)
               }
             >
-              ❌
+              <ClearRoundedIcon fontSize="large"></ClearRoundedIcon>
             </Button>
-            <Button onClick={() => setBlueglasses(true)}>🔵</Button>
+            <Button onClick={() => setBlueglasses(true)}>
+              <RadioButtonUncheckedRoundedIcon
+                fontSize="large"
+                color="primary"
+              ></RadioButtonUncheckedRoundedIcon>
+            </Button>
             <Button onClick={() => setGreenglasses(true)}>🟢</Button>
             <Button onClick={() => setYellowglasses(true)}>🟡</Button>
             <Button onClick={() => setRedglasses(true)}>🔴</Button>
