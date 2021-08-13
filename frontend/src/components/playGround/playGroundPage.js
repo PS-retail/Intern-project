@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import TabContext from "@material-ui/lab/TabContext";
@@ -30,12 +30,24 @@ const useStyles = makeStyles({
   },
 
 });
+
+
+
 export default function PlayGroundPage() {
   const [value, setValue] = React.useState("1");
   const classes = useStyles();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const [ModelCanvas, setModelCanvas] = useState("");
+
+  function changeToCanvas(){
+    setValue("2");
+    setModelCanvas("https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.glb?1542147958948");
+  }
+
+
   return (
     <Box className={classes.appContainer}>
       <TabContext value={value}>
@@ -64,6 +76,7 @@ export default function PlayGroundPage() {
                 imageSrc = "https://images.ctfassets.net/8cd2csgvqd3m/5idLXKkPidYN49NvdNciUa/284fc74753af424361a55700a11b1eef/72529431_1118767524988584_1950461824411369472_n.jpg.png?q=90&fm=png&w=480&h=480&fit=fill"
                 description = "The future of sound"
                 className={classes.card}
+                canvasMode = {changeToCanvas}
               >
                 
               </MediaCard>
@@ -73,6 +86,7 @@ export default function PlayGroundPage() {
                 imageSrc = "https://images.ctfassets.net/8cd2csgvqd3m/5phw37OsT8BoeyhmqfJaud/d0509804927b87fb96aad5d13b0f41e6/55_natural_mot_stand_light_oak.png?q=90&fm=png&w=480&h=480&fit=fill"
                 description = "Crafted sound design"
                 className={classes.card}
+                canvasMode = {changeToCanvas}
               >
 
               </MediaCard>
@@ -82,7 +96,12 @@ export default function PlayGroundPage() {
             <Box
               className={classes.container}
             >
-              <Canvas></Canvas>
+              <Canvas
+                selectedModel = {ModelCanvas}
+              
+              >
+
+              </Canvas>
             </Box>
           </TabPanel>
           

@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 import CanvasDraw from "react-canvas-draw";
 
 import { io } from "socket.io-client";
+import { getThemeProps } from '@material-ui/styles';
 
 const ENDPOINT = "http://localhost:5000";
 var socket;
@@ -77,7 +78,7 @@ function syncDrawing(canvasRef){
 
 
 
-const Canvas = () => {
+function Canvas(props){
   
   
   const canvasRef = useRef(null);
@@ -116,7 +117,7 @@ const Canvas = () => {
 
       
       <model-viewer 
-        src="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b/Astronaut.glb?1542147958948" 
+        src= {props.selectedModel}
         alt="A 3D model of an astronaut" 
         ar-modes="webxr scene-viewer quick-look" 
         environment-image="neutral" 
@@ -132,7 +133,9 @@ const Canvas = () => {
           hideGrid='true' 
           backgroundColor = '' b
           rushRadius= '3' 
-          lazyRadius = '0' 
+          lazyRadius = '0'
+          brushRadius = '5'
+          brushColor = '#00FFFF'
           canvasWidth = {ModelViewerStyle.width} 
           canvasHeight = {ModelViewerStyle.height}
           

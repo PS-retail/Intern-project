@@ -20,6 +20,8 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   const classes = useStyles();
 
+  
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -41,7 +43,7 @@ export default function MediaCard(props) {
         <Button size="small" color="primary">
           Purchase
         </Button>
-        <Button size="small" color="secondary">
+        <Button size="small" color="secondary" onClick = {props.canvasMode}>
           View in drawing canvas
         </Button>
       </CardActions>
