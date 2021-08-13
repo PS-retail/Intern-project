@@ -1,146 +1,172 @@
-import React, { useState, useEffect } from 'react';
-import Video from 'twilio-video';
-import Participant from './participent';
-
-
 import styled from "styled-components";
 import tw from "twin.macro";
+import React, { useState, useEffect } from "react";
 
+import Options from "./options";
+import Video from "twilio-video";
+import Participant from "./participent";
+import Button from "../general/button";
 
-
-const LocalContainer= styled.div`
+const SmallContainer = styled.div`
   ${tw`
-    p-4
-    
-    absolute bottom-1/4 left-0
-    h-[250px]
-    
-
+    h-[232px]
+    float-right
+    m-auto
   `}
 `;
 
-const RemoteContainer= styled.div`
+const SideContainer = styled.div`
   ${tw`
-    
-   
-    h-[700px]
-    
+    h-[905px]
+    w-[310px]
+    mt-8
+    left-0
+    float-left
+    table-cell
+    align-bottom
+  `}
+`;
+
+const MainContainer = styled.div`
+  ${tw`
+    mr-0
+    h-full
     py-8
-    absolute left-1/4
-    
-    
-    
+    float-left
+    absolute left-[310px]
   `}
 `;
 
-const RoomContainer= styled.div`
+const RoomContainer = styled.div`
   ${tw`
     w-screen
     h-screen
-    flex
-    relative   
-    
-
+    relative
+    block
   `}
 `;
 
-const RoomName= styled.h3`
+const RoomName = styled.h3`
   ${tw`
     text-left
     p-4
-
-    
-    
-
   `}
 `;
 
-const RoomLeaveButton= styled.button`
+const Title = styled.span`
   ${tw`
-    absolute top-5 right-5
-    p-1
-    text-lg
+    absolute
+    top-1
+    left-1/2
+    text-center
     font-semibold
-    text-black
-    border-solid
-    border-2 
-    border-black
-    
+    text-xl
+  `}
+`;
 
+const ButtonContainer = styled.div`
+  ${tw`
+    absolute
+    top-2
+    right-2
+  `}
+`;
+
+const OptionsContainer = styled.div`
+  ${tw`
+    absolute
+    bottom-1
+    left-2
+    ml-2
+    z-50
   `}
 `;
 
 const Room = ({ roomName, token, handleLogout }) => {
-    const [room, setRoom] = useState(null);
-    const [participants, setParticipants] = useState([]);
+  const [room, setRoom] = useState(null);
+  const [participants, setParticipants] = useState([]);
+  const [voice, setVoice] = useState(false);
+  const [video, setVideo] = useState(true);
 
-    
-    
-    useEffect(() => {
-        const participantConnected = participant => {
-          setParticipants(prevParticipants => [...prevParticipants, participant]);
-        };
-        const participantDisconnected = participant => {
-          setParticipants(prevParticipants =>
-            prevParticipants.filter(p => p !== participant)
-          );
-        };
-        Video.connect(token, {
-          name: roomName
-        }).then(room => {
-          setRoom(room);
-          room.on('participantConnected', participantConnected);
-          room.on('participantDisconnected', participantDisconnected);
-          room.participants.forEach(participantConnected);
-        });
-        return () => {
-            setRoom(currentRoom => {
-              if (currentRoom && currentRoom.localParticipant.state === 'connected') {
-                currentRoom.localParticipant.tracks.forEach(function(trackPublication) {
-                  trackPublication.track.stop();
-                });
-                currentRoom.disconnect();
-                return null;
-              } else {
-                return currentRoom;
-              }
-            });
-          };
-          
-    }, [roomName, token]);
+  useEffect(() => {
+    const participantConnected = (participant) => {
+      setParticipants((prevParticipants) => [...prevParticipants, participant]);
+    };
+    const participantDisconnected = (participant) => {
+      setParticipants((prevParticipants) =>
+        prevParticipants.filter((p) => p !== participant)
+      );
+    };
+    Video.connect(token, {
+      name: roomName,
+    }).then((room) => {
+      setRoom(room);
+      room.on("participantConnected", participantConnected);
+      room.on("participantDisconnected", participantDisconnected);
+      room.participants.forEach(participantConnected);
+    });
+    return () => {
+      setRoom((currentRoom) => {
+        if (currentRoom && currentRoom.localParticipant.state === "connected") {
+          currentRoom.localParticipant.tracks.forEach(function (
+            trackPublication
+          ) {
+            trackPublication.track.stop();
+          });
+          currentRoom.disconnect();
+          return null;
+        } else {
+          return currentRoom;
+        }
+      });
+    };
+  }, [roomName, token]);
 
-    const remoteParticipants = participants.map(participant => (
-        <Participant key={participant.sid} participant={participant} />
-    ));  
-    
-    
-    
-    return (
 
-      
+
+
+  const remoteParticipants = participants.map((participant) => (
+    <Participant key={participant.sid} participant={participant} />
+  ));
+
+  return (
     <RoomContainer>
-        <RoomName>Room ID: {roomName}</RoomName>
-        <RoomLeaveButton onClick={handleLogout}>Leave room</RoomLeaveButton>
-        <RemoteContainer>
-        {remoteParticipants}
-        </RemoteContainer>
-        
-        <LocalContainer >
-        {room ? (
-            <Participant 
-            
-            key={room.localParticipant.sid}
-            participant={room.localParticipant}
+      <RoomName>Room ID: {roomName}</RoomName>
+      <Title>B&O Meeting</Title>
+      <ButtonContainer>
+        <Button
+          size={"small"}
+          type={"video"}
+          text={"Leave Room"}
+          onClick={handleLogout}
+        />
+      </ButtonContainer>
+      <MainContainer>{remoteParticipants[0]}</MainContainer>
+      <SideContainer>
+        <SmallContainer>
+          {room ? (
+            <Participant
+              key={room.localParticipant.sid}
+              participant={room.localParticipant}
+              video={video}
+              voice = {voice}
             />
-        ) : (
-            ''
-        )}
-        </LocalContainer>
+          ) : (
+            ""
+          )}
+          {remoteParticipants.slice(1) && room && remoteParticipants.slice(1)}
+        </SmallContainer>
+      </SideContainer>
+      <OptionsContainer>
+        <Options
+          video={video}
+          voice={voice}
+          setVideo={setVideo}
+          setVoice={setVoice}
+        />
+      </OptionsContainer>
     </RoomContainer>
-    );  
+  );
 };
-
-
-
 
 export default Room;

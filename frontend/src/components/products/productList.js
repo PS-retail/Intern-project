@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import tw from "twin.macro";
-import { Grid } from "@material-ui/core";
+ import tw from "twin.macro";
+//import { Grid } from "@material-ui/core";
 
 import Product from "./product";
 
@@ -89,31 +89,31 @@ const products = [
   },
 ];
 
-const TopContainer = styled.div`
-  ${tw`
-    flex
-    w-screen
-    h-[600px]
-    m-0
-    p-0
-    bg-cover
-    bg-no-repeat
-  `};
-`;
+// const TopContainer = styled.div`
+//   ${tw`
+//     flex
+//     w-screen
+//     h-[600px]
+//     m-0
+//     p-0
+//     bg-cover
+//     bg-no-repeat
+//   `};
+// `;
 
-const Title = styled.div`
-  ${tw`
-  text-3xl
-  font-bold
-  text-white
-`};
-`;
+// const Title = styled.div`
+//   ${tw`
+//   text-3xl
+//   font-bold
+//   text-white
+// `};
+// `;
 
-const Contents = styled.div`
-  ${tw`
-  m-auto
-`};
-`;
+// const Contents = styled.div`
+//   ${tw`
+//   m-auto
+// `};
+// `;
 
 
 
@@ -143,19 +143,52 @@ const Contents = styled.div`
 // };
 
 // ALEX
+function getProductById(id) {
+  console.log("getProductById called")
+  for (let i = 0 ; i < products.length ; i++) {
+    if (id == products[i].id) {
+      return products[i]
+    }
+  }
+  // console.log(product)
+  // return product
+}
+
 function ProductList (props) {
+  // Delete once the "All products" page has been removed"
+  if (props.productsId == undefined) {
+    console.log("here")
+    const productsPageList = products.map(item => 
+      <Product 
+        key={item.id}
+        product={item} />
+    )
+    return (
+      <div className="container" >
+        {productsPageList}
+      </div>
+    )
+
+  } else {
+    const productsList = props.productsId.map(id => {
+      return getProductById(id)
+    })
+
+    const productsPageList = productsList.map(item => 
+      <Product 
+        key={item.id}
+        product={item} />
+    )
+    
+    return (
+      <div className="container" >
+        {productsPageList}
+      </div>
+    )
+  }
   
-  const productsPageList = products.map(item => 
-    <Product 
-      key={item.id}
-      product={item} />
-  )
+
   
-  return (
-    <div className="container" >
-      {productsPageList}
-    </div>
-  )
 }
 
 
