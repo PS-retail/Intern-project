@@ -32,8 +32,13 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccessibilityNewRoundedIcon from "@material-ui/icons/AccessibilityNewRounded";
 //import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
-import RadioButtonUncheckedRoundedIcon from "@material-ui/icons/RadioButtonUncheckedRounded";
+//import RadioButtonUncheckedRoundedIcon from "@material-ui/icons/RadioButtonUncheckedRounded";
 import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
+import StopIcon from '@material-ui/icons/Stop';
+import green from "@material-ui/core/colors/green";
+import yellow from "@material-ui/core/colors/yellow";
+import blue from "@material-ui/core/colors/blue";
+import red from "@material-ui/core/colors/red";
 
 
 import { Link } from "react-router-dom";
@@ -175,14 +180,29 @@ const Navbar = () => {
               <ClearRoundedIcon fontSize="large"></ClearRoundedIcon>
             </Button>
             <Button onClick={() => setBlueglasses(true)}>
-              <RadioButtonUncheckedRoundedIcon
+              <StopIcon
                 fontSize="large"
-                color="primary"
-              ></RadioButtonUncheckedRoundedIcon>
+                style={{ color: "blue" }}
+              ></StopIcon>
             </Button>
-            <Button onClick={() => setGreenglasses(true)}>🟢</Button>
-            <Button onClick={() => setYellowglasses(true)}>🟡</Button>
-            <Button onClick={() => setRedglasses(true)}>🔴</Button>
+            <Button onClick={() => setGreenglasses(true)}>
+            <StopIcon
+                fontSize="large"
+                style={{ color: "green" }}
+              ></StopIcon>
+            </Button>
+            <Button onClick={() => setYellowglasses(true)}>
+            <StopIcon
+                fontSize="large"
+                style={{ color: "yellow" }}
+              ></StopIcon>
+            </Button>
+            <Button onClick={() => setRedglasses(true)}>
+            <StopIcon
+                fontSize="large"
+                style={{ color: "red" }}
+              ></StopIcon>
+            </Button>
 
             <Toast
               onClose={() => setBlueglasses(false)}
@@ -191,12 +211,12 @@ const Navbar = () => {
               delay={3000}
               class="z-1"
             >
-              <Button
+              {/* <Button
                 class="text-xl bg-white cursor-pointer  border-none  "
                 onClick={() => setBlueglasses(false)}
               >
                 🟦
-              </Button>
+              </Button> */}
             </Toast>
             <Toast
               onClose={() => setGreenglasses(false)}
@@ -205,12 +225,12 @@ const Navbar = () => {
               delay={3000}
               class="z-1"
             >
-              <Button
+              {/* <Button
                 class="text-xl bg-white cursor-pointer  border-none  "
                 onClick={() => setGreenglasses(false)}
               >
                 🟩
-              </Button>
+              </Button> */}
             </Toast>
             <Toast
               onClose={() => setYellowglasses(false)}
@@ -219,12 +239,12 @@ const Navbar = () => {
               delay={3000}
               class="z-1"
             >
-              <Button
+              {/* <Button
                 class="text-xl bg-white cursor-pointer  border-none  "
                 onClick={() => setYellowglasses(false)}
               >
                 🟨
-              </Button>
+              </Button> */}
             </Toast>
             <Toast
               onClose={() => setRedglasses(false)}
@@ -233,12 +253,12 @@ const Navbar = () => {
               delay={3000}
               class="z-1"
             >
-              <Button
+              {/* <Button
                 class="text-xl bg-white cursor-pointer  border-none  "
                 onClick={() => setRedglasses(false)}
               >
                 🟥
-              </Button>
+              </Button> */}
             </Toast>
           </Toast>
         </div>
