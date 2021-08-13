@@ -124,7 +124,8 @@ const Navbar = () => {
             <a class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
               <img
                 src="https://www.luxussound.com/img/logos/logo-bangolufsen.png"
-                width="120"
+                width="190"
+                height="50"
               />
             </a>
           </Link>
