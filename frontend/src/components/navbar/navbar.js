@@ -27,7 +27,10 @@ import VideoCallIcon from "@material-ui/icons/VideoCall";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import MenuIcon from "@material-ui/icons/Menu";
-//import Speaker_Phone from "@material-ui/icons/speaker_phone";
+import AccountBoxRoundedIcon from '@material-ui/icons/AccountBoxRounded';
+import SearchIcon from '@material-ui/icons/Search';
+import AccessibilityNewRoundedIcon from '@material-ui/icons/AccessibilityNewRounded';
+
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -131,6 +134,10 @@ const Navbar = () => {
               </Button>
             </Link>
           )}
+          <AccountBoxRoundedIcon fontSize="large">
+            </AccountBoxRoundedIcon>
+          <SearchIcon fontSize="large"></SearchIcon>
+          <AccessibilityNewRoundedIcon fontSize="large"></AccessibilityNewRoundedIcon>
           <Button onClick={() => setShowsearch(true)}>🔍</Button>
           <Button onClick={() => setShowglasses(true)}>🕶</Button>
           <Toast
@@ -140,6 +147,7 @@ const Navbar = () => {
             autohide
           >
             <SearchBar />
+
           </Toast>
           <br />
           <Toast
