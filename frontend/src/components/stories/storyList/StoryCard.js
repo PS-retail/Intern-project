@@ -6,12 +6,6 @@ import { Link } from "react-router-dom";
 
 import storiesData from "../storiesData";
 
-const storycolstart=[
-    "col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100",
-    "col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100",
-    "col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100",
-  ]
-
   const BlackText = styled.div`
   ${tw`
   text-3xl
@@ -29,8 +23,8 @@ const BlackTextsml = styled.div`
   font-thin
   tracking-widest
   uppercase
-  mt-1
-  mb-3
+  mt-2
+  mb-2
   text-gray-500
 `};
 `;

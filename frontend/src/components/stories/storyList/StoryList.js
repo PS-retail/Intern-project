@@ -25,8 +25,8 @@ const slideText=[
 ]
 const storycolstart=[
   "col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100",
-  "col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100",
-  "col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-6 row-start-3 row-span-5 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-4 row-start-0 row-span-1 imageblock hover:bg-gray-100",
 ]
 
 
