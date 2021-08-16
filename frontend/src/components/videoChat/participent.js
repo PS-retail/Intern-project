@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useCallback } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
+import { commands } from "./commands";
 import { useHttpClient } from "../general/http-hook";
 
 const ParticipantContainer = styled.div`
@@ -26,6 +28,23 @@ const NameContainer = styled.div`
     content-center
   `};
 `;
+
+const CaptionsContainer = styled.span`
+  ${tw`
+    bottom-2
+    left-1/2
+    right-1/2
+    h-[75px]
+    w-[250px]
+    bg-gray-300
+    bg-opacity-25
+    absolute
+    flex
+    justify-center
+    content-center
+  `};
+`;
+
 const ParticipantName = styled.span`
   ${tw`
     text-lg
@@ -70,8 +89,21 @@ const MuteContainer = styled.div`
 `;
 
 const Participant = ({ participant, video, voice }) => {
-  const { sendRequest } = useHttpClient()
-  const [subtitle, setSubtitle] = useState("");
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  const startListening = () => SpeechRecognition.startListening({
+    continuous: true,
+    language: 'en-US'
+  })
+
+  const { sendRequest } = useHttpClient();
+  const [subtitle, setSubtitle] = useState(null);
+  const [command, setCommand] = useState(null);
 
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
@@ -177,20 +209,26 @@ const Participant = ({ participant, video, voice }) => {
   }, [changeAudio, voice]);
 
   useEffect(() => {
+    if (!listening) startListening();
+    setSubtitle(transcript);
+    console.log(subtitle)
+  }, [listening, transcript, resetTranscript]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const responseData = await sendRequest({
           url: "http://localhost:5000/api/speech-to-text/",
-          headers: null
-       });
-       console.log(responseData);
-       setSubtitle(responseData.transcript);
-    } catch (err) {
+          headers: null,
+        });
+        commands(responseData.transcript);
+        setCommand(responseData.transcript)
+      } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, [sendRequest, subtitle]);
+  }, [sendRequest, command]);
 
   return (
     <ParticipantContainer>

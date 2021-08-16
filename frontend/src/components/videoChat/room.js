@@ -87,6 +87,7 @@ const Room = ({ roomName, token, handleLogout }) => {
   const [participants, setParticipants] = useState([]);
   const [voice, setVoice] = useState(false);
   const [video, setVideo] = useState(true);
+  const [captions, setCaptions] = useState(false);
 
   useEffect(() => {
     const participantConnected = (participant) => {
@@ -163,6 +164,8 @@ const Room = ({ roomName, token, handleLogout }) => {
           voice={voice}
           setVideo={setVideo}
           setVoice={setVoice}
+          captions={captions}
+          setCaptions={setCaptions}
         />
       </OptionsContainer>
     </RoomContainer>
