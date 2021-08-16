@@ -158,7 +158,6 @@ const Navbar = () => {
           >
             <SearchBar />
           </Toast>
-          <br />
           <Toast
             onClose={() => setShowglasses(false)}
             data-testid="toast"
