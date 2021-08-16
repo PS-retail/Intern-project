@@ -7,7 +7,7 @@ const Container = styled.div`
   ${tw`
     flex
     w-screen
-    h-[720px]
+    h-screen
     m-0
     p-0
     bg-cover
@@ -34,17 +34,26 @@ const MainPage = () => {
     <div style={{ display: "block" }}>
       <Container
         style={{
-          backgroundImage: `url('https://mobius-luxury.eu/image/catalog/Bang--amp--Olufsen/H9i/bang_olufsen_beoplay_h9i_natural_10_00.jpg')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1598698287642-9ceaf9a7a011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1791&&q=80')`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          width: "100vw",
+          height: "100vh",
         }}
       >
-        <Contents>
-          <Text>Welcome to B&O</Text>
-        </Contents>
+        {/* <Contents>
+        </Contents> */}
       </Container>
-      <Link to={"/products"} style = {{textDecoration: 'none'}}>
+      <Link to={"/products"} style={{ textDecoration: "none" }}>
         <Container
           style={{
             backgroundImage: `url('https://images.ctfassets.net/8cd2csgvqd3m/2fEIqg1yXYG9XfpzHm4uaA/49f2f49b927902e553554a621df1f53d/harmony_poster_image.JPG')`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            width: "100vw",
+            height: "100vh",
           }}
         >
           <Contents>
