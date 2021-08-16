@@ -34,12 +34,11 @@ import AccessibilityNewRoundedIcon from "@material-ui/icons/AccessibilityNewRoun
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 //import RadioButtonUncheckedRoundedIcon from "@material-ui/icons/RadioButtonUncheckedRounded";
 import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
-import StopIcon from '@material-ui/icons/Stop';
+import StopIcon from "@material-ui/icons/Stop";
 import green from "@material-ui/core/colors/green";
 import yellow from "@material-ui/core/colors/yellow";
 import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
-
 
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -178,30 +177,19 @@ const Navbar = () => {
               }
             >
               <ClearRoundedIcon fontSize="large"></ClearRoundedIcon>
+              {/* buttons for the different colours */}
             </Button>
             <Button onClick={() => setBlueglasses(true)}>
-              <StopIcon
-                fontSize="large"
-                style={{ color: "blue" }}
-              ></StopIcon>
+              <StopIcon fontSize="large" style={{ color: "blue" }}></StopIcon>
             </Button>
             <Button onClick={() => setGreenglasses(true)}>
-            <StopIcon
-                fontSize="large"
-                style={{ color: "green" }}
-              ></StopIcon>
+              <StopIcon fontSize="large" style={{ color: "green" }}></StopIcon>
             </Button>
             <Button onClick={() => setYellowglasses(true)}>
-            <StopIcon
-                fontSize="large"
-                style={{ color: "yellow" }}
-              ></StopIcon>
+              <StopIcon fontSize="large" style={{ color: "yellow" }}></StopIcon>
             </Button>
             <Button onClick={() => setRedglasses(true)}>
-            <StopIcon
-                fontSize="large"
-                style={{ color: "red" }}
-              ></StopIcon>
+              <StopIcon fontSize="large" style={{ color: "red" }}></StopIcon>
             </Button>
 
             <Toast
