@@ -13,7 +13,7 @@ const speechToText = (req, res, next) => {
     sampleRateHertz: sampleRateHertz,
     threshold: 0, //silence threshold
     recordProgram: "rec", // Try also "arecord" or "sox"
-    silence: "2.0", //seconds of silence before ending
+    silence: "0.5", //seconds of silence before ending
     endOnSilence: true,
     thresholdEnd: 0.5,
   });
