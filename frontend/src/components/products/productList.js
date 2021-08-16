@@ -89,74 +89,17 @@ const products = [
   },
 ];
 
-// const TopContainer = styled.div`
-//   ${tw`
-//     flex
-//     w-screen
-//     h-[600px]
-//     m-0
-//     p-0
-//     bg-cover
-//     bg-no-repeat
-//   `};
-// `;
-
-// const Title = styled.div`
-//   ${tw`
-//   text-3xl
-//   font-bold
-//   text-white
-// `};
-// `;
-
-// const Contents = styled.div`
-//   ${tw`
-//   m-auto
-// `};
-// `;
-
-
-
-// const ProductList = (props) => {
-//   return (
-//     <main style={{ display: "grid", justifyContent: "space-between" }}>
-//       <TopContainer
-//         style={{
-//           backgroundImage: `url('https://bangolufsenrmaskillgohel.blob.core.windows.net/zendesk-guide/bo_header_apps_beo.jpg')`,
-//         }}
-//       >
-//         <Contents>
-//           <Title>Bringing Your Experience To The Next Level</Title>
-//         </Contents>
-//       </TopContainer>
-//       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-//       {products.map((product) => {
-//           return (
-//             <Grid item key={product.id} xs={12} sm={6} md={4} lg={3} >
-//               <Product product={product} />
-//             </Grid>
-//           );
-//         })}
-//         </div>
-//     </main>
-//   );
-// };
-
-// ALEX
 function getProductById(id) {
-  console.log("getProductById called")
   for (let i = 0 ; i < products.length ; i++) {
-    if (id == products[i].id) {
+    if (id === products[i].id) {
       return products[i]
     }
   }
-  // console.log(product)
-  // return product
 }
 
 function ProductList (props) {
   // Delete once the "All products" page has been removed"
-  if (props.productsId == undefined) {
+  if (props.productsId === undefined) {
     console.log("here")
     const productsPageList = products.map(item => 
       <Product 

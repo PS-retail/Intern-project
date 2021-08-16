@@ -6,7 +6,7 @@ import storiesData from "../storiesData";
 import 'react-slideshow-image/dist/styles.css'
 import { Link } from "react-router-dom";
 import { Slide } from 'react-slideshow-image';
-
+import StoryCard from "./StoryCard";
 
 const slideImages = [
   'https://images.ctfassets.net/8cd2csgvqd3m/6KBshSexIngc2pqhSFerUs/b1873823238aa5c74a4de6647add6db8/hero_ar_app_web.jpg',
@@ -25,8 +25,8 @@ const slideText=[
 ]
 const storycolstart=[
   "col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100",
-  "col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100",
-  "col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-6 row-start-3 row-span-5 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-4 row-start-0 row-span-1 imageblock hover:bg-gray-100",
 ]
 
 
@@ -54,14 +54,13 @@ const BlackTextsml = styled.div`
 
 
 function StoryList() {
-
     return (
         // Header of the page
         <main >
 
             <BlackText >
               <p style={{ marginLeft:'100px',letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p>
-            </BlackText>
+            </BlackText> 
             <br />
             <BlackTextsml>
               <p style = {{marginLeft:'100px'}}>Get inspired by our collection of narratives</p>
@@ -89,42 +88,25 @@ function StoryList() {
         <br />
 
         {/* navbar section */}  {/* navs have been automated */}
-        <div class="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
-          <div class="m-auto">
+        <div className="flex text-gray-200 border-solid border-gray-100   text-center text-gray-100 p-2 " >
+          <div className="m-auto">
             <Link style = {{textDecoration: 'underline', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Link>
           </div>
           {storycolstart.map((storycolstart, index) => (
-            <div class="hover:underline m-auto" >
+            <div className="hover:underline m-auto" >
               <Link to= {{ pathname: "/story1",state: {id: storiesData[index].id,},}}
                 style = {{textDecoration: 'none', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}}>{storiesData[index].name}</Link>
             </div>
           ))}
 
         </div>
-
-        {/* stories section */}  {/* stories have been automated */}
-          <div class="grid grid-cols-10 grid-rows-10 ">
-              {storycolstart.map((storycolstart, index) => (
-                <div class={storycolstart}>
-                  <Link style={{textDecoration: 'none' }} to= {{
-                    pathname: "/story1",
-                    state: {id: storiesData[index].id,},
-                  }}>
-                  <img src={storiesData[index].bgImage} alt="..." className="align-middle max-h-full max-w-full" />
-                  <div>
-                    <br />
-                    <BlackTextsml >{storiesData[index].tagline}</BlackTextsml>
-                    <BlackText >{storiesData[index].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-24 text-center m-3">
-                      <BlackTextsml >{storiesData[index].type}</BlackTextsml>
-                    </div>
-                  </div>
-                  </Link>
-                </div>
-              ))}
-
+        
+        <div className="grid grid-cols-10 grid-rows-10 ">
+          {storycolstart.map((storycolstart, index) => (
+            <StoryCard storycolstart = {storycolstart} index = {index} />
+          ))}
         </div>
-        </main>
+      </main>
     )
 }
 
