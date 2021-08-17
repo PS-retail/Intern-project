@@ -90,7 +90,7 @@ items-center
 
 const ViewCard = () => {
   const { sendRequest } = useHttpClient();
-  const [date, setDate] = useState(new Date());
+  const [date] = useState(new Date());
   const [bookings, setBookings] = useState();
   const auth = useContext(AuthContext);
 

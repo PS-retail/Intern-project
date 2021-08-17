@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useCallback } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -39,35 +39,35 @@ const ParticipantVideo = styled.video`
   `};
 `;
 
-const NoVideo = styled.div`
-  ${tw`
-    flex
-    justify-center
-    content-center
-    h-full
-    w-[300px]
-    text-xl
-    text-white
-    bg-black
-  `};
-`;
+// const NoVideo = styled.div`
+//   ${tw`
+//     flex
+//     justify-center
+//     content-center
+//     h-full
+//     w-[300px]
+//     text-xl
+//     text-white
+//     bg-black
+//   `};
+// `;
 
-const MuteContainer = styled.div`
-  ${tw`
-    bottom-0
-    left-0
-    h-[15px]
-    w-[50px]
-    bg-gray-500
-    bg-opacity-50
-    absolute
-    flex
-    justify-center
-    content-center
-    text-xs
-    text-red-600
-  `};
-`;
+// const MuteContainer = styled.div`
+//   ${tw`
+//     bottom-0
+//     left-0
+//     h-[15px]
+//     w-[50px]
+//     bg-gray-500
+//     bg-opacity-50
+//     absolute
+//     flex
+//     justify-center
+//     content-center
+//     text-xs
+//     text-red-600
+//   `};
+// `;
 
 const Participant = ({ participant, video, voice }) => {
   const { sendRequest } = useHttpClient()

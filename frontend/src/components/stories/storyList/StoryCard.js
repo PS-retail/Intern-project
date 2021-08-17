@@ -1,12 +1,11 @@
-import React from "react"
+import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { Link } from "react-router-dom";
 
-
 import storiesData from "../storiesData";
 
-  const BlackText = styled.div`
+const BlackText = styled.div`
   ${tw`
   text-3xl
   tracking-wider
@@ -29,33 +28,36 @@ const BlackTextsml = styled.div`
 `};
 `;
 
-
 // props: storycolstart, index
 function StoryCard(props) {
-    return (
+  return (
     <div class={props.storycolstart}>
-        <Link style={{textDecoration: 'none' }} to= {{
-            pathname: "/story1",
-            state: {id: storiesData[props.index].id,},
-            }}>
-                
-                <div className="img-hover-zoom">
-                    <img src={storiesData[props.index].bgImage} alt="story picture" style={{maxWidth:'100%', height:'auto'}} />
-                </div>
+      <Link
+        style={{ textDecoration: "none" }}
+        to={{
+          pathname: "/story1",
+          state: { id: storiesData[props.index].id },
+        }}
+      >
+        <div className="img-hover-zoom">
+          <img
+            src={storiesData[props.index].bgImage}
+            alt="story-pic"
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        </div>
 
-                <div>
-                    <br />
-                    <BlackTextsml >{storiesData[props.index].tagline}</BlackTextsml>
-                    <BlackText >{storiesData[props.index].name}</BlackText>
-                    <div class=" border-solid border-gray-100 w-24 text-center mt-3">
-                        <BlackTextsml >{storiesData[props.index].type}</BlackTextsml>
-                    </div>
-                </div>
-        </Link>
+        <div>
+          <br />
+          <BlackTextsml>{storiesData[props.index].tagline}</BlackTextsml>
+          <BlackText>{storiesData[props.index].name}</BlackText>
+          <div class=" border-solid border-gray-100 w-24 text-center mt-3">
+            <BlackTextsml>{storiesData[props.index].type}</BlackTextsml>
+          </div>
+        </div>
+      </Link>
     </div>
-
-
-    )
+  );
 }
 
-export default StoryCard
+export default StoryCard;

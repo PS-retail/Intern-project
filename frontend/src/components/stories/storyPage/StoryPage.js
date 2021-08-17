@@ -1,5 +1,5 @@
 import React from "react";
-import { Background, Parallax } from "react-parallax"
+import {Parallax } from "react-parallax"
 import "./StoryPage.css"
 import storiesData from "../storiesData";
 import ProductList from "../../products/productList";
