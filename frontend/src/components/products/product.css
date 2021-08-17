@@ -29,7 +29,6 @@
     top: -50%;
     width: 100%;
     height: 100%;
-    /* background: #2196f3; */
     background: #c6ae92;
     transform: skewY(345deg);
     transition: 0.5s;
@@ -47,7 +46,6 @@
     left: 0;
     font-weight: 600;
     font-size: 8em;
-    /* color: rgba(0, 0, 0, 0.1) */
     color: rgba(0, 0, 0, 0.05)
 }
 .card .imgBx
