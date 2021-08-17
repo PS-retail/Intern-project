@@ -12,21 +12,27 @@ import { makeStyles } from "@material-ui/core";
 import Canvas from './canvas';
 import '@google/model-viewer';
 import MediaCard from './card'
+import { PicCenterOutlined } from "@ant-design/icons";
 
 const useStyles = makeStyles({
   appContainer: {
     display: "flex",
     flexDirection: "column",
-    width: "100vw",
+    width: "25vw",
     height: "100vh"
+    
   },
 
   container: {
-    display: "flex",
+    display: "grid",
     
   },
   panel: {
     width: "100%"
+  },
+
+  card: {
+    
   },
 
 });
@@ -53,7 +59,7 @@ export default function PlayGroundPage() {
       <TabContext value={value}>
         <AppBar position="static">
           <TabList
-            variant="scrollable"
+            variant="fullWidth"
             onChange={handleChange}
             aria-label="tabs"
           >
