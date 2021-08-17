@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import tw from "twin.macro";
-import React, { useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect } from "react";
 
 import Options from "./options";
 import Video from "twilio-video";

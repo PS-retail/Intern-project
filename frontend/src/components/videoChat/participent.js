@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useCallback } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+
+import { useHttpClient } from "../general/http-hook";
 
 const ParticipantContainer = styled.div`
   ${tw`
@@ -68,6 +70,9 @@ const MuteContainer = styled.div`
 `;
 
 const Participant = ({ participant, video, voice }) => {
+  const { sendRequest } = useHttpClient()
+  const [subtitle, setSubtitle] = useState("");
+
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
 
@@ -137,15 +142,13 @@ const Participant = ({ participant, video, voice }) => {
             publication.track.disable();
           }
         });
-        console.log("Video Stopped!");
       } else if (participant.videoTracks && video) {
         participant.videoTracks.forEach((publication) => {
           publication.track.enable();
         });
-        console.log("Video Restarted!");
       }
     },
-    [video]
+    [participant.videoTracks]
   );
 
   const changeAudio = useCallback(
@@ -156,26 +159,38 @@ const Participant = ({ participant, video, voice }) => {
             publication.track.disable();
           }
         });
-        console.log("Audio Stopped!");
       } else if (participant.audioTracks && voice) {
         participant.audioTracks.forEach((publication) => {
           publication.track.enable();
         });
-        console.log("Audio Restarted!");
       }
     },
-    [voice]
+    [participant.audioTracks]
   );
 
   useEffect(() => {
     changeVideo(video);
-  }, [changeVideo]);
-
+  }, [changeVideo, video]);
 
   useEffect(() => {
-    console.log(voice)
     changeAudio(voice);
-  }, [changeAudio]);
+  }, [changeAudio, voice]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseData = await sendRequest({
+          url: "http://localhost:5000/api/speech-to-text/",
+          headers: null
+       });
+       console.log(responseData);
+       setSubtitle(responseData.transcript);
+    } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [sendRequest, subtitle]);
 
   return (
     <ParticipantContainer>
@@ -183,7 +198,7 @@ const Participant = ({ participant, video, voice }) => {
         <ParticipantName>{participant.identity}</ParticipantName>
       </NameContainer>
       <ParticipantVideo ref={videoRef} autoPlay={true} />
-      <audio ref={audioRef}  />
+      <audio ref={audioRef} />
     </ParticipantContainer>
   );
 };

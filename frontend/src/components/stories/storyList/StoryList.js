@@ -6,7 +6,7 @@ import storiesData from "../storiesData";
 import 'react-slideshow-image/dist/styles.css'
 import { Link } from "react-router-dom";
 import { Slide } from 'react-slideshow-image';
-
+import StoryCard from "./StoryCard";
 
 const slideImages = [
   'https://images.ctfassets.net/8cd2csgvqd3m/6KBshSexIngc2pqhSFerUs/b1873823238aa5c74a4de6647add6db8/hero_ar_app_web.jpg',
@@ -25,8 +25,8 @@ const slideText=[
 ]
 const storycolstart=[
   "col-start-0 col-span-6 row-start-0 row-span-2 imageblock hover:bg-gray-100",
-  "col-start-0 col-span-10 row-start-3 row-span 5 imageblock hover:bg-gray-100",
-  "col-start-0 col-span-4 row-start-0 row-span-2 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-6 row-start-3 row-span-5 imageblock hover:bg-gray-100",
+  "col-start-0 col-span-4 row-start-0 row-span-1 imageblock hover:bg-gray-100",
 ]
 
 
@@ -54,14 +54,13 @@ const BlackTextsml = styled.div`
 
 
 function StoryList() {
-
     return (
         // Header of the page
         <main className = "z-10">
 
             <BlackText >
               <p style={{ marginLeft:'100px',letterSpacing:'2px', fontSize:'50px'}}><br />Stories</p>
-            </BlackText>
+            </BlackText> 
             <br />
             <BlackTextsml>
               <p style = {{marginLeft:'100px'}}>Get inspired by our collection of narratives</p>
@@ -89,6 +88,7 @@ function StoryList() {
         <br />
 
         {/* navbar section */}  {/* navs have been automated */}
+
         <div className="flex text-gray-200 border-solid border-gray-100  z-10 text-center text-gray-100 p-2 " >
           <div className="m-auto">
             <Link style = {{textDecoration: 'underline', color:'gray', textTransform: 'uppercase', fontFamily:'Arial', letterSpacing:'2px',fontSize:'12px'}} > All</Link>
@@ -122,9 +122,8 @@ function StoryList() {
                   </Link>
                 </div>
               ))}
-
         </div>
-        </main>
+      </main>
     )
 }
 

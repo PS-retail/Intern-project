@@ -4,10 +4,12 @@ import "./StoryPage.css"
 import storiesData from "../storiesData";
 import ProductList from "../../products/productList";
 import { useLocation } from "react-router-dom";
+import QRCode from "react-qr-code";
 
 function StoryPage(props) {
 
     // Use to gather props from Link in StoryList page
+
     const location = useLocation()
     const storyId  = location.state.id
 
@@ -15,6 +17,7 @@ function StoryPage(props) {
     if (storyId === undefined) {
         story = storiesData[1]
     } else {
+        storyId = location.state.id
         for (let i = 0 ; i < storiesData.length ; i++) {
             if (storiesData[i].id === storyId) {
                 story = storiesData[i]
@@ -49,7 +52,12 @@ function StoryPage(props) {
                 <div style={{textAlign: 'center'}}>
                     <hr className="horizontal-line"></hr>
                     <h1 className="experience">Try it in your own space</h1>
-                    <a href={story.link} target="_blank" className="button">START HERE</a>
+                    {/* <a href={story.link} target="_blank" className="button">START HERE</a> */}
+                    <div>
+                        <QRCode value={story.link} size={120}/>
+                        <h3 style={{color:"white", paddingTop:'30px', textTransform:"uppercase"}}>Frame the QR code with your smartphone to start the experience</h3>
+                    </div>
+                    
                     <hr className="horizontal-line"></hr>
                 </div>
 
