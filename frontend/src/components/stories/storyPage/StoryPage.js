@@ -9,11 +9,12 @@ import QRCode from "react-qr-code";
 function StoryPage(props) {
 
     // Use to gather props from Link in StoryList page
-    const location = useLocation()  
-    let storyId
-    let story
 
-    if (location.state === undefined) {
+    const location = useLocation()
+    const storyId  = location.state.id
+
+    let story
+    if (storyId === undefined) {
         story = storiesData[1]
     } else {
         storyId = location.state.id
@@ -28,9 +29,9 @@ function StoryPage(props) {
     }
 
     return (
-        <div>
-            <Parallax 
-                bgImage= {story.bgImage} 
+        <div className = "z-10">
+            <Parallax
+                bgImage= {story.bgImage}
                 strength={100}
                 bgImageStyle={{opacity: "0.9"}}
             >

@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage:
-      "url(https://images.ctfassets.net/8cd2csgvqd3m/4xozbbqtxcvIr61vK48ND/1d304bf6b0dba20ab69c1234a899276c/Explore_anthra_sb2.jpg?q=90&fm=webp&w=720&h=1440&fit=fill)",
+      "url(https://images.unsplash.com/photo-1520170350707-b2da59970118?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"

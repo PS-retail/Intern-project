@@ -44,7 +44,7 @@ const MainPage = () => {
       <Link to={"/products"} style = {{textDecoration: 'none'}}>
         <Container
           style={{
-            backgroundImage: `url('https://www.esquireme.com/public/images/2019/05/20/esquire_bang-olufsen-bronze-collection-release-01.jpg')`,
+            backgroundImage: `url('https://images.ctfassets.net/8cd2csgvqd3m/2fEIqg1yXYG9XfpzHm4uaA/49f2f49b927902e553554a621df1f53d/harmony_poster_image.JPG')`,
           }}
         >
           <Contents>

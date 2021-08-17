@@ -3,7 +3,7 @@ import "./product.css"
 
 const Product = (props) => {
   return (
-    <div className ="card">
+    <div className ="card" >
         <div className="imgBx">
             <img src={props.product.image}></img>
         </div>
