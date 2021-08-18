@@ -7,8 +7,8 @@ const Container = styled.div`
   ${tw`
     flex
     // w-screen
-    // h-screen\
-    w-[2000px]
+    // h-screen
+    w-screen
     h-[1000px]
     m-0
     p-0
