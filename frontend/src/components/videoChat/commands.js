@@ -1,16 +1,22 @@
+import { io } from "socket.io-client";
+
+const ENDPOINT = "http://localhost:5000";
+var socket;
+
 export const commands = (line) => {
+  socket = io(ENDPOINT);
   const commands = [
     {
       command: "reset",
-      callback: () => alert("Reset"),
+      callback: () => socket.emit("reset", (response) => console.log(response.status)),
     },
     {
       command: "speaker",
-      callback: () => alert("Speaker"),
+      callback: () => socket.emit("speaker", (response) => console.log(response.status)),
     },
     {
       command: "headphones",
-      callback: () => alert("Headphones!"),
+      callback: () => socket.emit('headphones', (response) => console.log(response.status)),
     },
   ];
 
