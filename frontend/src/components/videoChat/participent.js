@@ -31,17 +31,25 @@ const NameContainer = styled.div`
 
 const CaptionsContainer = styled.span`
   ${tw`
+    m-auto
     bottom-2
     left-1/2
     right-1/2
-    h-[75px]
-    w-[250px]
+    w-[40%]
+    max-h-[30%]
     bg-gray-300
-    bg-opacity-25
+    bg-opacity-50
     absolute
     flex
     justify-center
     content-center
+  `};
+`;
+
+const Captions = styled.span`
+  ${tw`
+    text-lg
+    text-white
   `};
 `;
 
@@ -58,25 +66,12 @@ const ParticipantVideo = styled.video`
   `};
 `;
 
-const NoVideo = styled.div`
-  ${tw`
-    flex
-    justify-center
-    content-center
-    h-full
-    w-[300px]
-    text-xl
-    text-white
-    bg-black
-  `};
-`;
 
 const MuteContainer = styled.div`
   ${tw`
     bottom-0
     left-0
-    h-[15px]
-    w-[50px]
+    w-[20%]
     bg-gray-500
     bg-opacity-50
     absolute
@@ -88,12 +83,11 @@ const MuteContainer = styled.div`
   `};
 `;
 
-const Participant = ({ participant, video, voice }) => {
+const Participant = ({ participant, video, voice, captions = true }) => {
   const {
     transcript,
     listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
+    resetTranscript
   } = useSpeechRecognition();
 
   const startListening = () => SpeechRecognition.startListening({
@@ -211,7 +205,7 @@ const Participant = ({ participant, video, voice }) => {
   useEffect(() => {
     if (!listening) startListening();
     setSubtitle(transcript);
-    console.log(subtitle)
+    console.log(transcript)
   }, [listening, transcript, resetTranscript]);
 
   useEffect(() => {
@@ -230,6 +224,13 @@ const Participant = ({ participant, video, voice }) => {
     fetchData();
   }, [sendRequest, command]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      resetTranscript();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <ParticipantContainer>
       <NameContainer>
@@ -237,6 +238,7 @@ const Participant = ({ participant, video, voice }) => {
       </NameContainer>
       <ParticipantVideo ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} />
+      {captions && <CaptionsContainer><Captions>{subtitle}</Captions></CaptionsContainer>}
     </ParticipantContainer>
   );
 };
