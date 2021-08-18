@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
   ${tw`
     flex
-    // w-screen
-    // h-screen
     w-screen
     h-[1000px]
     m-0
@@ -25,7 +23,7 @@ const Contents = styled.div`
 
 const Text = styled.div`
   ${tw`
-  text-3xl
+  text-4xl
   font-bold
   text-white
 `};
@@ -62,14 +60,14 @@ const MainPage = () => {
           </Contents>
         </Container>
       </Link>
-      <Link to={"/login"} style = {{textDecoration: 'none'}}>
+      <Link to={"/customer"} style = {{textDecoration: 'none'}}>
         <Container
           style={{
             backgroundImage: `url('https://www.dexigner.com/images/article/61835/Bang_Olufsen_Flagship_New_York_06.jpg')`,
           }}
         >
           <Contents>
-            <Text>Customer Support</Text>
+            <Text>Customer Service</Text>
           </Contents> 
         </Container>
       </Link>
