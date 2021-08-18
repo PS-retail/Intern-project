@@ -82,6 +82,28 @@ io.on("connection", socket => {
     socket.broadcast.emit('drawUpdate', data);
   }
 
+  socket.on("reset", (callback) => {
+    resetFilter();
+    callback({
+      response: "ok"
+    })
+  })
+
+  function resetFilter(){
+    socket.broadcast.emit('resetFilter', data);
+  }
+
+  socket.on("speaker", (callback) => {
+    speakerFilter();
+    callback({
+      response: "ok"
+    })
+  })
+
+  function speakerFilter(data){
+    socket.broadcast.emit('speakerFilter', data);
+  }
+
 
 });
 

@@ -1,10 +1,7 @@
-import { io } from "socket.io-client";
-
-const ENDPOINT = "http://localhost:5000";
-var socket;
+import { socket } from './webSocket'
 
 export const commands = (line) => {
-  socket = io(ENDPOINT);
+  
   const commands = [
     {
       command: "reset",
