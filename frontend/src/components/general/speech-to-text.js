@@ -2,7 +2,7 @@ const recorder = require("node-record-lpcm16");
 
 const speech = require("@google-cloud/speech");
 
-const speechToText = (req, res, next) => {
+const speechToText = () => {
   const encoding = "LINEAR16";
   const sampleRateHertz = 16000;
   const languageCode = "en-GB";
@@ -14,7 +14,7 @@ const speechToText = (req, res, next) => {
     threshold: 0, //silence threshold
     recordProgram: "rec", // Try also "arecord" or "sox"
     silence: "0.5", //seconds of silence before ending
-    endOnSilence: true,
+    endOnSilence: false,
     thresholdEnd: 0.5,
   });
 
@@ -42,13 +42,8 @@ const speechToText = (req, res, next) => {
           : `\n\nReached transcription time limit, press Ctrl+C\n`
       );
       const result = data.results[0].alternatives[0].transcript;
-      recording.stop();
-      res.json({transcript: result})
-      return res.end();
+      // recording.stop();
     })
-    .on('end', () => {
-      console.log('Line Done');
-    });
 
   recording.stream().on("error", console.error).pipe(recognizeStream);
 

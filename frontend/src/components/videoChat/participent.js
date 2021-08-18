@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useCallback } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
+import { commands } from "./commands";
 import { useHttpClient } from "../general/http-hook";
 
 const ParticipantContainer = styled.div`
@@ -26,6 +28,31 @@ const NameContainer = styled.div`
     content-center
   `};
 `;
+
+const CaptionsContainer = styled.span`
+  ${tw`
+    m-auto
+    bottom-2
+    left-1/2
+    right-1/2
+    w-[40%]
+    max-h-[30%]
+    bg-gray-300
+    bg-opacity-50
+    absolute
+    flex
+    justify-center
+    content-center
+  `};
+`;
+
+const Captions = styled.span`
+  ${tw`
+    text-lg
+    text-white
+  `};
+`;
+
 const ParticipantName = styled.span`
   ${tw`
     text-lg
@@ -33,45 +60,46 @@ const ParticipantName = styled.span`
   `};
 `;
 
+
 const ParticipantVideo = styled.video`
   ${tw`
     h-full
   `};
 `;
 
-// const NoVideo = styled.div`
-//   ${tw`
-//     flex
-//     justify-center
-//     content-center
-//     h-full
-//     w-[300px]
-//     text-xl
-//     text-white
-//     bg-black
-//   `};
-// `;
 
-// const MuteContainer = styled.div`
-//   ${tw`
-//     bottom-0
-//     left-0
-//     h-[15px]
-//     w-[50px]
-//     bg-gray-500
-//     bg-opacity-50
-//     absolute
-//     flex
-//     justify-center
-//     content-center
-//     text-xs
-//     text-red-600
-//   `};
-// `;
+const MuteContainer = styled.div`
+  ${tw`
+    bottom-0
+    left-0
+    w-[20%]
+    bg-gray-500
+    bg-opacity-50
+    absolute
+    flex
+    justify-center
+    content-center
+    text-xs
+    text-red-600
+  `};
+`;
 
-const Participant = ({ participant, video, voice }) => {
-  const { sendRequest } = useHttpClient()
-  const [subtitle, setSubtitle] = useState("");
+
+const Participant = ({ participant, video, voice, captions = true }) => {
+  const {
+    transcript,
+    listening,
+    resetTranscript
+  } = useSpeechRecognition();
+
+  const startListening = () => SpeechRecognition.startListening({
+    continuous: true,
+    language: 'en-US'
+  })
+
+  const { sendRequest } = useHttpClient();
+  const [subtitle, setSubtitle] = useState(null);
+  const [command, setCommand] = useState(null);
 
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
@@ -177,20 +205,33 @@ const Participant = ({ participant, video, voice }) => {
   }, [changeAudio, voice]);
 
   useEffect(() => {
+    if (!listening) startListening();
+    setSubtitle(transcript);
+    console.log(transcript)
+  }, [listening, transcript, resetTranscript]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const responseData = await sendRequest({
           url: "http://localhost:5000/api/speech-to-text/",
-          headers: null
-       });
-       console.log(responseData);
-       setSubtitle(responseData.transcript);
-    } catch (err) {
+          headers: null,
+        });
+        commands(responseData.transcript);
+        setCommand(responseData.transcript)
+      } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, [sendRequest, subtitle]);
+  }, [sendRequest, command]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      resetTranscript();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <ParticipantContainer>
@@ -199,6 +240,7 @@ const Participant = ({ participant, video, voice }) => {
       </NameContainer>
       <ParticipantVideo ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} />
+      {captions && <CaptionsContainer><Captions>{subtitle}</Captions></CaptionsContainer>}
     </ParticipantContainer>
   );
 };
