@@ -2,6 +2,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import React, { useState, useEffect } from "react";
 
+import PlayGround from "../playGround/playGroundPage";
 import Options from "./options";
 import Video from "twilio-video";
 import Participant from "./participent";
@@ -30,7 +31,8 @@ const SideContainer = styled.div`
 const MainContainer = styled.div`
   ${tw`
     mr-0
-    h-full
+    h-[80%]
+    xl:h-full
     py-8
     float-left
     absolute left-[310px]
@@ -82,6 +84,17 @@ const OptionsContainer = styled.div`
   `}
 `;
 
+const PlayGroundContainer = styled.div`
+  ${tw`
+    float-right
+    mt-2
+    mr-2
+    h-[400px]
+    w-[400px]
+    z-50
+  `}
+`;
+
 const Room = ({ roomName, token, handleLogout }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
@@ -123,11 +136,12 @@ const Room = ({ roomName, token, handleLogout }) => {
     };
   }, [roomName, token]);
 
-
-
-
   const remoteParticipants = participants.map((participant) => (
-    <Participant key={participant.sid} participant={participant} captions = {captions} />
+    <Participant
+      key={participant.sid}
+      participant={participant}
+      captions={captions}
+    />
   ));
 
   return (
@@ -150,7 +164,7 @@ const Room = ({ roomName, token, handleLogout }) => {
               key={room.localParticipant.sid}
               participant={room.localParticipant}
               video={video}
-              voice = {voice}
+              voice={voice}
             />
           ) : (
             ""
@@ -158,6 +172,9 @@ const Room = ({ roomName, token, handleLogout }) => {
           {remoteParticipants.slice(1) && room && remoteParticipants.slice(1)}
         </SmallContainer>
       </SideContainer>
+      <PlayGroundContainer>
+        <PlayGround />
+      </PlayGroundContainer>
       <OptionsContainer>
         <Options
           video={video}
