@@ -27,10 +27,10 @@ const PlayGroundContainer = styled.div`
   ${tw`
     
     absolute right-[160px]
-    absolute top-[100px]
+    absolute top-[90px]
     align-top
     h-[400px]
-    w-[300px]
+    w-[400px]
     z-10
     
     
