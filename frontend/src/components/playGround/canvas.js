@@ -4,30 +4,18 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import CanvasDraw from "react-canvas-draw";
 import { io } from "socket.io-client";
-
+import { getThemeProps, mergeClasses } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
 const ENDPOINT = "http://localhost:5000";
 var socket;
 
-// const CanvasContainer = styled.div`
-//   ${tw`
-//     z-10
-//     absolute left-0 top-0
-//   `};
-// `;
-
-// const ModelContainer = styled.div`
-//   ${tw`
-//     z-0
-//     absolute left-0 top-0
-//     h-full
-//     w-full
-//   `};
-// `;
 
 const TabContainer = styled.div`
   ${tw`
     relative
+    
     
   `};
 `;
@@ -36,6 +24,14 @@ const ModelViewerStyle = {
   width: "400px",
   height: "600px"
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 function updateRotation(direction, currentAngle){
   
@@ -106,7 +102,7 @@ function Canvas(props){
     console.log("changed");
     
   }, [canvasRef.current.isPressing])*/
-  
+  const classes = useStyles();
   
   return(
     <TabContainer>
@@ -140,46 +136,45 @@ function Canvas(props){
 
         </CanvasDraw>
       </model-viewer>
-      <button 
-        onClick={() => {
-          canvasRef.current.clear();
-          syncDrawing(canvasRef);
-        }}
-      >
-        Clear
-      </button>
-      <button 
-        onClick={() => {
-          canvasRef.current.undo();
-          syncDrawing(canvasRef);
-          
-        }}
-      >
-        Undo
-      </button>
-      <button 
-        onClick={() => {
-          setRotation(updateRotation(1, rotation));
-        }}
-      >
-        Right
-      </button>
+      <div className={classes.root}>
+        <Button 
+          variant="outlined"
+          onClick={() => {
+            canvasRef.current.clear();
+            syncDrawing(canvasRef);
+          }}
+        >
+          Clear
+        </Button>
+        <Button 
+          variant="outlined"
+          onClick={() => {
+            canvasRef.current.undo();
+            syncDrawing(canvasRef);
+            
+          }}
+        >
+          Undo
+        </Button>
+        <Button 
+          variant="outlined"
+          onClick={() => {
+            setRotation(updateRotation(1, rotation));
+          }}
+        >
+          Right
+        </Button>
 
-      <button 
-        onClick={() => {
-          setRotation(updateRotation(-1, rotation));
-        }}
-      >
-        Left
-      </button>
+        <Button 
+          variant="outlined"
+          onClick={() => {
+            setRotation(updateRotation(-1, rotation));
+          }}
+        >
+          Left
+        </Button>
+      </div>
 
-      <button 
-        onClick={() => {
-          
-        }}
-      >
-        Sketch Mode
-      </button>
     </TabContainer> 
   )
 

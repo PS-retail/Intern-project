@@ -10,7 +10,8 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 400,
+    margin: 10,
   },
   media: {
     height: 140,
@@ -40,10 +41,10 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" variant="outlined" color="primary">
           Purchase
         </Button>
-        <Button size="small" color="secondary" onClick = {props.canvasMode}>
+        <Button size="small" variant="outlined" color="secondary" onClick = {props.canvasMode}>
           View in drawing canvas
         </Button>
       </CardActions>

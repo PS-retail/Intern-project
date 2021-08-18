@@ -12,21 +12,29 @@ import { makeStyles } from "@material-ui/core";
 import Canvas from './canvas';
 import '@google/model-viewer';
 import MediaCard from './card'
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   appContainer: {
     display: "flex",
     flexDirection: "column",
-    width: "100vw",
+    width: "20vw",
     height: "100vh"
+    
   },
 
   container: {
-    display: "flex",
+    display: "grid",
+    alignItems: "center",
+    justifyContent: "center",
     
   },
   panel: {
     width: "100%"
+  },
+
+  card: {
+    
   },
 
 });
@@ -51,18 +59,19 @@ export default function PlayGroundPage() {
   return (
     <Box className={classes.appContainer}>
       <TabContext value={value}>
-        <AppBar position="static">
+        <Paper position="static">
           <TabList
-            variant="scrollable"
+            variant="fullWidth"
             onChange={handleChange}
             aria-label="tabs"
+            
           >
             <Tab label="Models" value="1"/>
             <Tab label="Canvas" value="2" />
 
             
           </TabList>
-        </AppBar>
+        </Paper>
 
         <Box className={classes.container}>
           <TabPanel value="1" className={classes.panel}>
