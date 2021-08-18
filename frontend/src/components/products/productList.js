@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
- import tw from "twin.macro";
+// import styled from "styled-components";
+//  import tw from "twin.macro";
 //import { Grid } from "@material-ui/core";
 
 import Product from "./product";

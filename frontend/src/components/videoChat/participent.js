@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useCallback } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -60,6 +60,7 @@ const ParticipantName = styled.span`
   `};
 `;
 
+
 const ParticipantVideo = styled.video`
   ${tw`
     h-full
@@ -82,6 +83,7 @@ const MuteContainer = styled.div`
     text-red-600
   `};
 `;
+
 
 const Participant = ({ participant, video, voice, captions = true }) => {
   const {

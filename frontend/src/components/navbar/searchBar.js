@@ -7,7 +7,7 @@ import { IconButton } from "@material-ui/core";
 
 const SearchBar = () => {
   const { control } = useForm();
-  const [products, setProducts] = useState([
+  const [products] = useState([
     {
       id: 1,
       name: "Bose 3000",

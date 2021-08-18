@@ -1,32 +1,29 @@
-import React, { useRef, useEffect, useLayoutEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import '@google/model-viewer';
 import tw from "twin.macro";
 import styled from "styled-components";
-import { red } from '@material-ui/core/colors';
-import ReactDOM from "react-dom";
 import CanvasDraw from "react-canvas-draw";
-
 import { io } from "socket.io-client";
-import { getThemeProps } from '@material-ui/styles';
+
 
 const ENDPOINT = "http://localhost:5000";
 var socket;
 
-const CanvasContainer = styled.div`
-  ${tw`
-    z-10
-    absolute left-0 top-0
-  `};
-`;
+// const CanvasContainer = styled.div`
+//   ${tw`
+//     z-10
+//     absolute left-0 top-0
+//   `};
+// `;
 
-const ModelContainer = styled.div`
-  ${tw`
-    z-0
-    absolute left-0 top-0
-    h-full
-    w-full
-  `};
-`;
+// const ModelContainer = styled.div`
+//   ${tw`
+//     z-0
+//     absolute left-0 top-0
+//     h-full
+//     w-full
+//   `};
+// `;
 
 const TabContainer = styled.div`
   ${tw`
@@ -43,7 +40,7 @@ const ModelViewerStyle = {
 function updateRotation(direction, currentAngle){
   
   //right
-  if(direction == 1){
+  if(direction === 1){
     if(currentAngle + 5 > 360){
       socket.emit('rotation', 5);
       return 5;
@@ -54,7 +51,7 @@ function updateRotation(direction, currentAngle){
   }
 
   //left
-  if(direction == -1){
+  if(direction === -1){
     if(currentAngle - 5 < 0){
       socket.emit('rotation', 355);
       return 355;
@@ -83,7 +80,6 @@ function Canvas(props){
   
   const canvasRef = useRef(null);
   const modelRef = useRef(null);
-  var drawingData;
   const [rotation, setRotation] = React.useState(0)
 
   useEffect(() =>{

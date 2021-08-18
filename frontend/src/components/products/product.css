@@ -29,7 +29,6 @@
     top: -50%;
     width: 100%;
     height: 100%;
-    /* background: #2196f3; */
     background: #c6ae92;
     transform: skewY(345deg);
     transition: 0.5s;
@@ -47,7 +46,6 @@
     left: 0;
     font-weight: 600;
     font-size: 8em;
-    /* color: rgba(0, 0, 0, 0.1) */
     color: rgba(0, 0, 0, 0.05)
 }
 .card .imgBx
@@ -63,7 +61,6 @@
 .card .imgBx img
 {
     max-width: 100%;
-    /* max-width: 60%; */
     transition: 0.5s;
 }
 .card:hover .imgBx img
@@ -89,7 +86,6 @@
 }
 .card .contentBx .description
 {
-    /* font-size: 24px; */
     font-size: 17px;
     color: #fff;
     font-weight: 500;
@@ -103,7 +99,6 @@
     top: 200px;
     opacity: 0;
     padding: 10px 30px;
-    /* margin-top: 15px; */
     margin-top: 30px;
     color: #fff;
     text-decoration: none;
@@ -117,4 +112,9 @@
 {
     top: 0;
     opacity: 1;
+}
+
+.qr-code
+{
+    margin-top: 32px;
 }

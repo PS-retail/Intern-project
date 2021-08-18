@@ -1,67 +1,33 @@
-import React, { useState, useContext, Component } from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  MenuItem,
-  Menu,
-  Button,
-  Typography,
-} from "@material-ui/core";
-import { useRef, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { Button } from "@material-ui/core";
 import Toast from "react-bootstrap/Toast";
-import Modal from "react-bootstrap/Modal";
-import { ToastContainer } from "react-toastify";
-import ToastHeader from "react-bootstrap/ToastHeader";
-import ToastBody from "react-bootstrap/ToastBody";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-} from "@reach/accordion";
 import "@reach/accordion/styles.css";
-import { Col, Row, Form } from "react-bootstrap";
-import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
-import VideoCallIcon from "@material-ui/icons/VideoCall";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountBoxRoundedIcon from "@material-ui/icons/AccountBoxRounded";
 import SearchIcon from "@material-ui/icons/Search";
 import AccessibilityNewRoundedIcon from "@material-ui/icons/AccessibilityNewRounded";
-//import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
-//import RadioButtonUncheckedRoundedIcon from "@material-ui/icons/RadioButtonUncheckedRounded";
 import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import StopIcon from "@material-ui/icons/Stop";
-import green from "@material-ui/core/colors/green";
-import yellow from "@material-ui/core/colors/yellow";
-import blue from "@material-ui/core/colors/blue";
-import red from "@material-ui/core/colors/red";
-
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import tw from "twin.macro";
 import SearchBar from "./searchBar";
 import "./navbar.css";
-import useStyles from "./styles";
+//import useStyles from "./styles";
 import { AuthContext } from "../general/auth-context";
-import Card from "react-bootstrap/Card";
-const Title = styled.div`
-  ${tw`
-   text-2xl
-  font-bold
-  text-black
-`};
-`;
-const Headers = styled.div`
-  ${tw`
-  text-lg
-  font-semibold
-  text-black
-`};
-`;
+
+// const Title = styled.div`
+//   ${tw`
+//    text-2xl
+//   font-bold
+//   text-black
+// `};
+// `;
+// const Headers = styled.div`
+//   ${tw`
+//   text-lg
+//   font-semibold
+//   text-black
+// `};
+// `;
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -74,27 +40,27 @@ const Navbar = () => {
 
   const [showYellowglasses, setYellowglasses] = useState(false);
   const [showRedglasses, setRedglasses] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [showA, setShowA] = useState(true);
-  const [showB, setShowB] = useState(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+  // const [showA, setShowA] = useState(true);
+  // const [showB, setShowB] = useState(true);
 
-  const toggleShowA = () => setShowA(!showA);
-  const toggleShowB = () => setShowB(!showB);
+  // const toggleShowA = () => setShowA(!showA);
+  // const toggleShowB = () => setShowB(!showB);
 
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const classes = useStyles();
+  //const [setMobileMoreAnchorEl] = useState(null);
+  //const classes = useStyles();
   const auth = useContext(AuthContext);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-  const openMenuHandler = (event) => setMobileMoreAnchorEl(event.currentTarget);
-  const logoutHandler = (event) => {
-    event.preventDefault();
-    handleMobileMenuClose();
-    auth.logout();
-  };
+  //const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  // const handleMobileMenuClose = () => {
+  //   setMobileMoreAnchorEl(null);
+  // };
+  //const openMenuHandler = (event) => setMobileMoreAnchorEl(event.currentTarget);
+  // const logoutHandler = (event) => {
+  //   event.preventDefault();
+  //   handleMobileMenuClose();
+  //   auth.logout();
+  // };
 
   return (
     <>
@@ -128,6 +94,7 @@ const Navbar = () => {
             <a class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
               <img
                 src="https://www.luxussound.com/img/logos/logo-bangolufsen.png"
+                alt="logo"
                 width="190"
                 height="50"
               />
