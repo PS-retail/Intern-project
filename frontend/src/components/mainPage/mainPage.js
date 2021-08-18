@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
   ${tw`
     flex
-    w-screen
-    h-[720px]
+    // w-screen
+    // h-screen\
+    w-[2000px]
+    h-[1000px]
     m-0
     p-0
     bg-cover
@@ -34,22 +36,41 @@ const MainPage = () => {
     <div style={{ display: "block" }}>
       <Container
         style={{
-          backgroundImage: `url('https://mobius-luxury.eu/image/catalog/Bang--amp--Olufsen/H9i/bang_olufsen_beoplay_h9i_natural_10_00.jpg')`,
+          backgroundImage: `url('https://images.ctfassets.net/8cd2csgvqd3m/5OR4gpRqBzDHJ8D0gxrd0e/2f8644f48f0c54a8c65225ba283b1d19/EQ-features.jpg?q=90&fm=webp&w=1200&h=720&fit=fill')`,
         }}
       >
-        <Contents>
-          <Text>Welcome to B&O</Text>
-        </Contents>
       </Container>
       <Link to={"/products"} style = {{textDecoration: 'none'}}>
         <Container
           style={{
-            backgroundImage: `url('https://images.ctfassets.net/8cd2csgvqd3m/2fEIqg1yXYG9XfpzHm4uaA/49f2f49b927902e553554a621df1f53d/harmony_poster_image.JPG')`,
+            backgroundImage: `url('https://dynl.mktgcdn.com/p/U5CdCZWnVKsOsUOlrpUCe_r3Kak48gGKMyugUdU4kaE/1900x1023.jpg')`,
           }}
         >
           <Contents>
             <Text>Explore our collection</Text>
           </Contents>
+        </Container>
+      </Link>
+      <Link to={"/stories"} style = {{textDecoration: 'none'}}>
+        <Container
+          style={{
+            backgroundImage: `url('https://media-exp1.licdn.com/dms/image/C5612AQFHQ6o4l03DDg/article-inline_image-shrink_1000_1488/0/1520219259046?e=1631750400&v=beta&t=7vYXhEJM1CC3Qu1wazs6YKWYFpovbi2j4H0ZANyFP7I')`,
+          }}
+        >
+          <Contents>
+            <Text>Our Stories</Text>
+          </Contents>
+        </Container>
+      </Link>
+      <Link to={"/login"} style = {{textDecoration: 'none'}}>
+        <Container
+          style={{
+            backgroundImage: `url('https://www.dexigner.com/images/article/61835/Bang_Olufsen_Flagship_New_York_06.jpg')`,
+          }}
+        >
+          <Contents>
+            <Text>Customer Support</Text>
+          </Contents> 
         </Container>
       </Link>
     </div>
