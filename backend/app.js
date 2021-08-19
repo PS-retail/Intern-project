@@ -9,6 +9,7 @@ const meetingRoutes = require("./routes/meeting-routes");
 const sample = require("./batch/test");
 const speechToText = require("./middleware/speech-to-text");
 const HttpError = require("./models/http-error");
+const { diffIndexes } = require("./models/product");
 
 const app = express();
 
@@ -82,27 +83,18 @@ io.on("connection", socket => {
     socket.broadcast.emit('drawUpdate', data);
   }
 
-  socket.on("reset", (callback) => {
-    resetFilter();
+  socket.on('filter', (index, callback) => {
+
+    updateFilter(index);
     callback({
       response: "ok"
     })
-  })
+  });
 
-  function resetFilter(){
-    socket.broadcast.emit('resetFilter', data);
+  function updateFilter(index){
+    socket.emit('updateFilter', index);
   }
 
-  socket.on("speaker", (callback) => {
-    speakerFilter();
-    callback({
-      response: "ok"
-    })
-  })
-
-  function speakerFilter(data){
-    socket.broadcast.emit('speakerFilter', data);
-  }
 
 
 });
