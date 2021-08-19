@@ -11,15 +11,17 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 import Canvas from './canvas';
 import '@google/model-viewer';
-import MediaCard from './card'
 import Paper from '@material-ui/core/Paper';
+import Products from './products'
 
 const useStyles = makeStyles({
   appContainer: {
-    display: "flex",
+    display: "block",
     flexDirection: "column",
     width: "20vw",
     height: "100vh"
+
+    
     
   },
 
@@ -27,15 +29,22 @@ const useStyles = makeStyles({
     display: "grid",
     alignItems: "center",
     justifyContent: "center",
+    overflow: "auto",
+    maxHeight: "80vh",
+    
     
   },
   panel: {
-    width: "100%"
+    width: "100%",
+    
+    
+    
   },
 
   card: {
     
   },
+
 
 });
 
@@ -65,6 +74,7 @@ export default function PlayGroundPage() {
             onChange={handleChange}
             aria-label="tabs"
             
+            
           >
             <Tab label="Models" value="1"/>
             <Tab label="Canvas" value="2" />
@@ -75,31 +85,13 @@ export default function PlayGroundPage() {
 
         <Box className={classes.container}>
           <TabPanel value="1" className={classes.panel}>
-            <Box
-              className={classes.container}
-              
-              
-            >
-              <MediaCard
-                productName = "Beolab 50"
-                imageSrc = "https://images.ctfassets.net/8cd2csgvqd3m/5idLXKkPidYN49NvdNciUa/284fc74753af424361a55700a11b1eef/72529431_1118767524988584_1950461824411369472_n.jpg.png?q=90&fm=png&w=480&h=480&fit=fill"
-                description = "The future of sound"
-                className={classes.card}
-                canvasMode = {changeToCanvas}
-              >
-                
-              </MediaCard>
-              
-              <MediaCard
-                productName = "Beovision Eclipse"
-                imageSrc = "https://images.ctfassets.net/8cd2csgvqd3m/5phw37OsT8BoeyhmqfJaud/d0509804927b87fb96aad5d13b0f41e6/55_natural_mot_stand_light_oak.png?q=90&fm=png&w=480&h=480&fit=fill"
-                description = "Crafted sound design"
-                className={classes.card}
-                canvasMode = {changeToCanvas}
-              >
 
-              </MediaCard>
-            </Box>
+            <Products
+              canvasMode = {changeToCanvas}
+            >
+
+            </Products>
+            
           </TabPanel>
           <TabPanel value="2" className={classes.panel}>
             <Box

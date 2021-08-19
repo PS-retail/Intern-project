@@ -1,22 +1,20 @@
-import { io } from "socket.io-client";
-
-const ENDPOINT = "http://localhost:5000";
-var socket;
+import { socket } from './webSocket'
 
 export const commands = (line) => {
-  socket = io(ENDPOINT);
+  
   const commands = [
     {
       command: "reset",
-      callback: () => socket.emit("reset", (response) => console.log(response.status)),
+      callback: () => socket.emit("filter", "reset", (response) => console.log(response.status)),
+        
     },
     {
       command: "speaker",
-      callback: () => socket.emit("speaker", (response) => console.log(response.status)),
+      callback: () => socket.emit("filter", "speaker", (response) => console.log(response.status)),
     },
     {
       command: "headphones",
-      callback: () => socket.emit('headphones', (response) => console.log(response.status)),
+      callback: () => socket.emit('filter', "headphones", (response) => console.log(response.status)),
     },
   ];
 

@@ -3,13 +3,11 @@ import '@google/model-viewer';
 import tw from "twin.macro";
 import styled from "styled-components";
 import CanvasDraw from "react-canvas-draw";
-import { io } from "socket.io-client";
+import { socket } from "../videoChat/webSocket";
 import { getThemeProps, mergeClasses } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-const ENDPOINT = "http://localhost:5000";
-var socket;
 
 
 const TabContainer = styled.div`
@@ -28,8 +26,13 @@ const ModelViewerStyle = {
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0.5),
     },
+    display: "row",
+    alignItems: "center",
+    justifyContent: "center"
+    
+    
   },
 }));
 
@@ -80,7 +83,6 @@ function Canvas(props){
 
   useEffect(() =>{
     
-    socket = io(ENDPOINT);
     socket.on('rotationUpdate', data => {
       setRotation(data);
     });

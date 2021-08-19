@@ -9,6 +9,7 @@ const meetingRoutes = require("./routes/meeting-routes");
 const sample = require("./batch/test");
 const speechToText = require("./middleware/speech-to-text");
 const HttpError = require("./models/http-error");
+const { diffIndexes } = require("./models/product");
 
 const app = express();
 
@@ -81,6 +82,19 @@ io.on("connection", socket => {
   function drawUpdate(data){
     socket.broadcast.emit('drawUpdate', data);
   }
+
+  socket.on('filter', (index, callback) => {
+
+    updateFilter(index);
+    callback({
+      response: "ok"
+    })
+  });
+
+  function updateFilter(index){
+    socket.emit('updateFilter', index);
+  }
+
 
 
 });
