@@ -32,7 +32,6 @@ const MainContainer = styled.div`
   ${tw`
     mr-0
     h-[80%]
-    xl:h-full
     py-8
     float-left
     absolute left-[310px]
