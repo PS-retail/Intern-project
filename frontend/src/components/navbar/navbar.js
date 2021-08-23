@@ -11,23 +11,7 @@ import StopIcon from "@material-ui/icons/Stop";
 import { Link } from "react-router-dom";
 import SearchBar from "./searchBar";
 import "./navbar.css";
-//import useStyles from "./styles";
 import { AuthContext } from "../general/auth-context";
-
-// const Title = styled.div`
-//   ${tw`
-//    text-2xl
-//   font-bold
-//   text-black
-// `};
-// `;
-// const Headers = styled.div`
-//   ${tw`
-//   text-lg
-//   font-semibold
-//   text-black
-// `};
-// `;
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -40,27 +24,8 @@ const Navbar = () => {
 
   const [showYellowglasses, setYellowglasses] = useState(false);
   const [showRedglasses, setRedglasses] = useState(false);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-  // const [showA, setShowA] = useState(true);
-  // const [showB, setShowB] = useState(true);
 
-  // const toggleShowA = () => setShowA(!showA);
-  // const toggleShowB = () => setShowB(!showB);
-
-  //const [setMobileMoreAnchorEl] = useState(null);
-  //const classes = useStyles();
   const auth = useContext(AuthContext);
-  //const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  // const handleMobileMenuClose = () => {
-  //   setMobileMoreAnchorEl(null);
-  // };
-  //const openMenuHandler = (event) => setMobileMoreAnchorEl(event.currentTarget);
-  // const logoutHandler = (event) => {
-  //   event.preventDefault();
-  //   handleMobileMenuClose();
-  //   auth.logout();
-  // };
 
   return (
     <>
@@ -91,14 +56,14 @@ const Navbar = () => {
 
         <div class="text-center lg:flex-grow ">
           <Link to={"/"} style={{ textDecoration: "none" }}>
-            <a class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
+            <div class="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">
               <img
                 src="https://www.luxussound.com/img/logos/logo-bangolufsen.png"
                 alt="logo"
                 width="190"
                 height="50"
               />
-            </a>
+            </div>
           </Link>
         </div>
         <div class="inline-block text-sm px-4 leading-none border rounded text-black border-white hover:border-transparent hover:text-teal hover:bg-white  ">

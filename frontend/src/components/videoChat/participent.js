@@ -214,7 +214,7 @@ const Participant = ({ participant, video, voice, captions = true }) => {
       resetTranscript();
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [resetTranscript]);
 
   return (
     <ParticipantContainer>
