@@ -68,23 +68,6 @@ const ParticipantVideo = styled.video`
 `;
 
 
-const MuteContainer = styled.div`
-  ${tw`
-    bottom-0
-    left-0
-    w-[20%]
-    bg-gray-500
-    bg-opacity-50
-    absolute
-    flex
-    justify-center
-    content-center
-    text-xs
-    text-red-600
-  `};
-`;
-
-
 const Participant = ({ participant, video, voice, captions = true }) => {
   const {
     transcript,
@@ -231,7 +214,7 @@ const Participant = ({ participant, video, voice, captions = true }) => {
       resetTranscript();
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [resetTranscript]);
 
   return (
     <ParticipantContainer>

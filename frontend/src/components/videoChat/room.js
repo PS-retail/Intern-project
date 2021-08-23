@@ -32,7 +32,6 @@ const MainContainer = styled.div`
   ${tw`
     mr-0
     h-[80%]
-    xl:h-full
     py-8
     float-left
     absolute left-[310px]
@@ -85,12 +84,16 @@ const OptionsContainer = styled.div`
 `;
 
 const PlayGroundContainer = styled.div`
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
   ${tw`
     float-right
-    mt-2
-    mr-2
-    h-[400px]
+    mt-3
+    mr-5
+    h-[100vh]
     w-[400px]
+    overflow-hidden
     z-50
   `}
 `;
